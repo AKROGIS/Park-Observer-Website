@@ -1,0 +1,32 @@
+[
+{
+  "name":"CAKN Sheep (Short Form)",
+  "service":"https://akrgis.nps.gov/arcgis/rest/services/AKR_Apps/Observer_CAKN_Sheep_Short_Form_v1/MapServer",
+  "map":"https://geospatial.nps.gov/portal/home/webmap/viewer.html?webmap=137a8b05477947f4ae929e499b325c4e"
+}
+,
+{
+  "name":"GLBA Whales",
+  "service":"https://akrgis.nps.gov/arcgis/rest/services/AKR_Apps/Observer_GLBA_Whales_v1/MapServer",
+  "map":"https://geospatial.nps.gov/portal/home/webmap/viewer.html?webmap=fab218f493024a32b58a39bbf0ee060a&amp;extent=-137.0771,58.3539,-135.5788,58.9356"
+}
+,
+{
+  "name":"LACL Bear Trends",
+  "service":"https://akrgis.nps.gov/arcgis/rest/services/AKR_Apps/Observer_LACL_Bear_Trends_v1/MapServer",
+  "map":"https://geospatial.nps.gov/portal/home/webmap/viewer.html?webmap=4234eaa464ad4c0d855df89bf5e7397d&amp;extent=-155.0555,59.8394,-152.059,60.9439"
+}
+,
+{
+  "name":"LACL Radio Tracking",
+  "service":"https://akrgis.nps.gov/arcgis/rest/services/AKR_Apps/Observer_LACL_Radio_Tracking_v1/MapServer",
+  "map":"https://geospatial.nps.gov/portal/home/webmap/viewer.html?webmap=08ed9ea40c014d25ab49aeb46204224c"
+}
+,
+{
+  "name":"Test Protocol",
+  "service":"https://akrgis.nps.gov/arcgis/rest/services/AKR_Apps/Observer_Test_Protocol_v1/MapServer",
+  "map":"https://geospatial.nps.gov/portal/home/webmap/viewer.html?webmap=35215ceea0374dae9df0aa6b2bd09e9c&amp;extent=-149.8949,61.2142,-149.8833,61.2183"
+}
+
+]
