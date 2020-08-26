@@ -12,9 +12,10 @@
 
   <p><em>This document is for Park Observer 2.0. If you are still using Park Observer 1.x
       please see <a href="Protocol_Specification_V1.html">this version</a>.</em> </p>
-  <p><em>If you just want a protocol for a new survey, please start with the
+  <p><em>If you are new to Park Observer, please start with the
       <a href="../new_survey.html">tutorial instructions</a> and <a href="../protocols/">examples</a>.</em></p>
-  <p>This document is a technical reference for the structure and accepted content of the Park Observer protocol file.
+  <p>This document is a technical reference for the structure and accepted content of the
+    Park Observer protocol file,
     A more general reference can be found in the <a href="Protocol_Guide_V2.html">Protocol Guide</a></p>
   <p>This specification describes version 1 (v1) and 2 (v2) of the protocol file.
     Items that were introduced in version 2 are marked (v2).
@@ -61,6 +62,10 @@
     <code>obsprot</code> file. It is possible that the implementation in Park Observer is more relaxed.
     For example Park Observer might provide default values when a required value is missing,
     or accept different spellings, but that behavior is subject to change without notice.</p>
+  <p>Starting with Park Observer 2.0, creating a new survey will use strict validation
+    rules on the <code>obsprot</code> file. This may cause the survey creation to fail, even though
+    an existing survey will still load with the same <code>obsprot</code> file. An <code>obsprot</code> file that
+    fails validation must be corrected before it can be used in a new survey.</p>
   <p>The JSON object in the protocol file understands properties with the following names.
     Properties can appear in any order, but usually in the order shown.
     Properties marked with an (o) are optional; the others are required.</p>
@@ -72,10 +77,12 @@
     <li><a href="#-date-"><code>date</code></a> (o)</li>
     <li><a href="#-description-"><code>description</code></a> (o)</li>
     <li><a href="#-observing-"><code>observing</code></a> (o)(v2)</li>
-    <li><a href="-notobserving-"><code>notobserving</code></a> (o)(v2)</li>
+    <li><a href="#-notobserving-"><code>notobserving</code></a> (o)(v2)</li>
     <li><a href="#-status_message_fontsize-"><code>status_message_fontsize</code></a> (o)(v2)</li>
     <li><a href="#-cancel_on_top-"><code>cancel_on_top</code></a> (o)(v2)</li>
     <li><a href="#-gps_interval-"><code>gps_interval</code></a> (o)(v2)</li>
+    <li><a href="#-tracklogs-"><code>tracklogs</code></a> (o)(v2)</li>
+    <li><a href="#-transects-"><code>transects</code></a> (o)(v2)</li>
     <li><a href="#-mission-"><code>mission</code></a> (o)</li>
     <li><a href="#-features-"><code>features</code></a></li>
     <li><a href="#-csv-"><code>csv</code></a> (o)</li>
@@ -147,18 +154,22 @@
     application is recording <strong>but not</strong> observing (i.e. off-transect).</p>
   <p>This property is ignored in versions of Park Observer before 0.9.8b.</p>
   <h1 id="-status_message_fontsize-"><code>status_message_fontsize</code></h1>
-  <p>This property is optional. If provided it must be a number. If omitted or invalid it will default to
-    <code>16.0</code>.
-    This property specifies the size (in points, i.e. 1/72 of an inch) of the <code>notobserving</code> text.
-    The <code>observing</code> text will always be 2.0 points larger, bold, and red.
-    This property is ignored if <code>notobserving</code> and <code>observing</code> are not provided.</p>
-  <p>This property is ignored in versions of Park Observer before 1.2.0.</p>
+  <p>This property is optional. If provided it must be a positive number.
+    If omitted or invalid it will default to <code>16.0</code>.
+    This property specifies the size (in points, i.e. 1/72 of an inch) of
+    the <code>notobserving</code> and <code>observing</code> text.</p>
+  <p>This property is ignored in versions of Park Observer before 1.2.0.
+    Starting with Park Observer 2.0.0 this property is ignored. The font
+    size is determined by the standard system font which can be managed with
+    the settings app. </p>
   <h1 id="-cancel_on_top-"><code>cancel_on_top</code></h1>
   <p>This property is optional. If provided it must be <code>true</code> or <code>false</code>. The default is
     <code>false</code>.
-    If <code>true</code> the attribute editors will put the <strong>Cancel/Delete</strong> button on the top of
-    the attribute editing forms, otherwise the button will be on the bottom of the form.</p>
-  <p>This property is ignored in versions of Park Observer before 0.9.8b.</p>
+    If <code>true</code> the attribute editors will put the buttons (Cancel, Delete, Move, Save, ...) on the
+    top of the attribute editing forms, otherwise the button will be on the bottom of the form.</p>
+  <p>This property is ignored in versions of Park Observer before 0.9.8b.
+    Starting with Park Observer 2.0.0, this property is ignored. It can be set by the
+    user in the settings.</p>
   <h1 id="-gps_interval-"><code>gps_interval</code></h1>
   <p>This property is optional. If provided it must be a positive number. There is no default.
     The property is the number of seconds to wait between adding new GPS points to the track log.
@@ -170,48 +181,78 @@
     A number lower than the device can support will effectively be ignored.
     Using an interval greater than the GPS can support may reduce battery consumption by allowing the GPS to rest.</p>
   <p>This property is ignored in versions of Park Observer before 0.9.8b.</p>
+  <h1 id="-tracklogs-"><code>tracklogs</code></h1>
+  <p>This property is optional. If provided it must be one of the following stings. The default is
+    <code>&quot;required&quot;</code>.
+    This property determines if a track log is desired or required.</p>
+  <p>This property is ignored in versions of Park Observer before 2.0.</p>
+  <ul>
+    <li><code>none</code> - The start/stop track log button is not available, and track logs are never collected.</li>
+    <li><code>optional</code> - The user can start/stop observing regardless of the state of track logging.</li>
+    <li><code>required</code> - The user must start a track log before they can start observing.</li>
+  </ul>
+  <h1 id="-transects-"><code>transects</code></h1>
+  <p>This property is optional. If provided it must be one of the following stings. The default is
+    <code>&quot;per-feature&quot;</code>.
+    This property determines the requirements for making an observation.
+    If <code>&quot;tracklogs&quot;: &quot;required&quot;</code>, then observations can only be made when track logging
+    despite the state
+    of this property.</p>
+  <p>This property is ignored in versions of Park Observer before 2.0.</p>
+  <ul>
+    <li><code>none</code> - The start/stop survey (observing/transect) button is not available;
+      It is assumed that the user is always observing, and observations can be made any time
+      This sets the <code>allow_off_transect_observations</code> property of all features to <code>true</code></li>
+    <li><code>optional</code> - The user can add an observation at any time, regardless of the state of surveying
+      (observing/transect).
+      This sets the <code>allow_off_transect_observations</code> property of all features to <code>true</code></li>
+    <li><code>required</code> - The user must start a survey (observing/transect) before they can add an observation.
+      This sets the <code>allow_off_transect_observations</code> property of all features to <code>false</code></li>
+    <li><code>per-feature</code> - The user can add an observation of a feature based on the state of the feature&#39;s
+      <code>allow_off_transect_observations</code> property.</li>
+  </ul>
   <h1 id="-mission-"><code>mission</code></h1>
   <p>This property is optional. If provided it must be an object. There is no default.
     This object describes the attributes and symbology of the survey mission.
     The attributes are things that may be constant for the entire survey, i.e. observer name, as
-    well as dynamic attributes like the weather.
+    well as dynamic attributes like the weather that may apply to many observations.
     It also describes the look and feel of the editing form and when the attributes should be edited.</p>
   <p>A <code>mission</code> object has the following properties:</p>
   <ul>
-    <li><a href="#-attributes-"><code>attributes</code></a> (o)</li>
-    <li><a href="#-dialog-"><code>dialog</code></a> (o)</li>
+    <li><a href="#-mission-attributes-"><code>attributes</code></a> (o)</li>
+    <li><a href="#-mission-dialog-"><code>dialog</code></a> (o)</li>
     <li><a href="#-edit_at_start_recording-"><code>edit_at_start_recording</code></a> (o)(v2)</li>
     <li><a href="#-edit_at_start_first_observing-"><code>edit_at_start_first_observing</code></a> (o)(v2)</li>
     <li><a href="#-edit_at_start_reobserving-"><code>edit_at_start_reobserving</code></a>(o)(v2)</li>
     <li><a href="#-edit_prior_at_stop_observing-"><code>edit_prior_at_stop_observing</code></a> (o)(v2)</li>
     <li><a href="#-edit_at_stop_observing-"><code>edit_at_stop_observing</code></a> (o)(v2)</li>
-    <li><a href="#-symbology-"><code>symbology</code></a></li>
-    <li><a href="#-on-symbology`-"><code>on-symbology</code></a> (o)</li>
+    <li><a href="#-mission-symbology-"><code>symbology</code></a> (o)</li>
+    <li><a href="#-on-symbology-"><code>on-symbology</code></a> (o)</li>
     <li><a href="#-off-symbology-"><code>off-symbology</code></a> (o)</li>
     <li><a href="#-gps-symbology-"><code>gps-symbology</code></a> (o)(v2)</li>
     <li><a href="#-totalizer-"><code>totalizer</code></a> (o)(v2)</li>
   </ul>
   <p>Each of these properties are defined in the following sections.</p>
-  <h2 id="-attributes-"><code>attributes</code></h2>
+  <h2 id="-mission-attributes-"><code>mission.attributes</code></h2>
   <p>An optional list of attribute objects.
     The attributes are descriptive characteristics for each segment of the survey.
     A mission with no attributes only collects the location where the the user
     stopped and started observing (i.e. went on/off transect). The mission
     attributes are often things like the names of the observers, and the weather.</p>
   <p>All the attributes default to a value of <code>null</code> until they are edited.
-    The exceptions are boolean attributes which defaults to <code>false</code>, and <code>id</code> attributes which
-    default to <code>1</code>.
+    The exception is the <code>id</code> attribute which starts at <code>1</code> and increments by <code>1</code> for
+    each each observation.
+    The <code>id</code> attribute can provide each observation with an automatic, unique, and sequential identifier.
     All attributes, except the <code>id</code> will never change unless you also have a <code>dialog</code> property.
-    An Attribute of type <code>id</code> only applies to features, and is incremented for each observation.
-    This can provide each feature with an automatic, unique, and sequential identifier.</p>
+  </p>
   <p>If there is an attribute list then there must be at least one valid attribute object in it.
     Each <code>attribute</code> has the following properties:</p>
   <ul>
-    <li><code>name</code></li>
-    <li><code>type</code></li>
-    <li><code>required</code> (o)(v2)</li>
+    <li><a href="#-attributes-name-"><code>name</code></a></li>
+    <li><a href="#-type-"><code>type</code></a></li>
+    <li><a href="#-required-"><code>required</code></a> (o)(v2)</li>
   </ul>
-  <h3 id="-name-"><code>name</code></h3>
+  <h3 id="-attributes-name-"><code>attributes.name</code></h3>
   <p>A required string identifying the attribute. This will be the name of the column in an exported
     CSV file, or a field in an ArcGIS geo-database.
     The name must start with a letter or underscore (<code>_</code>), and be followed by zero or more letters, numbers,
@@ -236,15 +277,16 @@
     <li>100 -&gt; 16bit integer</li>
     <li>200 -&gt; 32bit integer</li>
     <li>300 -&gt; 64bit integer</li>
-    <li>400 -&gt; NSDecimal (currently not supported by ESRI)</li>
+    <li>400 -&gt; NSDecimal (currently not supported by esri)</li>
     <li>500 -&gt; double precision floating point number</li>
     <li>600 -&gt; single precision floating point number</li>
     <li>700 -&gt; string</li>
-    <li>800 -&gt; boolean (converts to an ESRI integer 0 = NO, 1 = YES)</li>
+    <li>800 -&gt; boolean (converts to an esri integer; true =&gt; 1, false =&gt; 0)</li>
     <li>900 -&gt; DateTime</li>
-    <li>1000 -&gt; binary blob (? no UI support, check on ESRI support)</li>
+    <li>1000 -&gt; binary blob (not supported)</li>
   </ul>
-  <p>The type 0 is ignored in versions of Park Observer before 0.9.8.</p>
+  <p>The type 0 is ignored in versions of Park Observer before 0.9.8.
+    Only one attribute can have a type of 0.</p>
   <h3 id="-required-"><code>required</code></h3>
   <p>This property is optional. If provided it must be <code>true</code> or <code>false</code>. The default is
     <code>false</code>.
@@ -254,76 +296,76 @@
     or edits are aborted. If an attribute is required, then it must have a
     matching element in the dialog property (in order to provide a value)</p>
   <p>This property is ignored in versions of Park Observer before 2.0.0.</p>
-  <h2 id="-dialog-"><code>dialog</code></h2>
+  <h2 id="-mission-dialog-"><code>mission.dialog</code></h2>
   <p>This property is optional. If provided it must be an object. There is no default.
     The dialog property describes the format of the editing form for the mission&#39;s attributes.
     A dialog is not required, but the mission attributes cannot be edited without one.
     If the dialog property is provided then the <code>attributes</code> property is required.
-    If a dialog is provided, there must be at least one section in the dialog and one element in that section.
+    If a dialog is provided, there must be at least one section in the dialog and one element in each section.
     All elements in the dialog except labels must refer to an attribute in the list of mission attributes.
-    It is an error if a dialog element refers to an attribute that is not in the list.</p>
-  <p>A dialog is not required because it is possible that the only attribute is a sequential Id which is
-    not editable and requires no dialog, or that the database schema is defined
-    by other drivers, and some attributes are not collected in the survey.</p>
-  <p>The dialog properties are based on the <a href="https://github.com/escoz/QuickDialog">QuickDialog</a> as
-    the form editor. While QuickDialog may have supported more properties than defined
-    below, the following are the only ones typically used by Park Observer and the only
-    ones that will be supported in the future.</p>
+    It is an error if a dialog element refers to an attribute that is not in the list
+    or if the type of the attribute does not match the type of the dialog element.</p>
+  <p>A dialog is not required even if attributes are provided.
+    It is possible that the only attribute is a sequential Id which is
+    not editable and requires no dialog
+    It is possible that attribute list is defined to match an external database schema
+    but some of those attributes are not collected in the survey
+    (and do not have matching elements in the dialog).</p>
   <ul>
-    <li><code>title</code></li>
-    <li><code>grouped</code> (o)</li>
-    <li><code>sections</code></li>
+    <li><a href="#-title-"><code>title</code></a> (o)</li>
+    <li><a href="#-grouped-"><code>grouped</code></a> (o)</li>
+    <li><a href="#-sections-"><code>sections</code></a></li>
   </ul>
   <h3 id="-title-"><code>title</code></h3>
-  <p>This property is required and must be a text string. It can be empty (<code>&quot;&quot;</code>)
-    This text is placed as a title at the top of the editing form.
-    It is typically either <code>&quot;Mission Properties&quot;</code>or the name of the feature.</p>
+  <p>This property is optional. If provided it must be a string. There is no default.
+    This text is placed as a title at the top of the editing form.</p>
+  <p>Starting with Park Observer 2.0, this property is ignored.
+    The text on the top of the attribute editor is set by the observation being edited.</p>
   <h3 id="-grouped-"><code>grouped</code></h3>
   <p>This property is optional. If provided it must be a boolean. The default is <code>false</code>.
-    This property determines if the sections in this form are grouped
-    (i.e. There is visual separation between sections).</p>
+    Starting with Park Observer 2.0.0, this property has no effect (sections are visually distinct,
+    and <code>grouped</code> does not render any differently).</p>
   <h3 id="-sections-"><code>sections</code></h3>
-  <p>This property is requires and must be a list of one or section objects.
+  <p>This property is required and must be a list of one or more section objects.
     A dialog form is made up of one or more sections which group the editing controls
     into logical collections. Each section object has the following properties.</p>
   <ul>
-    <li><code>title</code> (o)</li>
-    <li><code>elements</code></li>
+    <li><a href="#-sections-title-"><code>title</code></a> (o)</li>
+    <li><a href="#-elements-"><code>elements</code></a></li>
   </ul>
-  <h4 id="-title-"><code>title</code></h4>
+  <h4 id="-sections-title-"><code>sections.title</code></h4>
   <p>This property is optional. If provided it must be a string. There is no default.
     This text is placed as a title at the top of the section.</p>
   <h4 id="-elements-"><code>elements</code></h4>
-  <p>This property is requires and must be a list of one or element objects.
+  <p>This property is required and must be a list of one or more element objects.
     Elements make up the interesting parts of the form. They are usually tied to an attribute
     and determine how the attribute can be edited. Examples of form elements are text boxes,
     on/off switches, and pick lists. Each element has the following properties. Some
-    properties are only relevant for certain types of elements.
-    Each element object has the following properties.</p>
+    properties are only relevant for certain types of elements.</p>
   <ul>
-    <li><code>title</code> (o)</li>
-    <li><code>type</code></li>
-    <li><code>bind</code> (o)</li>
-    <li><code>items</code> (o)</li>
-    <li><code>selected</code> (o)</li>
-    <li><code>boolValue</code> (o)</li>
-    <li><code>minimumValue</code> (o)</li>
-    <li><code>maximumValue</code> (o)</li>
-    <li><code>numberValue</code> (o)</li>
-    <li><code>placeholder</code> (o)</li>
-    <li><code>fractionDigits</code> (o)</li>
-    <li><code>keyboardType</code> (o)</li>
-    <li><code>autocorrectionType</code> (o)</li>
-    <li><code>autocapitalizationType</code> (o)</li>
-    <li><code>key</code> (o)</li>
+    <li><a href="#-elements-title-"><code>title</code></a> (o)</li>
+    <li><a href="#-elements-type-"><code>type</code></a></li>
+    <li><a href="#-bind-"><code>bind</code></a> (o)</li>
+    <li><a href="#-items-"><code>items</code></a> (o)</li>
+    <li><a href="#-selected-"><code>selected</code></a> (o)</li>
+    <li><a href="#-boolvalue-"><code>boolValue</code></a> (o)</li>
+    <li><a href="#-minimumvalue-"><code>minimumValue</code></a> (o)</li>
+    <li><a href="#-maximumvalue-"><code>maximumValue</code></a> (o)</li>
+    <li><a href="#-numbervalue-"><code>numberValue</code></a> (o)</li>
+    <li><a href="#-placeholder-"><code>placeholder</code></a> (o)</li>
+    <li><a href="#-fractiondigits-"><code>fractionDigits</code></a> (o)</li>
+    <li><a href="#-keyboardtype-"><code>keyboardType</code></a> (o)</li>
+    <li><a href="#-autocorrectiontype-"><code>autocorrectionType</code></a> (o)</li>
+    <li><a href="#-autocapitalizationtype-"><code>autocapitalizationType</code></a> (o)</li>
+    <li><a href="#-key-"><code>key</code></a> (o)</li>
   </ul>
-  <h5 id="-title-"><code>title</code></h5>
+  <h5 id="-elements-title-"><code>elements.title</code></h5>
   <p>This property is optional. If provided it must be a string. There is no default.
-    This is a name/prompt that describes the data in this form element. This usually appears to
+    This is a name/prompt that names the data in this form element. This usually appears to
     the left of the attribute value in a different font. This is often the
     only property used by a <code>QLabelElement</code>.</p>
-  <h5 id="-type-"><code>type</code></h5>
-  <p>This property is requires and must be one of the following text strings.
+  <h5 id="-elements-type-"><code>elements.type</code></h5>
+  <p>This property is required and must be one of the following text strings.
     It describes the display and editing properties for the form element. Park Observer
     only supports the following types. These are case sensitive.</p>
   <ul>
@@ -331,18 +373,18 @@
     <li><code>QDecimalElement</code> - a &quot;real&quot; number editor with a limited number of digits after the
       decimal.</li>
     <li><code>QEntryElement</code> - a single line text box.</li>
-    <li><code>QIntegerElement</code> - an integer input box with stepper (+1/-1) buttons.</li>
+    <li><code>QIntegerElement</code> - an integer input box with stepper (+/-) buttons.</li>
     <li><code>QLabelElement</code> - non-editable text on its own line in the form.</li>
     <li><code>QMultilineElement</code> - a multi-line text box.</li>
-    <li><code>QRadioElement</code> - A single selection pick list (as a vertical list of titles)</li>
+    <li><code>QRadioElement</code> - A single selection pick list (as a vertical list of items in a sub form)</li>
     <li><code>QSegmentedElement</code> - A single selection pick list (as a horizontal row of buttons)</li>
   </ul>
   <h5 id="-bind-"><code>bind</code></h5>
-  <p>This property is required for all types except <code>QLabelElement</code> when it is optional.
+  <p>This property is required for all types except <code>QLabelElement</code> (where it is optional).
     If provided it must be a specially formatted string. There is no default.
     This string encodes the type and attribute name of the data for this element.
     <code>QLabelElement</code> only uses the <code>value:</code> type when
-    displaying a unique feature id). The bind value must start with one of the following:</p>
+    displaying a unique feature id. The bind value must start with one of the following:</p>
   <ul>
     <li><code>boolValue:</code> - a boolean (true or false) value</li>
     <li><code>numberValue:</code></li>
@@ -351,49 +393,63 @@
     <li><code>textValue:</code></li>
     <li><code>value:</code> - used for Unique ID Attributes (Attribute Type = 0)</li>
   </ul>
-  <p>and be followed by an attribute name from the list of Attributes.
+  <p>and be followed by an attribute name from the list of attributes.
     This will determine the type of value extracted from the form element,
     and which attribute it is tied to (i.e. read from and saved to).
     It is important that the type above matches the type of the attribute in
-    the Attributes section. Note that the will always be a colon (:) in the
-    bind string separating the type from the name.
-    The attribute name in the bind property must be in the list of attributes.</p>
+    the attributes section. Note that there must always be a colon (<code>:</code>) in the
+    bind string separating the type from the name. It is an error if the
+    attribute name in the bind property is not in the list of attributes.</p>
   <h5 id="-items-"><code>items</code></h5>
   <p>This property is optional. If provided it must be a list of one or more strings. There is no default.
-    This property provides a list of choices for pick list type elements.
+    This property provides the list of choices for pick list type elements.
     It is required for <code>QRadioElement</code> and <code>QSegmentedElement</code>, and ignored for all other types.
   </p>
   <h5 id="-selected-"><code>selected</code></h5>
   <p>This property is optional. If provided it must be an integer. There is no default.
-    It is the zero based index of the initially selected item from the list of items.
+    If provided it sets the default value for the related attribute,
+    otherwise the default value is null (i.e. nothing is selected).
+    It is the zero based index of the default selection in the list of items.
     If not provided, nothing is selected initially.</p>
+  <p>Protocol authors are discouraged from using this property to set an initial value,
+    as it causes confusion regarding whether the observer actually observed the default value,
+    or if the observer failed to make an observation (and it might not have been the default)
+    Having no default value will set the attribute to null if no observation was made.
+    If a default value is desired when there was no observation this can be done in post
+    processing without losing the fact that no observation was actually made.</p>
   <h5 id="-boolvalue-"><code>boolValue</code></h5>
-  <p>This property is optional. If provided it must be an integer value of 0 or 1. The default is 0 (false).
-    This property is the initial value for the <code>QBooleanElement</code>. It is ignored by all other types.</p>
+  <p>This property is optional. If provided it must be an integer value of 0 or 1. There is no default.
+    If provided it sets the default value for the related attribute
+    otherwise the default value is null (i.e. neither true nor false).
+    This property sets the default value for the <code>QBooleanElement</code>. It is ignored by all other types.</p>
+  <p>Protocol authors are discouraged from using this property to set an initial value,
+    see the discussion for <a href="#-selected-"><code>selected</code></a>.</p>
   <h5 id="-minimumvalue-"><code>minimumValue</code></h5>
-  <p>This property is optional. If provided it must be number. The default is 0.
-    This is the minimum value allowed in <code>QIntegerElement</code>.</p>
+  <p>This property is optional. If provided it must be a number.
+    This is the minimum value allowed in <code>QIntegerElement</code> or <code>QDecimalElement</code>.
+    The default is 0 if <code>type</code> is <code>QIntegerElement</code>, otherwise there is no default
+    and the minimum value is determined by the <code>attribute.type</code>.</p>
   <h5 id="-maximumvalue-"><code>maximumValue</code></h5>
-  <p>This property is optional. If provided it must be number. The default is 100.
-    This is the maximum value allowed in <code>QIntegerElement</code>.</p>
+  <p>This property is optional. If provided it must be a number.
+    This is the maximum value allowed in <code>QIntegerElement</code> or <code>QDecimalElement</code>.
+    The default is 100 if <code>type</code> is <code>QIntegerElement</code>, otherwise there is no default
+    and the maximum value is determined by the <code>attribute.type</code>.</p>
   <h5 id="-numbervalue-"><code>numberValue</code></h5>
-  <p>This property is optional. If provided it must be number. There is no default.
-    This is the initial value for <code>QIntegerElement</code> or <code>QDecimalElement</code>.
-    There is no default; that is the initial value is null. Protocol authors are discouraged
-    from using an initial value, as it causes confusion regarding whether there was an
-    observation of the default value, or there was no observation. Leaving as null removes
-    the ambiguity. If a default value is desired when there was no observation this can be
-    done in post processing without losing the fact that no observation was actually made.</p>
+  <p>This property is optional. If provided it must be a number. There is no default.
+    If provided it sets the default value for the related attribute.
+    This sets the initial value in <code>QIntegerElement</code> or <code>QDecimalElement</code>.</p>
+  <p>Protocol authors are discouraged from using this property to set an initial value,
+    see the discussion for <a href="#-selected-"><code>selected</code></a>.</p>
   <h5 id="-placeholder-"><code>placeholder</code></h5>
   <p>This property is optional. If provided it must be a text string. There is no default.
     This is the background text to put in a text box to suggest to the user what to enter.</p>
-  <h5 id="fractiondigits">fractionDigits</h5>
+  <h5 id="-fractiondigits-"><code>fractionDigits</code></h5>
   <p>This property is optional. If provided it must be an integer. There is no default.
-    This is a limit on the number of digits to be shown after the decimal point. Only
+    This is a limit on the number of digits to be shown after the decimal point. It is only
     used by <code>QDecimalElement</code>.</p>
   <h5 id="-keyboardtype-"><code>keyboardType</code></h5>
-  <p>This property is optional. If provided it must be one of the text strings below (<strong>It must match in
-      capitalization</strong>). The default is <code>&quot;Default&quot;</code>.
+  <p>This property is optional. If provided it must be one of the text strings below.
+    The default is <code>&quot;Default&quot;</code>.
     This determines what kind of keyboard will appear when text editing is required.</p>
   <ul>
     <li><code>Default</code></li>
@@ -409,10 +465,10 @@
     <li><code>Alphabet</code></li>
   </ul>
   <h5 id="-autocorrectiontype-"><code>autocorrectionType</code></h5>
-  <p>This property is optional. If provided it must be one of the text strings below (<strong>It must match in
-      capitalization</strong>). The default is <code>&quot;Default&quot;</code>.
+  <p>This property is optional. If provided it must be one of the text strings below.
+    The default is <code>&quot;Default&quot;</code>.
     This determines if a text box will auto correct (fix spelling) the user&#39;s typing.
-    <code>Default</code> allows iOS to decide when to apply autocorrection. If you have a preference, choose
+    <code>Default</code> allows iOS to decide when to apply auto correction. If you have a preference, choose
     one of the other options.</p>
   <ul>
     <li><code>Default</code></li>
@@ -420,8 +476,8 @@
     <li><code>Yes</code></li>
   </ul>
   <h5 id="-autocapitalizationtype-"><code>autocapitalizationType</code></h5>
-  <p>This property is optional. If provided it must be one of the text strings below (<strong>It must match in
-      capitalization</strong>). The default is <code>&quot;None&quot;</code>.
+  <p>This property is optional. If provided it must be one of the text strings below.
+    The default is <code>&quot;None&quot;</code>.
     This determines if and how a text box will auto capitalize the user&#39;s typing.</p>
   <ul>
     <li><code>None</code></li>
@@ -463,20 +519,19 @@
     If both are set to true, <code>edit_prior_at_stop_observing</code> is ignored.
     (In this case, you can edit the prior mission property by taping the marker on the map)</p>
   <p>This property is ignored in versions of Park Observer before 1.2.0.</p>
-  <h2 id="-symbology-"><code>symbology</code></h2>
-  <p>A required object as defined in the <a href="#symbology">symbology</a> section at the end of this document.
+  <h2 id="-mission-symbology-"><code>mission.symbology</code></h2>
+  <p>An optional object as defined in the <a href="#symbology">symbology</a> section at the end of this document.
     This object defines how a mission properties point is drawn on the map. This point occurs
-    when starting recording, starting/stoping recording, and when editing the mission attributes.</p>
+    when starting recording, starting/stopping observing, and when editing the mission attributes.
+    The default is a 12 point solid green circle.</p>
   <h2 id="-on-symbology-"><code>on-symbology</code></h2>
   <p>An optional object as defined in the <a href="#symbology">symbology</a> section at the end of this document.
     This object defines the look of the track log line when observing (i.e. on-transect).
-    The default in version 1 was a 1 point wide solid black line.
-    The default in version 2 was a 3 point wide solid red line.</p>
+    The default is a 3 point wide solid red line.</p>
   <h2 id="-off-symbology-"><code>off-symbology</code></h2>
   <p>An optional object as defined in the <a href="#symbology">symbology</a> section at the end of this document.
     This object defines the look of the track log line when not observing (i.e. off-transect).
-    The default in version 1 was a 1 point wide solid black line.
-    The default in version 2 was a 1.5 point wide solid gray line.</p>
+    The default is a 1.5 point wide solid gray line.</p>
   <h2 id="-gps-symbology-"><code>gps-symbology</code></h2>
   <p>An optional object as defined in the <a href="#symbology">symbology</a> section at the end of this document.
     This object defines the look of the GPS points along the track log.
@@ -505,21 +560,25 @@
     was true.</p>
   <p>The <code>totalizer</code> has the following properties</p>
   <ul>
-    <li><code>fields</code> (o)</li>
-    <li><code>fontsize</code> (o)</li>
-    <li><code>includeon</code> (o)</li>
-    <li><code>includeoff</code> (o)</li>
-    <li><code>includetotal</code> (o)</li>
-    <li><code>units</code> (o)</li>
+    <li><a href="#-fields-"><code>fields</code></a> (o)</li>
+    <li><a href="#-fontsize-"><code>fontsize</code></a> (o)</li>
+    <li><a href="#-includeon-"><code>includeon</code></a> (o)</li>
+    <li><a href="#-includeoff-"><code>includeoff</code></a> (o)</li>
+    <li><a href="#-includetotal-"><code>includetotal</code></a> (o)</li>
+    <li><a href="#-units-"><code>units</code></a> (o)</li>
   </ul>
   <h3 id="-fields-"><code>fields</code></h3>
-  <p>This property is optional. If provided it must be a list of one or more strings. There is no default.
-    The list contains attribute names. When any of the attribute in this list change, a different total is displayed.
-    The attributes in the list must be in referenced in the
-    mission dialog (so that it can be changed -- monitoring a unchanging field is pointless).</p>
+  <p>This property is optional. If provided it must be a list of one or more strings.
+    There is no default. The list contains attribute names. When any of the attribute
+    in this list change, a different total is displayed. The attributes in the list must
+    be in referenced in the mission dialog (so that it can be changed -- monitoring a
+    unchanging field is pointless). The names in the list must be unique.</p>
   <h3 id="-fontsize-"><code>fontsize</code></h3>
-  <p>This property is optional. If provided it must be a number. The default is 14.0.
+  <p>This property is optional. If provided it must be a positive number. The default is 14.0.
     This property indicates the size (in points) of the totalizer text.</p>
+  <p>Starting with Park Observer 2.0.0 this property is ignored. The font
+    size is determined by the standard system font which can be managed with
+    the settings app.</p>
   <h3 id="-includeon-"><code>includeon</code></h3>
   <p>This property is optional. If provided it must be a boolean. The default is true.
     This property indicates if the total while &quot;observing&quot; should be displayed.</p>
@@ -531,9 +590,10 @@
   <p>This property is optional. If provided it must be a boolean. The default is false.
     This property indicates if the total regardless of &quot;observing&quot; status should be displayed.</p>
   <h3 id="-units-"><code>units</code></h3>
-  <p>This property is optional. If provided it must be a string. The default is &quot;kilometers&quot;.
+  <p>This property is optional. If provided it must be a string. The default is <code>&quot;kilometers&quot;</code>.
     The property indicates the kind of total to display.
-    It must be one of &quot;kilometers&quot;, &quot;miles&quot; or &quot;minutes&quot;.</p>
+    It must be one of <code>&quot;kilometers&quot;</code>, <code>&quot;miles&quot;</code> or
+    <code>&quot;minutes&quot;</code>.</p>
   <h1 id="-features-"><code>features</code></h1>
   <p>This property is required and must be a list of one or more feature objects.
     A feature is a kind of thing that will be observed during your survey.
@@ -544,44 +604,46 @@
     focused and easier to manage.</p>
   <p>Each feature is an object with the following properties</p>
   <ul>
-    <li><code>name</code></li>
-    <li><code>attributes</code> (o)</li>
-    <li><code>dialog</code> (o)</li>
-    <li><code>allow_off_transect_observations</code> (o)</li>
-    <li><code>locations</code></li>
-    <li><code>symbology</code></li>
+    <li><a href="#-features-name-"><code>name</code></a></li>
+    <li><a href="#-features-attributes-"><code>attributes</code></a> (o)</li>
+    <li><a href="#-features-dialog-"><code>dialog</code></a> (o)</li>
+    <li><a href="#-allow_off_transect_observations-"><code>allow_off_transect_observations</code></a> (o)</li>
+    <li><a href="#-locations-"><code>locations</code></a></li>
+    <li><a href="#-features-symbology-"><code>symbology</code></a> (o)</li>
+    <li><a href="#-label-"><code>label</code></a></li>
   </ul>
-  <h2 id="-name-"><code>name</code></h2>
+  <h2 id="-features-name-"><code>features.name</code></h2>
   <p>This property is required and must be a non-empty text string.
     Each feature name must be unique name. The name is used in the interface to let the
     user choose among different feature types. All the observation in one feature will
     be exported in a CSV file with this name, and a geo-database table with this name.
-    It should be short and descriptive.</p>
-  <h2 id="-attributes-"><code>attributes</code></h2>
+    It should be short and descriptive.
+    Starting with Park Observer 2.0.0, this string must be 10 characters or less.</p>
+  <h2 id="-features-attributes-"><code>features.attributes</code></h2>
   <p>An optional list of attributes to collect for this feature.
     A Feature with no attributes only collects a location and the name of the feature.</p>
-  <p>See the <a href="#-attributes-"><code>mission.attributes</code></a> section for details.</p>
-  <h2 id="-dialog-"><code>dialog</code></h2>
+  <p>See the <a href="#-mission-attributes-"><code>mission.attributes</code></a> section for details.</p>
+  <h2 id="-features-dialog-"><code>features.dialog</code></h2>
   <p>An optional property that describes the format of the editing form for this feature&#39;s attributes.</p>
-  <p>See the <a href="#-dialog-"><code>mission.dialog</code></a> section for details.</p>
+  <p>See the <a href="#-mission-dialog-"><code>mission.dialog</code></a> section for details.</p>
   <h2 id="-allow_off_transect_observations-"><code>allow_off_transect_observations</code></h2>
   <p>This property is optional. If provided it must be a boolean. The default is false.
     If true, then this feature can be observed while off transect (not observing)</p>
   <p>This property is ignored in versions of Park Observer before 1.2.0.</p>
   <h2 id="-locations-"><code>locations</code></h2>
   <p>This property is required and must be an array of one or more location objects.
-    A location is an object that describes the permitted techniques for specifying the location of an observation. A
-    location is defined by the following properties:</p>
+    A location is an object that describes the permitted techniques for specifying
+    the location of an observation. A location is defined by the following properties:</p>
   <ul>
-    <li><code>type</code></li>
-    <li><code>allow</code> (o)</li>
-    <li><code>default</code> (o)</li>
-    <li><code>deadAhead</code> (o)</li>
-    <li><code>baseline</code> (deprecated)</li>
-    <li><code>direction</code> (o)</li>
-    <li><code>units</code> (o)</li>
+    <li><a href="#-locations.type-"><code>type</code></a></li>
+    <li><a href="#-allow-"><code>allow</code></a> (o)</li>
+    <li><a href="#-default-"><code>default</code></a> (o)</li>
+    <li><a href="#-deadAhead-"><code>deadAhead</code></a> (o)</li>
+    <li><a href="#-baseline-"><code>baseline</code></a> (deprecated)</li>
+    <li><a href="#-direction-"><code>direction</code></a> (o)</li>
+    <li><a href="#-locations-units-"><code>units</code></a> (o)</li>
   </ul>
-  <h3 id="-type-"><code>type</code></h3>
+  <h3 id="-locations-type-"><code>locations.type</code></h3>
   <p>This property is required and must be one of the following strings:</p>
   <ul>
     <li><code>gps</code> - locates the observation at the devices GPS location</li>
@@ -595,8 +657,15 @@
     <code>adhocTouch</code> is a deprecated synonym for <code>mapTouch</code>. These types should not be
     used in new protocol files, but may still exist in older files.</p>
   <p><code>azimuthDistance</code> is ignored in versions of Park Observer before 2.0.0.</p>
-  <p><strong>Important:</strong> Providing multiple locations with the same type is not prohibited,
-    but it is discouraged as the behavior is undefined.</p>
+  <p>Starting with Park Observer 2.0.0:</p>
+  <ul>
+    <li><code>mapTarget</code> is ignored (there is no map target).</li>
+    <li>providing multiple locations with the same type is an error.</li>
+    <li>multiple locations cannot <code>allow</code> both type = <code>angleDistance</code> and type =
+      <code>azimuthDistance</code></li>
+    <li><code>gps</code> is ignored if <code>angleDistance</code> exists and is <code>allowed</code></li>
+    <li><code>gps</code> is ignored if <code>azimuthDistance</code> exists and is <code>allowed</code></li>
+  </ul>
   <p>See the <a href="Protocol_Guide_V2.html">Protocol Guide</a> for details on how the user interface behaves with
     different location types.</p>
   <h3 id="-allow-"><code>allow</code></h3>
@@ -608,549 +677,410 @@
     This is used to determine which &quot;allowed&quot; non-touch location method should be used
     by default (until the user specifies their preference).
     Only one non-touch locations should have a true value, otherwise the behavior is undefined.</p>
+  <p>Starting with Park Observer 2.0.0, this property is ignored. With the removal of <code>mapTarget</code>,
+    there is no longer confusion as to which location type applies in a given situation.</p>
   <h3 id="-deadahead-"><code>deadAhead</code></h3>
   <p>This property is optional. If provided it must be a number between 0.0 and 360.0. The default is 0.0.
     The numeric value provided is the angle measurement in degrees that means the feature is dead ahead
     (i.e. on course or trajectory of the device per the GPS)</p>
-  <h3 id="-baseline-deprecated-"><code>baseline</code> (deprecated)</h3>
-  <p>This property is a deprecated synonym for <code>deadAhead</code>.
-    Its use is discouraged, but it may be found in older protocol files.</p>
+  <h3 id="-baseline-"><code>baseline</code></h3>
+  <p><strong>Deprecated</strong>
+    This property is a deprecated synonym for <code>deadAhead</code>.
+    Its use is discouraged, but it may be found in older protocol files.
+    <code>baseline</code> is ignored if <code>deadAhead</code> is provided.</p>
   <h3 id="-direction-"><code>direction</code></h3>
-  <p>This property is optional. If provided it must be one of <code>cw</code> or <code>ccw</code>. The default is
-    <code>cw</code>.
-    With <code>cw</code>, angles for the <code>angleDistance</code> location type will increase in the clockwise
-    direction,
+  <p>This property is optional. If provided it must be one of <code>&quot;cw&quot;</code> or
+    <code>&quot;ccw&quot;</code>. The default is <code>&quot;cw&quot;</code>.
+    With <code>&quot;cw&quot;</code>, angles for the <code>angleDistance</code> location type will increase in the
+    clockwise direction,
     otherwise they increase in the counter-clockwise direction.</p>
-  <h3 id="-units-"><code>units</code></h3>
-  <p>This property is optional. If provided it must be one of &quot;feet&quot; or &quot;meters&quot; or
-    &quot;yards&quot;. The default is &quot;meters&quot;.
-    With &quot;meters&quot;, distances for the <code>angleDistance</code> location type will be assumed to be in meters.
-    Otherwise they will be in feet or yards.</p>
-  <h2 id="-symbology-"><code>symbology</code></h2>
-  <p>A required object as defined in the <a href="#symbology">symbology</a> section at the end of this document.
-    This object defines how an observation of this feature is drawn on the map.</p>
+  <h3 id="-locations-units-"><code>locations.units</code></h3>
+  <p>This property is optional. If provided it must be one of <code>&quot;feet&quot;</code>,
+    <code>&quot;meters&quot;</code> or <code>&quot;yards&quot;</code>.
+    The default is <code>&quot;meters&quot;</code>.
+    With <code>&quot;meters&quot;</code>, distances for the <code>angleDistance</code> or <code>azimuthDistance</code>
+    location types
+    will be in meters. Otherwise they will be in feet or yards.</p>
+  <h2 id="-features-symbology-"><code>features.symbology</code></h2>
+  <p>An optional object as defined in the <a href="#symbology">symbology</a> section at the end of this document.
+    This object defines how an observation of this feature is drawn on the map.
+    The default is a 14 point solid red circle.</p>
   <h2 id="-label-"><code>label</code></h2>
   <p>This property is optional. If provided it must be an object. There is no default.
     The label object defines how the feature will be labeled on the map.</p>
   <p>This <code>label</code> object has the following properties:</p>
   <ul>
-    <li><code>field</code></li>
-    <li><code>color</code> (o)</li>
-    <li><code>size</code> (o)</li>
-    <li><code>symbol</code> (o)</li>
+    <li><a href="#-field-"><code>field</code></a> (o)</li>
+    <li><a href="#-color-"><code>color</code></a> (o)</li>
+    <li><a href="#-size-"><code>size</code></a> (o)</li>
+    <li><a href="#-symbol-"><code>symbol</code></a> (o)</li>
+    <li><a href="#-definition-"><code>definition</code></a> (o) (v2)</li>
   </ul>
   <h3 id="-field-"><code>field</code></h3>
-  <p>This property is required and must be a non-empty text string.
-    The string must match one of the attribute names for this feature.
-    If the <code>field</code> is not provided, or can&#39;t be found in the feature attributes, no label is shown.</p>
+  <p>This property is optional. If provided it must be a non-empty text string.
+    The string must match one of the <a href="#-attributes-name-">attribute names</a> for this feature.
+    It is an error to provide both <code>field</code> and <code>definition</code> properties.</p>
   <h3 id="-color-"><code>color</code></h3>
   <p>This property is optional. If provided it must be an string. The default is &quot;#FFFFFF&quot; (white)
-    The color property is discussed in more detail in the <a href="#symbology">symbology</a> section at the end of this
-    document.</p>
+    See <a href="#-symbology-color-">symbology.color</a> for more details.
+    This property is ignored if the <code>symbol</code> or <code>definition</code> property is provided.</p>
   <h3 id="-size-"><code>size</code></h3>
-  <p>This property is optional. If provided it must be an number. The default is 14.0
+  <p>This property is optional. If provided it must be an positive number. The default is 14.0.
     It specifies the size in points of the label text.
-    The size property is discussed in more detail in the <a href="#symbology">symbology</a> section at the end of this
-    document.</p>
+    See <a href="#-symbology-size-">symbology.size</a> for more details.
+    This property is ignored if the <code>symbol</code> or <code>definition</code> property is provided.</p>
   <h3 id="-symbol-"><code>symbol</code></h3>
-  <p>This property is optional. If provided it must be an object. There is no default
-    The symbol is a JSON object as described in the Text Symbol section of the ArcGIS ReST API (<a
-      href="http://resources.arcgis.com/en/help/arcgis-rest-api/#/Symbol_Objects/02r3000000n5000000/">http://resources.arcgis.com/en/help/arcgis-rest-api/#/Symbol_Objects/02r3000000n5000000/</a>)
-    If the JSON object is malformed or unrecognized, then it is ignored in deference to the color and size properties.
-    If the symbol is valid, then the <code>size</code> and <code>color</code> properties of <code>label</code> are
-    ignored.</p>
+  <p>This property is optional. If provided it must be an object. There is no default.
+    The symbol is a esri text symbol JSON object.
+    See the section on <a href="#esri-objects">Esri Objects</a> below for more information.
+    It is an error if the JSON object is malformed or unrecognized.
+    This property is ignored if the <code>definition</code> property is provided.</p>
+  <h3 id="-definition-"><code>definition</code></h3>
+  <p>This property is optional. If provided it must be an object. There is no default.
+    The definition is a esri label definition JSON object.
+    See the section on <a href="#esri-objects">Esri Objects</a> below for more information.
+    It is an error if the JSON object is malformed or unrecognized.
+    It is an error to provide both <code>field</code> and <code>definition</code> properties.</p>
   <h1 id="-csv-"><code>csv</code></h1>
-  <p>This property is optional. If provided it must be an object. There is no default</p>
+  <p>This property is optional. If provided it must be an object. There is no default.</p>
   <p>This object describes the format of the CSV exported survey data.
     Currently the format of the CSV files output by Park Observer is hard coded.
     This part of the protocol file is ignored by Park Observer, and only used
-    by tools that convert the CSV data to an ESRI file geo-databases.</p>
-  <p>If provided it must be a object identical to <a href="csv.json"><code>csv.json</code></a>. If provided, it will be
-    used by post processing tools like the POZ to FGDB translator to understand how the CSV export files are formatted.
-    If it is not provided, the upload server, and the POZ to FGDB translator will use <a
+    by tools that convert the CSV data to an esri feature classes.</p>
+  <p>If provided it must be a object identical to <a href="csv.json"><code>csv.json</code></a>.
+    It is used by post processing tools like the POZ to FGDB translator to understand
+    how the CSV export files are formatted. If it is not provided, post processing tools<br>will use <a
       href="csv.json"><code>csv.json</code></a>.</p>
-  <p>A future version of Park Observer may use this property to allow users to configure the format of the exported CSV
-    files.</p>
+  <p>A future version of Park Observer may use this property to allow users to configure
+    the format of the exported CSV files.</p>
   <p>The CSV object has the following properties. All are required.</p>
   <ul>
-    <li><code>features</code></li>
-    <li><code>gps_points</code></li>
-    <li><code>track_logs</code></li>
+    <li><a href="#-csv-features-"><code>features</code></a></li>
+    <li><a href="#-gps_points-"><code>gps_points</code></a></li>
+    <li><a href="#-track_logs-"><code>track_logs</code></a></li>
   </ul>
-  <h2 id="-features-"><code>features</code></h2>
+  <h2 id="-csv-features-"><code>csv.features</code></h2>
   <p>An object that describes how to build the observer and feature point feature classes from the CSV
     file containing the observed features. The features object has the following properties.
     All are required.</p>
   <ul>
-    <li><code>feature_field_map</code></li>
-    <li><code>feature_field_names</code></li>
-    <li><code>feature_field_types</code></li>
-    <li><code>feature_key_indexes</code></li>
-    <li><code>header</code></li>
-    <li><code>obs_field_map</code></li>
-    <li><code>obs_field_names</code></li>
-    <li><code>obs_field_types</code></li>
-    <li><code>obs_key_indexes</code></li>
-    <li><code>obs_name</code></li>
+    <li><a href="#-feature_field_map-"><code>feature_field_map</code></a></li>
+    <li><a href="#-feature_field_names-"><code>feature_field_names</code></a></li>
+    <li><a href="#-feature_field_types-"><code>feature_field_types</code></a></li>
+    <li><a href="#-feature_key_indexes-"><code>feature_key_indexes</code></a></li>
+    <li><a href="#-header-"><code>header</code></a></li>
+    <li><a href="#-obs_field_map-"><code>obs_field_map</code></a></li>
+    <li><a href="#-obs_field_names-"><code>obs_field_names</code></a></li>
+    <li><a href="#-obs_field_types-"><code>obs_field_types</code></a></li>
+    <li><a href="#-obs_key_indexes-"><code>obs_key_indexes</code></a></li>
+    <li><a href="#-obs_name-"><code>obs_name</code></a></li>
   </ul>
   <h3 id="-feature_field_map-"><code>feature_field_map</code></h3>
-  <p>A list of integer column indices from the CSV header, starting with zero, for the columns containing the data for
-    the observed feature tables.</p>
+  <p>A list of integer column indices from the CSV header, starting with zero,
+    for the columns containing the data for the observed feature tables.</p>
   <h3 id="-feature_field_names-"><code>feature_field_names</code></h3>
-  <p>A list of the string field names from the CSV header that will create the observed feature tables.</p>
+  <p>A list of the string field names from the CSV header that will create
+    the observed feature tables.</p>
   <h3 id="-feature_field_types-"><code>feature_field_types</code></h3>
-  <p>A list of the string field types for each column listed in the &#39;feature_field_names&#39; property.</p>
+  <p>A list of the string field types for each column listed in
+    the <code>feature_field_names</code> property.</p>
   <h3 id="-feature_key_indexes-"><code>feature_key_indexes</code></h3>
-  <p>A list of 3 integer column indices, starting with zero, for the columns containing the time, x and y coordinates of
-    the feature.</p>
+  <p>A list of 3 integer column indices, starting with zero, for the columns
+    containing the time, x and y coordinates of the feature.</p>
   <h3 id="-header-"><code>header</code></h3>
-  <p>The header of the CSV file; a list of the column names in order.</p>
+  <p>The header of the CSV file; a text string with the column names in order separated by a comma(<code>,</code>).</p>
   <h3 id="-obs_field_map-"><code>obs_field_map</code></h3>
-  <p>A list of integer column indices from the CSV header, starting with zero, for the columns containing the data for
-    the observer table.</p>
+  <p>A list of integer column indices from the CSV header, starting with zero,
+    for the columns containing the data for the observer table.</p>
   <h3 id="-obs_field_names-"><code>obs_field_names</code></h3>
   <p>A list of the field names from the CSV header that will create the observed feature table.</p>
   <h3 id="-obs_field_types-"><code>obs_field_types</code></h3>
   <p>A list of the field types for each column listed in the <code>obs_field_names</code> property.</p>
   <h3 id="-obs_key_indexes-"><code>obs_key_indexes</code></h3>
-  <p>A list of 3 integer column indices, starting with zero, for the columns containing the time, x and y coordinates of
-    the observer.</p>
+  <p>A list of 3 integer column indices, starting with zero, for the columns
+    containing the time, x and y coordinates of the observer.</p>
   <h3 id="-obs_name-"><code>obs_name</code></h3>
-  <p>The name of the table in the ESRI geo-database that will contain the data for the observer of the features.</p>
+  <p>The name of the table in the esri geo-database that will contain the data
+    for the observer of the features.</p>
   <h2 id="-gps_points-"><code>gps_points</code></h2>
-  <p>An object that describes how to build the GPS point feature class from the CSV file containing the GPS points. The
-    <code>gps_points</code> object has the following properties.
+  <p>An object that describes how to build the GPS point feature class
+    from the CSV file containing the GPS points. The <code>gps_points</code> object
+    has the following properties.
     All are required.</p>
   <ul>
-    <li><code>field_names</code></li>
-    <li><code>field_types</code></li>
-    <li><code>key_indexes</code></li>
-    <li><code>name</code></li>
+    <li><a href="#-field_names-"><code>field_names</code></a></li>
+    <li><a href="#-field_types-"><code>field_types</code></a></li>
+    <li><a href="#-key_indexes-"><code>key_indexes</code></a></li>
+    <li><a href="#-gps_points-name-"><code>name</code></a></li>
   </ul>
   <h3 id="-field_names-"><code>field_names</code></h3>
   <p>A list of the field names in the header of the CSV file in order.</p>
   <h3 id="-field_types-"><code>field_types</code></h3>
   <p>A list of the field types in the columns of the CSV file in order.</p>
   <h3 id="-key_indexes-"><code>key_indexes</code></h3>
-  <p>A list of 3 integer column indices, starting with zero, for the columns containing the time, x and y coordinates of
-    the point.</p>
-  <h3 id="-name-"><code>name</code></h3>
-  <p>The name of the CSV file, and the table in the ESIR geo-database.</p>
+  <p>A list of 3 integer column indices, starting with zero, for the columns
+    containing the time, x and y coordinates of the point.</p>
+  <h3 id="-gps_points-name-"><code>gps_points.name</code></h3>
+  <p>The name of the CSV file, and the table in the esri geo-database.</p>
   <h2 id="-track_logs-"><code>track_logs</code></h2>
-  <p>An object that describes how to build the GPS point feature class from the CSV file containing the track logs and
-    mission properties. The track_logs object has the following properties.
+  <p>An object that describes how to build the GPS point feature class
+    from the CSV file containing the track logs and mission properties.
+    The track_logs object has the following properties.
     All are required.</p>
   <ul>
-    <li><code>end_key_indexes</code></li>
-    <li><code>field_names</code></li>
-    <li><code>field_types</code></li>
-    <li><code>name</code></li>
-    <li><code>start_key_indexes</code></li>
+    <li><a href="#-end_key_indexes-"><code>end_key_indexes</code></a></li>
+    <li><a href="#-track_logs-field_names-"><code>field_names</code></a></li>
+    <li><a href="#-track_logs-field_types-"><code>field_types</code></a></li>
+    <li><a href="#-track_logs-name-"><code>name</code></a></li>
+    <li><a href="#-start_key_indexes-"><code>start_key_indexes</code></a></li>
   </ul>
   <h3 id="-end_key_indexes-"><code>end_key_indexes</code></h3>
-  <p>A list of 3 integer column indices, starting with zero, for the columns containing the time, x and y coordinates of
-    the first point in the track log.</p>
-  <h3 id="-field_names-"><code>field_names</code></h3>
+  <p>A list of 3 integer column indices, starting with zero, for the
+    columns containing the time, x and y coordinates of the first point in the track log.</p>
+  <h3 id="-track_logs-field_names-"><code>track_logs.field_names</code></h3>
   <p>A list of the field names in the header of the CSV file in order.</p>
-  <h3 id="-field_types-"><code>field_types</code></h3>
+  <h3 id="-track_logs-field_types-"><code>track_logs.field_types</code></h3>
   <p>A list of the field types in the columns of the CSV file in order.</p>
-  <h3 id="-name-"><code>name</code></h3>
-  <p>The name of the CSV file, and the table in the ESRI geo-database.</p>
+  <h3 id="-track_logs-name-"><code>track_logs.name</code></h3>
+  <p>The name of the CSV file, and the table in the esri geo-database.</p>
   <h3 id="-start_key_indexes-"><code>start_key_indexes</code></h3>
-  <p>A list of 3 integer column indices, starting with zero, for the columns containing the time, x and y coordinates of
-    the last point in the track log.</p>
+  <p>A list of 3 integer column indices, starting with zero, for the
+    columns containing the time, x and y coordinates of the last point in the track log.</p>
   <h1 id="symbology">Symbology</h1>
   <p>The symbology that Park Observer understands changed at 0.9.8. Before that, only version 1
     symbology was understood. After that it depended on which <code>meta-version</code> the document
-    specified.</p>
+    specified. Starting with Park Observer 2.0.0, both versions of the symbology are
+    understood correctly, regardless of the <code>meta-version</code> of the document.</p>
   <h2 id="-meta-version-1-"><code>&quot;meta-version&quot;: 1</code></h2>
   <p>In version 1, the symbology object had only two optional properties. If the symbology
-    property was missing in versions of Park Observer before 2.0, then there would be no
-    symbology for that item and it would not be drawn on the map. However if an empty object
-    was provided, then Park Observer would use the default values specified in the individual
-    symbology properties. The default values would also be provided if any of the following
-    properties were missing or invalid. The version 1 symbology object has the following
-    properties</p>
+    property is missing, empty or incomplete then Park Observer will use the default symbology
+    specified in the individual objects above. The version 1 symbology object has the following
+    properties:</p>
   <ul>
-    <li><code>color</code></li>
-    <li><code>size</code></li>
+    <li><a href="#-symbology-color-"><code>color</code></a></li>
+    <li><a href="#-symbology-size-"><code>size</code></a></li>
   </ul>
-  <h3 id="-color-"><code>color</code></h3>
+  <h3 id="-symbology-color-"><code>symbology.color</code></h3>
   <p>This property is optional. If provided it must be a text string. There is no default.
     The color element is a string in the form &quot;#FFFFFF&quot;
     where F is a hexadecimal digit (0-9,A-F).
-    The Hex pairs represent the Red, Green, and Blue respectively.
-    If the string is missing, or malformed, then the ESRI mapping framework was free to choose
-    a default value. Typically this was black.</p>
-  <h3 id="-size-"><code>size</code></h3>
-  <p>This property is optional. If provided it must be a number. There is no default.
+    The hex pairs represent the intensity of Red, Green, and Blue respectively.
+    Starting with Park Observer 2.0.0 a malformed color string is an error.
+    If the property is missing, then the default is determined by the object being rendered.</p>
+  <h3 id="-symbology-size-"><code>symbology.size</code></h3>
+  <p>This property is optional. If provided it must be a non-negative number. There is no default.
     The size is a number for the diameter in points of the simple circle marker symbol,
     or the width of a simple solid line.
-    If the number is missing, or invalid, then the ESRI mapping framework was free to choose
-    a default value at one point this was 6 points for diameter, and 1 point for width.</p>
+    Starting with Park Observer 2.0.0 an invalid size is an error.
+    If the property is missing, then the default is determined by the object being rendered.</p>
   <h2 id="-meta-version-2-"><code>&quot;meta-version&quot;: 2</code></h2>
-  <p>With version 2, the symbology object was specified by the JSON format for ESRI Renderers
-    as defined in the <a
-      href="https://developers.arcgis.com/documentation/common-data-types/renderer-objects.htm">renderer object in the
-      ArcGIS ReST API</a>.
-    This is the format that ESRI uses when building web maps for AGOL.
-    Depending on which version of the ESRI mapping SDK that Park Observer is using,
-    some of the properties may be optional (the <code>type</code> property is always required).
-    However the default value provided may vary with different versions. To be
-    safest, do not rely on default values, and always test your symbology before
-    distributing your protocol file.</p>
-  <p>When using version2 symbology, it is on you to verify you are using the right type
-    of symbol (marker symbols like <code>esriSMS</code> for points and <code>esriSLM</code> for lines).</p>
-  <p>If the symbol object was invalid, a 12 point green circle was provided for points.
-    The default line symbol by property in the mission property.</p>
+  <p>With version 2, the symbology object can be an esri Renderers JSON object.
+    See the section on <a href="#esri-objects">Esri Objects</a> below for more information.
+    It is an error if the object has a <code>type</code> property of either <code>&quot;simple&quot;</code>,
+    <code>classBreaks&quot;</code>, or <code>&quot;uniqueValue&quot;</code> and does not produce a valid renderer
+    object.
+    If the symbology object is not esri renderer object, but is empty, or has
+    one of the version 1 properties, it is treated as a version 1 symbology object.</p>
+  <p>When using an esri Renderer, it is on you to verify you are using the right type
+    of symbol for the object being rendered (i.e a marker symbols like <code>esriSMS</code> for
+    points and the line symbol <code>esriSLM</code> for track logs).</p>
   <p>If you wish to not draw the track logs or GPS points, then you need to provide valid symbology
     with either 0 size, or a fully transparent color.</p>
-  <h1 id="park-observer-2-0">Park Observer 2.0</h1>
-  <p>Changes implemented in 2.0 which effect the processing of version 1 and 2 protocol files.</p>
-  <ul>
-    <li>Additional testing and validation of Attribute names and types</li>
-    <li>Removed support for undocumented synonyms in Locations<ul>
-        <li>except <code>adhocTouch</code>, <code>adhocTarget</code> and <code>baseline</code>, which were present in
-          existing published protocols.
-          These synonyms have been deprecated and are no longer present in published protocols.
-          Please remove from private protocols.</li>
-        <li>If <code>baseline</code> and <code>deadAhead</code> are both provided, <code>baseline</code> is ignored.
-        </li>
-      </ul>
-    </li>
-    <li>Symbology is no longer required, and a few bugs in providing defaults have been fixed.</li>
-    <li>Negative font and symbology sizes are rejected with an error.</li>
-    <li>Bad color strings in symbology are rejected with an error.</li>
-    <li>feature names are limited to 10 characters.</li>
-    <li>Additional constraints and testing of the fields in Totalizer.</li>
-    <li>feature.location.type must be unique</li>
-    <li>feature.locations cannot <code>allow</code> both type = <code>angleDistance</code> and type =
-      <code>azimuthDistance</code></li>
-    <li>Version 1 and version 2 symbology are both supported in both versions of the protocol file.</li>
-    <li>Added an optional <code>definition</code> property to feature label to support ESRI label definition JSON.</li>
-    <li>Made label.field optional. It will be ignored and can be omitted if label.definition is provided. Size, color,
-      and symbol will also be ignored if label.definition is provided.</li>
-    <li>some properties of dialog elements are no longer case sensitive: autocapitalizationType, autocorrectionType, and
-      keyboardType</li>
-    <li>Dialog.grouped is ignored (sections are visually distinct, and <code>grouped</code> does not render any
-      differently)</li>
-    <li>feature.locations.type = &quot;mapTarget&quot; is not supported</li>
-    <li>feature.locations.default is ignored</li>
-    <li>feature.locations.type = &quot;gps&quot; is ignored if feature.locations.type = &quot;angleDistance&quot; exists
-      and allowed</li>
-    <li>if feature has multiple location objects with the same locations.type, an error is thrown (new surveys); last
-      one is used (existing surveys)</li>
-    <li><code>cancel_on_top</code> is ignored - set in user settings</li>
-    <li><code>status_message_fontsize</code> is ignored - Set font size in Settings App Accessibility -&gt; Display
-      &amp; Font Size</li>
-  </ul>
-  <p>New root properties:</p>
-  <ul>
-    <li><a href="#-tracklogs-"><code>tracklogs</code></a> (o)(v3)</li>
-    <li><a href="#-transects-"><code>transects</code></a> (o)(v3)</li>
-  </ul>
-  <h1 id="-tracklogs-"><code>tracklogs</code></h1>
-  <p>This property is optional. If provided it must be one of the following stings. The default is
-    <code>&quot;required&quot;</code>.
-    This property determines if a track log is desired or required.
-    This property is ignored in versions of Park Observer before 2.0.</p>
-  <ul>
-    <li><code>none</code> - The start/stop track log button is not available, and track logs are never collected.</li>
-    <li><code>optional</code> - The user can start/stop observing regardless of the state of track logging.</li>
-    <li><code>required</code> - The user must start a track log before they can start observing.</li>
-  </ul>
-  <h1 id="-transects-"><code>transects</code></h1>
-  <p>This property is optional. If provided it must be one of the following stings. The default is
-    <code>&quot;per-feature&quot;</code>.
-    This property determines the requirements for making an observation.
-    If <code>&quot;tracklogs&quot;: &quot;required&quot;</code>, then observations can only be made when track logging
-    despite the state
-    of this property.
-    This property is ignored in versions of Park Observer before 2.0.</p>
-  <ul>
-    <li><code>none</code> - The start/stop survey (observing/transect) button is not available;
-      It is assumed that the user is always observing, and observations can be made any time
-      This sets the <code>allow_off_transect_observations</code> property of all features to <code>true</code></li>
-    <li><code>optional</code> - The user can add an observation at any time, regardless of the state of surveying
-      (observing/transect).
-      This sets the <code>allow_off_transect_observations</code> property of all features to <code>true</code></li>
-    <li><code>required</code> - The user must start a survey (observing/transect) before they can add an observation.
-      This sets the <code>allow_off_transect_observations</code> property of all features to <code>false</code></li>
-    <li><code>per-feature</code> - The user can add an observation of a feature based on the state of the feature&#39;s
-      <code>allow_off_transect_observations</code> property.</li>
-  </ul>
-  <p>label definitions:
-    from <a
-      href="https://developers.arcgis.com/ios/latest/objective-c/guide/add-labels.htm">https://developers.arcgis.com/ios/latest/objective-c/guide/add-labels.htm</a>
-    A label definition is constructed as a JSON string using the syntax defined in the <a
-      href="https://developers.arcgis.com/web-map-specification/objects/labelingInfo/">Web map specification</a> for
-    label definition. In order to provide a more accurate representation of labels created in ArcGIS Pro (for a mobile
-    map package, for example), ArcGIS Runtime defines additional JSON properties that are not included in the Web map
-    specification. Refer to the <a
-      href="https://developers.arcgis.com/ios/latest/objective-c/guide/json-label-class-properties.htm">JSON label class
-      properties</a> topic for a description of the available properties, their expected values, and the defaults used
-    for each.</p>
-  <h2 id="label-definition-defaults">Label Definition Defaults</h2>
-  <p><a
-      href="https://developers.arcgis.com/documentation/common-data-types/labeling-objects.htm">https://developers.arcgis.com/documentation/common-data-types/labeling-objects.htm</a>
-  </p>
-  <p>The AGSLabelDefinition object has no properties to inspect.
-    There is no way to be sure of which properties are optional except by testing.
-    A guess can be made based on the defaults for the other objects above.</p>
-  <p>See <a
-      href="https://developers.arcgis.com/ios/latest/swift/guide/json-label-class-properties.htm">https://developers.arcgis.com/ios/latest/swift/guide/json-label-class-properties.htm</a>
-    and <a
-      href="https://developers.arcgis.com/web-map-specification/objects/labelingInfo/">https://developers.arcgis.com/web-map-specification/objects/labelingInfo/</a>
-    and <a
-      href="https://developers.arcgis.com/ios/latest/api-reference/interface_a_g_s_label_definition.html">https://developers.arcgis.com/ios/latest/api-reference/interface_a_g_s_label_definition.html</a>
-    //let labelText = &quot;\&quot;You are here\&quot;&quot;
-    //let labelText = &quot;[(field)] CONCAT \&quot; Street\&quot;&quot;
-    //let labelText = &quot;[(field)]&quot;
-    //let value = &quot;{(field)} Street&quot;
-    let value = &quot;{(field)}&quot;
-    //let expression = &quot;return $Feature.(field);&quot;
-    let symbolJSON = try symbol.toJSON()
-    let labelJSONObject: [String: Any] = [
-    //&quot;labelExpression&quot;: labelText,
-    &quot;labelExpressionInfo&quot;: [&quot;value&quot;: value],
-    //&quot;labelExpressionInfo&quot;: [&quot;expression&quot;: expression],
-    &quot;symbol&quot;: symbolJSON
-    ]</p>
-  <p>TODO: test that field name in label.field and label.definition are case-insensitive with attributes
-    TODO: Verify: If an empty object is given to the totalizer, it will display how many kilometers you have been
-    observing, and reset each time to stop/stop observing.
-    TODO: Only one non-touch locations should have a true value, otherwise the behavior is undefined.</p>
-  <h2 id="symbols">Symbols</h2>
-  <p><a
-      href="https://developers.arcgis.com/documentation/common-data-types/symbol-objects.htm">https://developers.arcgis.com/documentation/common-data-types/symbol-objects.htm</a>
-  </p>
-  <h2 id="simple-marker-symbol-defaults-">Simple Marker Symbol Defaults:</h2>
-  <p>minimal simple marker symbol is:</p>
-  <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSMS"</span>
-  }
-  </code></pre>
-  <p>With the following defaults (as of 100.7.0)</p>
-  <pre><code><span class="hljs-symbol">style:</span> esriSMSCircle
-  <span class="hljs-symbol">color:</span>  [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] <span class="hljs-comment">// Light Gray (82% white); Opaque</span>
-  <span class="hljs-symbol">size:</span> <span class="hljs-number">8.0</span>
-  <span class="hljs-symbol">angle:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-symbol">xoffset:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-symbol">yoffset:</span> <span class="hljs-number">0.0</span>
-  </code></pre>
-  <p>With a minimal outline, it is:</p>
-  <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSMS"</span>,
-    <span class="hljs-attr">"outline"</span>: {}
-  }
-  </code></pre>
-  <p>With the following defaults (as of 100.7.0)</p>
-  <pre><code><span class="hljs-string">style:</span> esriSMSCircle
-  <span class="hljs-string">color:</span>  [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] <span class="hljs-comment">// Light Gray (82% white); Opaque</span>
-  <span class="hljs-string">size:</span> <span class="hljs-number">8.0</span>
-  <span class="hljs-string">angle:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-string">xoffset:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-string">yoffset:</span> <span class="hljs-number">0.0</span>
-  outline.<span class="hljs-string">width:</span> <span class="hljs-number">1.0</span>
-  outline.<span class="hljs-string">color:</span> [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>]
-  outline.<span class="hljs-string">style:</span> esriSLSSolid
-  </code></pre>
-  <p>Properties not settable in JSON</p>
-  <ul>
-    <li>angleAlignment: <code>AGSMarkerSymbolAngleAlignmentScreen</code></li>
-    <li>leaderOffsetX: 0.0</li>
-    <li>leaderOffsetY: 0.0</li>
-    <li>outline.style: <code>esriSLSSolid</code></li>
-  </ul>
-  <h2 id="picture-marker-symbol-defaults-">Picture Marker Symbol Defaults:</h2>
-  <p>minimal picture marker symbol is:</p>
-  <pre><code>{
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriPMS"</span>
-  }
-  </code></pre>
-  <p>But this is is useless, as there is no image to display.
-    Suggest that you use the contentType and imageData properties to provide a base64 encoded image. If you use a URL,
-    it must be a
-    full network URL, and the network must be available when running the app, or the image will not display.</p>
-  <p>With the following defaults (as of 100.7.0)</p>
-  <pre><code>
-  AGSPictureMarkerSymbol properties
-  <span class="hljs-symbol">url:</span> nil
-  <span class="hljs-symbol">imageData:</span> nil
-  <span class="hljs-symbol">contentType:</span> nil
-  <span class="hljs-symbol">width:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-symbol">height:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-symbol">angle:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-symbol">xoffset:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-symbol">yoffset:</span> <span class="hljs-number">0.0</span>
-  </code></pre>
-  <p>Properties not settable in JSON
-    angleAlignment: AGSMarkerSymbolAngleAlignmentScreen
-    leaderOffsetX: 0.0
-    leaderOffsetY: 0.0
-    opacity: 1.0</p>
-  <h2 id="simple-line-symbol-defaults-">Simple Line Symbol Defaults:</h2>
-  <p>minimal text symbol is:</p>
-  <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSLS"</span>
-  }
-  </code></pre>
-  <p>With the following defaults (as of 100.7.0)</p>
-  <pre><code><span class="hljs-symbol">style:</span> esriSLSSolid
-  <span class="hljs-symbol">color:</span> [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] <span class="hljs-comment">// Light Gray (82% white); Opaque</span>
-  <span class="hljs-symbol">width:</span> <span class="hljs-number">1.0</span>
-  </code></pre>
-  <p>Properties not settable in JSON</p>
-  <ul>
-    <li>antialias: false</li>
-    <li>markerPlacement: AGSSimpleLineSymbolMarkerPlacementEnd</li>
-    <li>markerStyle: AGSSimpleLineSymbolMarkerStyleNone</li>
-  </ul>
-  <h2 id="text-symbol-defaults-">Text Symbol defaults:</h2>
-  <p>minimal text symbol is:</p>
+  <h1 id="esri-objects">Esri Objects</h1>
+  <p>This section describes the esri JSON objects used in the protocol specification,
+    mostly by linking to the online documentation provided by esri. However at the time
+    of writing, there are some gaps, particularly with regard to default values.
+    These gaps were closed with some testing that is documented below. These tests are
+    valid for Park Observer 2.0.0 which uses version 100.8 of the esri SDK. I expect that
+    these default will remain stable, but since esri has not documented them, they may
+    change. If a particular value is important to you it is best to specify it explicitly
+    rather than relying on the undocumented default behavior.</p>
+  <h2 id="text-symbol">Text Symbol</h2>
+  <p>The feature label can specify the label format with an esri text symbol
+    JSON object as described in the
+    <a href="http://resources.arcgis.com/en/help/arcgis-rest-api/#/Symbol_Objects/02r3000000n5000000/">text symbol
+      section of the ArcGIS ReST API</a>.</p>
+  <p>The minimal text symbol is:</p>
   <pre><code>{
     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriTS"</span>
   }
   </code></pre>
-  <p>With the following defaults (as of 100.7.0)</p>
-  <pre><code><span class="hljs-string">color:</span>  [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>] <span class="hljs-comment">// opaque black</span>
-  <span class="hljs-string">backgroundColor:</span> [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>] <span class="hljs-comment">// transparent black</span>
-  <span class="hljs-string">borderLineSize:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-string">borderLineColor:</span> [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
-  <span class="hljs-string">haloSize:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-string">haloColor:</span> [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
-  <span class="hljs-string">verticalAlignment:</span> middle
-  <span class="hljs-string">horizontalAlignment:</span> center
-  <span class="hljs-string">angle:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-string">xoffset:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-string">yoffset:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-string">kerning:</span> <span class="hljs-literal">false</span>
-  font.<span class="hljs-string">family:</span> <span class="hljs-string">""</span>
-  font.<span class="hljs-string">size:</span> <span class="hljs-number">8.0</span>
-  font.<span class="hljs-string">style:</span> normal
-  font.<span class="hljs-string">weight:</span> normal
-  font.<span class="hljs-string">decoration:</span> none
-  <span class="hljs-string">text:</span> <span class="hljs-string">""</span>
+  <p>Which comes with the following default values:</p>
+  <pre><code><span class="hljs-string">"color"</span>: <span class="hljs-string">[0, 0, 0, 255]</span>          // opaque black
+  <span class="hljs-string">"backgroundColor"</span>: <span class="hljs-string">[0, 0, 0, 0]</span>  // transparent black
+  <span class="hljs-string">"borderLineSize"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"borderLineColor"</span>: <span class="hljs-string">[0, 0, 0, 0]</span>
+  <span class="hljs-string">"haloSize"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"haloColor"</span>: <span class="hljs-string">[0, 0, 0, 0]</span>
+  <span class="hljs-string">"verticalAlignment"</span>: <span class="hljs-string">"middle"</span>
+  <span class="hljs-string">"horizontalAlignment"</span>: <span class="hljs-string">"center"</span>
+  <span class="hljs-string">"angle"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"xoffset"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"yoffset"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"kerning"</span>: false
+  <span class="hljs-string">"font"</span>: {
+    <span class="hljs-string">"family"</span>: <span class="hljs-string">""</span>
+    <span class="hljs-string">"size"</span>: <span class="hljs-number">8</span>.<span class="hljs-number">0</span>
+    <span class="hljs-string">"style"</span>: <span class="hljs-string">"normal"</span>
+    <span class="hljs-string">"weight"</span>: <span class="hljs-string">"normal"</span>
+    <span class="hljs-string">"decoration"</span>: <span class="hljs-string">"none"</span>
+  }
+  <span class="hljs-string">"text: "</span><span class="hljs-string">"</span>
   </code></pre>
-  <p>Properties not settable in JSON</p>
-  <ul>
-    <li>angleAlignment: <code>AGSMarkerSymbolAngleAlignmentScreen</code></li>
-    <li>leaderOffsetX: 0.0</li>
-    <li>leaderOffsetY: 0.0</li>
-    <li>outline.style: <code>esriSLSSolid</code></li>
-  </ul>
-  <p>JSON Properties not supported in SDK</p>
-  <ul>
-    <li>rightToLeft</li>
-  </ul>
-  <h2 id="renderers">Renderers</h2>
-  <p><a
-      href="https://developers.arcgis.com/documentation/common-data-types/renderer-objects.htm">https://developers.arcgis.com/documentation/common-data-types/renderer-objects.htm</a>
+  <p>The runtime SDK has the following text symbol properties
+    that cannot be set in JSON but have the following defaults:</p>
+  <pre><code><span class="hljs-string">"angleAlignment"</span>: <span class="hljs-string">"AGSMarkerSymbolAngleAlignmentScreen"</span>
+  <span class="hljs-string">"leaderOffsetX"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"leaderOffsetY"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"outline"</span>: { <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span> }
+  </code></pre>
+  <p>The following documented text symbol property is supported in the Runtime SDK</p>
+  <pre><code><span class="hljs-string">"rightToLeft"</span>: <span class="hljs-literal">false</span>
+  </code></pre>
+  <h2 id="label-definition">Label Definition</h2>
+  <p>The feature label can specify the label format with an esri label definition
+    JSON object as defined in the
+    <a href="https://developers.arcgis.com/web-map-specification/objects/labelingInfo/">Web map specification</a>
+    for labelingInfo.
+    <strong>NOTE:</strong> &quot;In order to provide a more accurate representation
+    of labels created in ArcGIS Pro (for a mobile map package, for example), ArcGIS
+    Runtime defines additional JSON properties that are not included in the Web map
+    specification. Refer to the
+    <a href="https://developers.arcgis.com/ios/latest/swift/guide/json-label-class-properties.htm">JSON label class
+      properties</a> topic for a description of the available properties, their expected values, and
+    the defaults used for each.&quot;
+    from <a
+      href="https://developers.arcgis.com/ios/latest/swift/guide/add-labels.htm">https://developers.arcgis.com/ios/latest/swift/guide/add-labels.htm</a>
   </p>
-  <h2 id="simple-renderer-defaults-">Simple renderer defaults:</h2>
-  <p>minimal text symbol is:</p>
+  <p>Additional references:
+    <a
+      href="https://developers.arcgis.com/documentation/common-data-types/labeling-objects.htm">https://developers.arcgis.com/documentation/common-data-types/labeling-objects.htm</a>
+    and <a
+      href="https://developers.arcgis.com/ios/latest/api-reference/interface_a_g_s_label_definition.html">https://developers.arcgis.com/ios/latest/api-reference/interface_a_g_s_label_definition.html</a>
+  </p>
+  <p>A simple example which labels the feature with the id number if it is greater than 10.
+    Using the default text symbol (see above), and the default labeling properties
+    (see references)</p>
   <pre><code>{
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"simple"</span>
+    <span class="hljs-attr">"labelExpression"</span>: <span class="hljs-string">"[id]"</span>,
+    <span class="hljs-attr">"where"</span>: <span class="hljs-string">"id &gt; 10"</span>
   }
   </code></pre>
-  <p>With the following defaults (as of 100.7.0). This is useless, as it has no symbol.</p>
-  <pre><code><span class="hljs-symbol">symbol:</span> nil
-  <span class="hljs-symbol">label:</span> <span class="hljs-string">""</span>
-  <span class="hljs-symbol">description:</span> <span class="hljs-string">""</span>
-  <span class="hljs-symbol">rotationType:</span> geographic
-  <span class="hljs-symbol">rotationExpression:</span> <span class="hljs-string">""</span>
-  </code></pre>
-  <p>Properties not settable in JSON
-    sceneProperties</p>
-  <p>With the following, you get a &quot;AGSUnsupportedSymbol&quot;, which will not display. You need to provide a
-    minimal (or more) symbol from above.
-    The symbol type should match the geometry of the objects in the layer.</p>
+  <p>Using Arcade which labels the feature with the capitalized first letter of the name.</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"simple"</span>,
-    <span class="hljs-attr">"symbol"</span>: {}
+    <span class="hljs-attr">"labelExpressionInfo"</span>: {<span class="hljs-attr">"expression"</span>: <span class="hljs-string">"Upper(Left($feature.name, 1))"</span>}
   }
   </code></pre>
-  <h2 id="unique-value-renderer-defaults-">Unique value renderer defaults:</h2>
-  <p>minimal valid (although useless) unique value renderer is:</p>
+  <p>Using a simple expression to concatenate multiple values with static text and a newline. A test symbol is used to
+    increase the font size.</p>
+  <pre><code>{
+    <span class="hljs-attr">"labelExpression"</span>:  <span class="hljs-string">"\"Name: \" CONCAT [name] CONCAT NEWLINE CONCAT \"id: \" CONCAT [id]"</span>,
+    <span class="hljs-attr">"symbol"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriTS"</span>, <span class="hljs-attr">"font"</span>: {<span class="hljs-attr">"size"</span>: <span class="hljs-number">18</span>} }
+  }
+  </code></pre>
+  <h2 id="renderers">Renderers</h2>
+  <p>Features and several properties of the mission can specify the symbology format with an esri renderer
+    JSON object as described in
+    <a href="https://developers.arcgis.com/documentation/common-data-types/renderer-objects.htm">Renderer objects in the
+      ArcGIS ReST API</a>.
+    Each renderer has a <code>&quot;type&quot;</code> property which is required and must be one of </p>
+  <ul>
+    <li><code>&quot;simple&quot;</code> for a simple (single symbol) renderer</li>
+    <li><code>&quot;classBreaks&quot;</code> for a class breaks renderer</li>
+    <li><code>&quot;uniqueValue&quot;</code> for a unique value renderer</li>
+  </ul>
+  <h3 id="simple-renderer">Simple Renderer</h3>
+  <p>The minimal simple renderer is:</p>
+  <pre><code>{
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"simple"</span>
+  }
+  </code></pre>
+  <p>Which comes with the following default values:</p>
+  <pre><code><span class="hljs-string">"symbol"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"label"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
+  </code></pre>
+  <p>This renderer is useless, as it has no symbol. An appropriate symbol (as discussed below)
+    needs to be provided to match the geometry of the feature being symbolized.</p>
+  <h3 id="unique-value-renderer-">Unique Value Renderer:</h3>
+  <p>Similarly, the minimal (although useless) unique value renderer is:</p>
   <pre><code>{
     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"uniqueValue"</span>
   }
   </code></pre>
-  <p>This has the following defaults</p>
-  <pre><code><span class="hljs-string">field1:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">field2:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">field3:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">fieldDelimiter:</span> not used
-  <span class="hljs-string">defaultSymbol:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">defaultLabel:</span> <span class="hljs-string">""</span>
-  <span class="hljs-string">rotationType:</span> geographic
-  <span class="hljs-string">rotationExpression:</span> <span class="hljs-string">""</span>
-  uniqueValueInfos <span class="hljs-string">count:</span> <span class="hljs-number">0</span>
+  <p>Which comes with the following default values:</p>
+  <pre><code><span class="hljs-string">"field1"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"field2"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"field3"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"fieldDelimiter"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"defaultSymbol"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"uniqueValueInfos"</span>: []
   </code></pre>
-  <p>A more useful minimal example is:</p>
+  <p>A more useful example is:</p>
   <pre><code>{
     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"uniqueValue"</span>,
     <span class="hljs-attr">"field1"</span>: <span class="hljs-string">"name"</span>,
-    <span class="hljs-attr">"defaultSymbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">5</span>},
+    <span class="hljs-attr">"field2"</span>: <span class="hljs-string">"id"</span>,
+    <span class="hljs-attr">"fieldDelimiter"</span>: <span class="hljs-string">","</span>,
+    <span class="hljs-attr">"defaultSymbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">10</span>},
     <span class="hljs-attr">"uniqueValueInfos"</span>: [{
-      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"bob"</span>,
-      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">10</span>}
+      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"bob,0"</span>,
+      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>]}
     },{
-      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"BOB"</span>,
-      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">20</span>}
+      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"BOB,0"</span>,
+      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">30</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>]}
+    },{
+      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"bob,1"</span>,
+      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">255</span>]}
+    },{
+      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"BOB,1"</span>,
+      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">30</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">255</span>]}
     }]
   }
   </code></pre>
   <p>The defaults in this case are:</p>
-  <pre><code><span class="hljs-symbol">type:</span> uniqueValue
-  <span class="hljs-symbol">field1:</span> <span class="hljs-string">"name"</span>
-  <span class="hljs-symbol">field2:</span> null
-  <span class="hljs-symbol">field3:</span> null
-  <span class="hljs-symbol">fieldDelimiter:</span> not used
-  <span class="hljs-symbol">defaultSymbol:</span> <span class="hljs-params">&lt;AGSSimpleMarkerSymbol&gt;</span>
-  <span class="hljs-symbol">defaultLabel:</span> <span class="hljs-string">""</span>
-  <span class="hljs-symbol">rotationType:</span> geographic
-  <span class="hljs-symbol">rotationExpression:</span> <span class="hljs-string">""</span>
-  uniqueValue <span class="hljs-meta">#1</span>
-  <span class="hljs-symbol">  value:</span> [bob]
-  <span class="hljs-symbol">  label:</span> <span class="hljs-string">""</span>
-  <span class="hljs-symbol">  description:</span> <span class="hljs-string">""</span>
-  <span class="hljs-symbol">  symbol:</span> <span class="hljs-params">&lt;AGSSimpleMarkerSymbol&gt;</span>
-  uniqueValue <span class="hljs-meta">#2</span>
-  <span class="hljs-symbol">  value:</span> [BOB]
-  <span class="hljs-symbol">  label:</span> <span class="hljs-string">""</span>
-  <span class="hljs-symbol">  description:</span> <span class="hljs-string">""</span>
-  <span class="hljs-symbol">  symbol:</span> <span class="hljs-params">&lt;AGSSimpleMarkerSymbol&gt;</span>
+  <pre><code><span class="hljs-string">"field3"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
   </code></pre>
-  <p>Note that <code>uniqueValueInfos.value</code> is a list that would presumably have 1,2, or 3
-    values for the 1,2, or 3 field names provided. However the REST API does not specify
-    how to provide multiple values. If a 2nd or 3rd field is provided, then anything in <code>value</code> is ignored,
-    and an empty list is returned. Providing a list to <code>value</code> generates an error, and
-    properties <code>value1</code> .. <code>value3</code> are also ignored.</p>
-  <p>At this time, it is only safe to provide a unique value renderer on 1 field.</p>
-  <h2 id="class-breaks-renderer-defaults-">Class breaks renderer defaults:</h2>
-  <p>minimal valid (although useless) class breaks renderer is:</p>
+  <p>And for each item in the <code>uniqueValueInfos</code> list the defaults are </p>
+  <pre><code><span class="hljs-string">"label"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>
+  </code></pre>
+  <p><strong>NOTE:</strong> <code>uniqueValueInfos.value</code> is a single string regardless of the number or type
+    of fields used. If more than 1 field is used, then <code>fieldDelimiter</code> is required and must
+    be included in the <code>uniqueValueInfos.value</code> string to separate the values. There must
+    be same number of values in the <code>uniqueValueInfos.value</code> string as there are fields defined. </p>
+  <h3 id="class-breaks-renderer-">Class Breaks Renderer:</h3>
+  <p>Similarly, the minimal valid (although useless) class breaks renderer is:</p>
   <pre><code>{
     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"classBreaks"</span>
   }
   </code></pre>
-  <p>This has the following defaults</p>
-  <pre><code><span class="hljs-string">field:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">classificationMethod:</span> esriClassifyManual
-  <span class="hljs-string">normalizationType:</span> esriNormalizeNone
-  <span class="hljs-string">normalizationField:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">normalizationTotal:</span> nan
-  <span class="hljs-string">defaultSymbol:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">defaultLabel:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">backgroundFillSymbol:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">minValue:</span> nan
-  <span class="hljs-string">rotationType:</span> geographic
-  <span class="hljs-string">rotationExpression:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-string">classBreakInfos:</span> empty list
+  <p>This has the following defaults:</p>
+  <pre><code><span class="hljs-string">"field"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"classificationMethod"</span>: <span class="hljs-string">"esriClassifyManual"</span>
+  <span class="hljs-string">"normalizationType"</span>: <span class="hljs-string">"esriNormalizeNone"</span>
+  <span class="hljs-string">"normalizationField"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"normalizationTotal"</span>: <span class="hljs-literal">null</span> (<span class="hljs-literal">NaN</span>)
+  <span class="hljs-string">"defaultSymbol"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"backgroundFillSymbol"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"minValue"</span>: <span class="hljs-literal">null</span> (<span class="hljs-literal">NaN</span>)
+  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"classBreakInfos"</span>: []
   </code></pre>
   <p>While not defined in <a
       href="https://developers.arcgis.com/documentation/common-data-types/renderer-objects.htm">https://developers.arcgis.com/documentation/common-data-types/renderer-objects.htm</a>
-    the classification methods are</p>
+    the known classification methods in the SDK are listed here.
+    Only <code>esriClassifyManual</code> (the default) is mentioned in the documentation.</p>
   <ul>
     <li><code>esriClassifyDefinedInterval</code></li>
     <li><code>esriClassifyEqualInterval</code></li>
@@ -1164,7 +1094,7 @@
   <pre><code>{
     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"classBreaks"</span>,
     <span class="hljs-attr">"field"</span>: <span class="hljs-string">"age"</span>,
-    <span class="hljs-attr">"minValue"</span> : <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"minValue"</span>: <span class="hljs-number">0</span>,
     <span class="hljs-attr">"defaultSymbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">5</span>},
     <span class="hljs-attr">"classBreakInfos"</span>: [{
       <span class="hljs-attr">"classMaxValue"</span>: <span class="hljs-number">25</span>,
@@ -1176,30 +1106,104 @@
   }
   </code></pre>
   <p>The defaults in this case are:</p>
-  <pre><code><span class="hljs-attr">type:</span> simple
-  <span class="hljs-attr">field:</span> age
-  <span class="hljs-attr">classificationMethod:</span> esriClassifyManual
-  <span class="hljs-attr">normalizationType:</span> esriNormalizeNone
-  <span class="hljs-attr">normalizationField:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-attr">normalizationTotal:</span> nan
-  <span class="hljs-attr">defaultSymbol:</span> &lt;AGSSimpleMarkerSymbol<span class="hljs-string">&gt;
-  </span><span class="hljs-attr">defaultLabel:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-attr">backgroundFillSymbol:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-attr">minValue:</span> <span class="hljs-number">0.0</span>
-  <span class="hljs-attr">rotationType:</span> geographic
-  <span class="hljs-attr">rotationExpression:</span>
-  classBreak <span class="hljs-comment">#1</span>
-  <span class="hljs-attr">  classMinValue:</span> nan
-  <span class="hljs-attr">  classMaxValue:</span> <span class="hljs-number">25.0</span>
-  <span class="hljs-attr">  label:</span>
-  <span class="hljs-attr">  description:</span>
-  <span class="hljs-attr">  symbol:</span> &lt;AGSSimpleMarkerSymbol<span class="hljs-string">&gt;
-  classBreak #2
-  </span><span class="hljs-attr">  classMinValue:</span> nan
-  <span class="hljs-attr">  classMaxValue:</span> <span class="hljs-number">100.0</span>
-  <span class="hljs-attr">  label:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-attr">  description:</span> <span class="hljs-literal">null</span>
-  <span class="hljs-attr">  symbol:</span> &lt;AGSSimpleMarkerSymbol<span class="hljs-string">&gt;</span>
+  <pre><code><span class="hljs-string">"classificationMethod"</span>: <span class="hljs-string">"esriClassifyManual"</span>
+  <span class="hljs-string">"normalizationType"</span>: <span class="hljs-string">"esriNormalizeNone"</span>
+  <span class="hljs-string">"normalizationField"</span>: <span class="hljs-keyword">null</span>
+  <span class="hljs-string">"normalizationTotal"</span>: <span class="hljs-keyword">null</span> (NaN)
+  <span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"backgroundFillSymbol"</span>: <span class="hljs-keyword">null</span>
+  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
+  </code></pre>
+  <p>And for each item in the <code>classBreakInfos</code> list the defaults are </p>
+  <pre><code><span class="hljs-string">"classMinValue"</span>: <span class="hljs-keyword">null</span> (NaN)
+  <span class="hljs-string">"label"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>
+  </code></pre>
+  <h2 id="symbols">Symbols</h2>
+  <p>The renderers require a symbol that matches the geometry type of the feature
+    being rendered. The JSON object for symbols is described in the
+    <a href="http://resources.arcgis.com/en/help/arcgis-rest-api/#/Symbol_Objects/02r3000000n5000000/">ArcGIS ReST
+      API</a>
+    and the <a href="https://developers.arcgis.com/documentation/common-data-types/symbol-objects.htm">Runtime SDK
+      Documentation</a>.</p>
+  <h3 id="simple-marker-symbol">Simple Marker Symbol</h3>
+  <p>The minimal simple marker symbol (for points) is:</p>
+  <pre><code>{
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSMS"</span>
+  }
+  </code></pre>
+  <p>Which comes with the following default values:</p>
+  <pre><code><span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSMSCircle"</span>
+  <span class="hljs-string">"color"</span>:  [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] <span class="hljs-comment">// Light Gray (82% white); Opaque</span>
+  <span class="hljs-string">"outline"</span>: <span class="hljs-literal">null</span>
+  <span class="hljs-string">"size"</span>: <span class="hljs-number">8.0</span>
+  <span class="hljs-string">"angle"</span>: <span class="hljs-number">0.0</span>
+  <span class="hljs-string">"xoffset"</span>: <span class="hljs-number">0.0</span>
+  <span class="hljs-string">"yoffset"</span>: <span class="hljs-number">0.0</span>
+  </code></pre>
+  <p>With a minimal outline, it is:</p>
+  <pre><code>{
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSMS"</span>,
+    <span class="hljs-attr">"outline"</span>: {}
+  }
+  </code></pre>
+  <p>The <code>outline</code> object comes with the following default values:</p>
+  <pre><code><span class="hljs-string">"color"</span>: [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] // <span class="hljs-symbol">Light</span> <span class="hljs-symbol">Gray</span> (<span class="hljs-number">82</span><span class="hljs-comment">% white); Opaque</span>
+  <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span>
+  <span class="hljs-string">"width"</span>: <span class="hljs-number">1.0</span>
+  </code></pre>
+  <p>The runtime SDK has the following simple marker symbol properties
+    that cannot be set in JSON but have the following defaults:</p>
+  <pre><code><span class="hljs-string">"angleAlignment"</span>: <span class="hljs-string">"AGSMarkerSymbolAngleAlignmentScreen"</span>
+  <span class="hljs-string">"leaderOffsetX"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"leaderOffsetY"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"outline"</span>: { <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span> }
+  </code></pre>
+  <h3 id="simple-line-symbol">Simple Line Symbol</h3>
+  <p>The minimal simple line symbol is:</p>
+  <pre><code>{
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSLS"</span>
+  }
+  </code></pre>
+  <p>Which comes with the following default values:</p>
+  <pre><code><span class="hljs-string">"color"</span>: [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] // <span class="hljs-symbol">Light</span> <span class="hljs-symbol">Gray</span> (<span class="hljs-number">82</span><span class="hljs-comment">% white); Opaque</span>
+  <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span>
+  <span class="hljs-string">"width"</span>: <span class="hljs-number">1.0</span>
+  </code></pre>
+  <p>The runtime SDK has the following simple line symbol properties
+    that cannot be set in JSON but have the following defaults:</p>
+  <pre><code><span class="hljs-string">"antialias"</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-string">"markerPlacement"</span>: <span class="hljs-string">"AGSSimpleLineSymbolMarkerPlacementEnd"</span>
+  <span class="hljs-string">"markerStyle"</span>: <span class="hljs-string">"AGSSimpleLineSymbolMarkerStyleNone"</span>
+  </code></pre>
+  <h3 id="picture-marker-symbol">Picture Marker Symbol</h3>
+  <p>The minimal picture marker symbol is:</p>
+  <pre><code>{
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriPMS"</span>
+  }
+  </code></pre>
+  <p>But this is is useless, as there is no image to display.
+    If you want to use a graphic image for your marker symbol, it is best to use
+    the <code>contentType</code> and <code>imageData</code> properties to provide a base64 encoded image.
+    If you use the <code>url</code> property, it must be a full network URL, and the network
+    must be available when running the app, or the image will not display.</p>
+  <p>The minimal picture marker symbol comes with the following default values:</p>
+  <pre><code><span class="hljs-string">"url"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"imageData"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"contentType"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"width"</span>: <span class="hljs-number">0.0</span>
+  <span class="hljs-string">"height"</span>: <span class="hljs-number">0.0</span>
+  <span class="hljs-string">"angle"</span>: <span class="hljs-number">0.0</span>
+  <span class="hljs-string">"xoffset"</span>: <span class="hljs-number">0.0</span>
+  <span class="hljs-string">"yoffset"</span>: <span class="hljs-number">0.0</span>
+  </code></pre>
+  <p>The runtime SDK has the following simple line symbol properties
+    that cannot be set in JSON but have the following defaults:</p>
+  <pre><code><span class="hljs-string">"angleAlignment"</span>: <span class="hljs-string">"AGSMarkerSymbolAngleAlignmentScreen"</span>
+  <span class="hljs-string">"leaderOffsetX"</span>: <span class="hljs-number">0.0</span>
+  <span class="hljs-string">"leaderOffsetY"</span>: <span class="hljs-number">0.0</span>
+  <span class="hljs-string">"opacity"</span>: <span class="hljs-number">1.0</span>
   </code></pre>
 
 </body>
