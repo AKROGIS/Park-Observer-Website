@@ -719,7 +719,8 @@
   <h3 id="-field-"><code>field</code></h3>
   <p>This property is optional. If provided it must be a non-empty text string.
     The string must match one of the <a href="#-attributes-name-">attribute names</a> for this feature.
-    It is an error to provide both <code>field</code> and <code>definition</code> properties.</p>
+    It is an error to provide both <code>field</code> and <code>definition</code> properties.
+    It is an error if neither a <code>field</code> nor <code>definition</code> property is provided.</p>
   <h3 id="-color-"><code>color</code></h3>
   <p>This property is optional. If provided it must be an string. The default is &quot;#FFFFFF&quot; (white)
     See <a href="#-symbology-color-">symbology.color</a> for more details.
@@ -740,7 +741,8 @@
     The definition is a esri label definition JSON object.
     See the section on <a href="#esri-objects">Esri Objects</a> below for more information.
     It is an error if the JSON object is malformed or unrecognized.
-    It is an error to provide both <code>field</code> and <code>definition</code> properties.</p>
+    It is an error to provide both <code>field</code> and <code>definition</code> properties.
+    It is an error if neither a <code>field</code> nor <code>definition</code> property is provided.</p>
   <h1 id="-csv-"><code>csv</code></h1>
   <p>This property is optional. If provided it must be an object. There is no default.</p>
   <p>This object describes the format of the CSV exported survey data.
@@ -902,41 +904,41 @@
       section of the ArcGIS ReST API</a>.</p>
   <p>The minimal text symbol is:</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriTS"</span>
-  }
-  </code></pre>
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriTS"</span>
+}
+</code></pre>
   <p>Which comes with the following default values:</p>
   <pre><code><span class="hljs-string">"color"</span>: <span class="hljs-string">[0, 0, 0, 255]</span>          // opaque black
-  <span class="hljs-string">"backgroundColor"</span>: <span class="hljs-string">[0, 0, 0, 0]</span>  // transparent black
-  <span class="hljs-string">"borderLineSize"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
-  <span class="hljs-string">"borderLineColor"</span>: <span class="hljs-string">[0, 0, 0, 0]</span>
-  <span class="hljs-string">"haloSize"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
-  <span class="hljs-string">"haloColor"</span>: <span class="hljs-string">[0, 0, 0, 0]</span>
-  <span class="hljs-string">"verticalAlignment"</span>: <span class="hljs-string">"middle"</span>
-  <span class="hljs-string">"horizontalAlignment"</span>: <span class="hljs-string">"center"</span>
-  <span class="hljs-string">"angle"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
-  <span class="hljs-string">"xoffset"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
-  <span class="hljs-string">"yoffset"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
-  <span class="hljs-string">"kerning"</span>: false
-  <span class="hljs-string">"font"</span>: {
-    <span class="hljs-string">"family"</span>: <span class="hljs-string">""</span>
-    <span class="hljs-string">"size"</span>: <span class="hljs-number">8</span>.<span class="hljs-number">0</span>
-    <span class="hljs-string">"style"</span>: <span class="hljs-string">"normal"</span>
-    <span class="hljs-string">"weight"</span>: <span class="hljs-string">"normal"</span>
-    <span class="hljs-string">"decoration"</span>: <span class="hljs-string">"none"</span>
-  }
-  <span class="hljs-string">"text: "</span><span class="hljs-string">"</span>
-  </code></pre>
+<span class="hljs-string">"backgroundColor"</span>: <span class="hljs-string">[0, 0, 0, 0]</span>  // transparent black
+<span class="hljs-string">"borderLineSize"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+<span class="hljs-string">"borderLineColor"</span>: <span class="hljs-string">[0, 0, 0, 0]</span>
+<span class="hljs-string">"haloSize"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+<span class="hljs-string">"haloColor"</span>: <span class="hljs-string">[0, 0, 0, 0]</span>
+<span class="hljs-string">"verticalAlignment"</span>: <span class="hljs-string">"middle"</span>
+<span class="hljs-string">"horizontalAlignment"</span>: <span class="hljs-string">"center"</span>
+<span class="hljs-string">"angle"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+<span class="hljs-string">"xoffset"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+<span class="hljs-string">"yoffset"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+<span class="hljs-string">"kerning"</span>: false
+<span class="hljs-string">"font"</span>: {
+  <span class="hljs-string">"family"</span>: <span class="hljs-string">""</span>
+  <span class="hljs-string">"size"</span>: <span class="hljs-number">8</span>.<span class="hljs-number">0</span>
+  <span class="hljs-string">"style"</span>: <span class="hljs-string">"normal"</span>
+  <span class="hljs-string">"weight"</span>: <span class="hljs-string">"normal"</span>
+  <span class="hljs-string">"decoration"</span>: <span class="hljs-string">"none"</span>
+}
+<span class="hljs-string">"text: "</span><span class="hljs-string">"</span>
+</code></pre>
   <p>The runtime SDK has the following text symbol properties
     that cannot be set in JSON but have the following defaults:</p>
   <pre><code><span class="hljs-string">"angleAlignment"</span>: <span class="hljs-string">"AGSMarkerSymbolAngleAlignmentScreen"</span>
-  <span class="hljs-string">"leaderOffsetX"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
-  <span class="hljs-string">"leaderOffsetY"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
-  <span class="hljs-string">"outline"</span>: { <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span> }
-  </code></pre>
+<span class="hljs-string">"leaderOffsetX"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+<span class="hljs-string">"leaderOffsetY"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+<span class="hljs-string">"outline"</span>: { <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span> }
+</code></pre>
   <p>The following documented text symbol property is supported in the Runtime SDK</p>
   <pre><code><span class="hljs-string">"rightToLeft"</span>: <span class="hljs-literal">false</span>
-  </code></pre>
+</code></pre>
   <h2 id="label-definition">Label Definition</h2>
   <p>The feature label can specify the label format with an esri label definition
     JSON object as defined in the
@@ -962,22 +964,22 @@
     Using the default text symbol (see above), and the default labeling properties
     (see references)</p>
   <pre><code>{
-    <span class="hljs-attr">"labelExpression"</span>: <span class="hljs-string">"[id]"</span>,
-    <span class="hljs-attr">"where"</span>: <span class="hljs-string">"id &gt; 10"</span>
-  }
-  </code></pre>
+  <span class="hljs-attr">"labelExpression"</span>: <span class="hljs-string">"[id]"</span>,
+  <span class="hljs-attr">"where"</span>: <span class="hljs-string">"id &gt; 10"</span>
+}
+</code></pre>
   <p>Using Arcade which labels the feature with the capitalized first letter of the name.</p>
   <pre><code>{
-    <span class="hljs-attr">"labelExpressionInfo"</span>: {<span class="hljs-attr">"expression"</span>: <span class="hljs-string">"Upper(Left($feature.name, 1))"</span>}
-  }
-  </code></pre>
+  <span class="hljs-attr">"labelExpressionInfo"</span>: {<span class="hljs-attr">"expression"</span>: <span class="hljs-string">"Upper(Left($feature.name, 1))"</span>}
+}
+</code></pre>
   <p>Using a simple expression to concatenate multiple values with static text and a newline. A test symbol is used to
     increase the font size.</p>
   <pre><code>{
-    <span class="hljs-attr">"labelExpression"</span>:  <span class="hljs-string">"\"Name: \" CONCAT [name] CONCAT NEWLINE CONCAT \"id: \" CONCAT [id]"</span>,
-    <span class="hljs-attr">"symbol"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriTS"</span>, <span class="hljs-attr">"font"</span>: {<span class="hljs-attr">"size"</span>: <span class="hljs-number">18</span>} }
-  }
-  </code></pre>
+  <span class="hljs-attr">"labelExpression"</span>:  <span class="hljs-string">"\"Name: \" CONCAT [name] CONCAT NEWLINE CONCAT \"id: \" CONCAT [id]"</span>,
+  <span class="hljs-attr">"symbol"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriTS"</span>, <span class="hljs-attr">"font"</span>: {<span class="hljs-attr">"size"</span>: <span class="hljs-number">18</span>} }
+}
+</code></pre>
   <h2 id="renderers">Renderers</h2>
   <p>Features and several properties of the mission can specify the symbology format with an esri renderer
     JSON object as described in
@@ -992,67 +994,67 @@
   <h3 id="simple-renderer">Simple Renderer</h3>
   <p>The minimal simple renderer is:</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"simple"</span>
-  }
-  </code></pre>
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"simple"</span>
+}
+</code></pre>
   <p>Which comes with the following default values:</p>
   <pre><code><span class="hljs-string">"symbol"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"label"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
-  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
-  </code></pre>
+<span class="hljs-string">"label"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+<span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
+</code></pre>
   <p>This renderer is useless, as it has no symbol. An appropriate symbol (as discussed below)
     needs to be provided to match the geometry of the feature being symbolized.</p>
   <h3 id="unique-value-renderer-">Unique Value Renderer:</h3>
   <p>Similarly, the minimal (although useless) unique value renderer is:</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"uniqueValue"</span>
-  }
-  </code></pre>
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"uniqueValue"</span>
+}
+</code></pre>
   <p>Which comes with the following default values:</p>
   <pre><code><span class="hljs-string">"field1"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"field2"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"field3"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"fieldDelimiter"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"defaultSymbol"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
-  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"uniqueValueInfos"</span>: []
-  </code></pre>
+<span class="hljs-string">"field2"</span>: <span class="hljs-literal">null</span>
+<span class="hljs-string">"field3"</span>: <span class="hljs-literal">null</span>
+<span class="hljs-string">"fieldDelimiter"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"defaultSymbol"</span>: <span class="hljs-literal">null</span>
+<span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+<span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"uniqueValueInfos"</span>: []
+</code></pre>
   <p>A more useful example is:</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"uniqueValue"</span>,
-    <span class="hljs-attr">"field1"</span>: <span class="hljs-string">"name"</span>,
-    <span class="hljs-attr">"field2"</span>: <span class="hljs-string">"id"</span>,
-    <span class="hljs-attr">"fieldDelimiter"</span>: <span class="hljs-string">","</span>,
-    <span class="hljs-attr">"defaultSymbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">10</span>},
-    <span class="hljs-attr">"uniqueValueInfos"</span>: [{
-      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"bob,0"</span>,
-      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>]}
-    },{
-      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"BOB,0"</span>,
-      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">30</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>]}
-    },{
-      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"bob,1"</span>,
-      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">255</span>]}
-    },{
-      <span class="hljs-attr">"value"</span>: <span class="hljs-string">"BOB,1"</span>,
-      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">30</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">255</span>]}
-    }]
-  }
-  </code></pre>
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"uniqueValue"</span>,
+  <span class="hljs-attr">"field1"</span>: <span class="hljs-string">"name"</span>,
+  <span class="hljs-attr">"field2"</span>: <span class="hljs-string">"id"</span>,
+  <span class="hljs-attr">"fieldDelimiter"</span>: <span class="hljs-string">","</span>,
+  <span class="hljs-attr">"defaultSymbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">10</span>},
+  <span class="hljs-attr">"uniqueValueInfos"</span>: [{
+    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"bob,0"</span>,
+    <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>]}
+  },{
+    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"BOB,0"</span>,
+    <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">30</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>]}
+  },{
+    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"bob,1"</span>,
+    <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">20</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">255</span>]}
+  },{
+    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"BOB,1"</span>,
+    <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">30</span>, <span class="hljs-attr">"color"</span>: [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">255</span>]}
+  }]
+}
+</code></pre>
   <p>The defaults in this case are:</p>
   <pre><code><span class="hljs-string">"field3"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
-  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
-  </code></pre>
+<span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+<span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
+</code></pre>
   <p>And for each item in the <code>uniqueValueInfos</code> list the defaults are </p>
   <pre><code><span class="hljs-string">"label"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>
-  </code></pre>
+<span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>
+</code></pre>
   <p><strong>NOTE:</strong> <code>uniqueValueInfos.value</code> is a single string regardless of the number or type
     of fields used. If more than 1 field is used, then <code>fieldDelimiter</code> is required and must
     be included in the <code>uniqueValueInfos.value</code> string to separate the values. There must
@@ -1060,23 +1062,23 @@
   <h3 id="class-breaks-renderer-">Class Breaks Renderer:</h3>
   <p>Similarly, the minimal valid (although useless) class breaks renderer is:</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"classBreaks"</span>
-  }
-  </code></pre>
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"classBreaks"</span>
+}
+</code></pre>
   <p>This has the following defaults:</p>
   <pre><code><span class="hljs-string">"field"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"classificationMethod"</span>: <span class="hljs-string">"esriClassifyManual"</span>
-  <span class="hljs-string">"normalizationType"</span>: <span class="hljs-string">"esriNormalizeNone"</span>
-  <span class="hljs-string">"normalizationField"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"normalizationTotal"</span>: <span class="hljs-literal">null</span> (<span class="hljs-literal">NaN</span>)
-  <span class="hljs-string">"defaultSymbol"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"backgroundFillSymbol"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"minValue"</span>: <span class="hljs-literal">null</span> (<span class="hljs-literal">NaN</span>)
-  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
-  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"classBreakInfos"</span>: []
-  </code></pre>
+<span class="hljs-string">"classificationMethod"</span>: <span class="hljs-string">"esriClassifyManual"</span>
+<span class="hljs-string">"normalizationType"</span>: <span class="hljs-string">"esriNormalizeNone"</span>
+<span class="hljs-string">"normalizationField"</span>: <span class="hljs-literal">null</span>
+<span class="hljs-string">"normalizationTotal"</span>: <span class="hljs-literal">null</span> (<span class="hljs-literal">NaN</span>)
+<span class="hljs-string">"defaultSymbol"</span>: <span class="hljs-literal">null</span>
+<span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"backgroundFillSymbol"</span>: <span class="hljs-literal">null</span>
+<span class="hljs-string">"minValue"</span>: <span class="hljs-literal">null</span> (<span class="hljs-literal">NaN</span>)
+<span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+<span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"classBreakInfos"</span>: []
+</code></pre>
   <p>While not defined in <a
       href="https://developers.arcgis.com/documentation/common-data-types/renderer-objects.htm">https://developers.arcgis.com/documentation/common-data-types/renderer-objects.htm</a>
     the known classification methods in the SDK are listed here.
@@ -1092,34 +1094,34 @@
   </ul>
   <p>A more useful minimal example is:</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"classBreaks"</span>,
-    <span class="hljs-attr">"field"</span>: <span class="hljs-string">"age"</span>,
-    <span class="hljs-attr">"minValue"</span>: <span class="hljs-number">0</span>,
-    <span class="hljs-attr">"defaultSymbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">5</span>},
-    <span class="hljs-attr">"classBreakInfos"</span>: [{
-      <span class="hljs-attr">"classMaxValue"</span>: <span class="hljs-number">25</span>,
-      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">10</span>}
-    },{
-      <span class="hljs-attr">"classMaxValue"</span>: <span class="hljs-number">100</span>,
-      <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">20</span>}
-    }]
-  }
-  </code></pre>
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"classBreaks"</span>,
+  <span class="hljs-attr">"field"</span>: <span class="hljs-string">"age"</span>,
+  <span class="hljs-attr">"minValue"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"defaultSymbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">5</span>},
+  <span class="hljs-attr">"classBreakInfos"</span>: [{
+    <span class="hljs-attr">"classMaxValue"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">10</span>}
+  },{
+    <span class="hljs-attr">"classMaxValue"</span>: <span class="hljs-number">100</span>,
+    <span class="hljs-attr">"symbol"</span>: {<span class="hljs-attr">"type"</span>:<span class="hljs-string">"esriSMS"</span>, <span class="hljs-attr">"size"</span>: <span class="hljs-number">20</span>}
+  }]
+}
+</code></pre>
   <p>The defaults in this case are:</p>
   <pre><code><span class="hljs-string">"classificationMethod"</span>: <span class="hljs-string">"esriClassifyManual"</span>
-  <span class="hljs-string">"normalizationType"</span>: <span class="hljs-string">"esriNormalizeNone"</span>
-  <span class="hljs-string">"normalizationField"</span>: <span class="hljs-keyword">null</span>
-  <span class="hljs-string">"normalizationTotal"</span>: <span class="hljs-keyword">null</span> (NaN)
-  <span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"backgroundFillSymbol"</span>: <span class="hljs-keyword">null</span>
-  <span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
-  <span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
-  </code></pre>
+<span class="hljs-string">"normalizationType"</span>: <span class="hljs-string">"esriNormalizeNone"</span>
+<span class="hljs-string">"normalizationField"</span>: <span class="hljs-keyword">null</span>
+<span class="hljs-string">"normalizationTotal"</span>: <span class="hljs-keyword">null</span> (NaN)
+<span class="hljs-string">"defaultLabel"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"backgroundFillSymbol"</span>: <span class="hljs-keyword">null</span>
+<span class="hljs-string">"rotationType"</span>: <span class="hljs-string">"geographic"</span>
+<span class="hljs-string">"rotationExpression"</span>: <span class="hljs-string">""</span>
+</code></pre>
   <p>And for each item in the <code>classBreakInfos</code> list the defaults are </p>
   <pre><code><span class="hljs-string">"classMinValue"</span>: <span class="hljs-keyword">null</span> (NaN)
-  <span class="hljs-string">"label"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>
-  </code></pre>
+<span class="hljs-string">"label"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"description"</span>: <span class="hljs-string">""</span>
+</code></pre>
   <h2 id="symbols">Symbols</h2>
   <p>The renderers require a symbol that matches the geometry type of the feature
     being rendered. The JSON object for symbols is described in the
@@ -1130,59 +1132,59 @@
   <h3 id="simple-marker-symbol">Simple Marker Symbol</h3>
   <p>The minimal simple marker symbol (for points) is:</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSMS"</span>
-  }
-  </code></pre>
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSMS"</span>
+}
+</code></pre>
   <p>Which comes with the following default values:</p>
   <pre><code><span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSMSCircle"</span>
-  <span class="hljs-string">"color"</span>:  [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] <span class="hljs-comment">// Light Gray (82% white); Opaque</span>
-  <span class="hljs-string">"outline"</span>: <span class="hljs-literal">null</span>
-  <span class="hljs-string">"size"</span>: <span class="hljs-number">8.0</span>
-  <span class="hljs-string">"angle"</span>: <span class="hljs-number">0.0</span>
-  <span class="hljs-string">"xoffset"</span>: <span class="hljs-number">0.0</span>
-  <span class="hljs-string">"yoffset"</span>: <span class="hljs-number">0.0</span>
-  </code></pre>
+<span class="hljs-string">"color"</span>:  [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] <span class="hljs-comment">// Light Gray (82% white); Opaque</span>
+<span class="hljs-string">"outline"</span>: <span class="hljs-literal">null</span>
+<span class="hljs-string">"size"</span>: <span class="hljs-number">8.0</span>
+<span class="hljs-string">"angle"</span>: <span class="hljs-number">0.0</span>
+<span class="hljs-string">"xoffset"</span>: <span class="hljs-number">0.0</span>
+<span class="hljs-string">"yoffset"</span>: <span class="hljs-number">0.0</span>
+</code></pre>
   <p>With a minimal outline, it is:</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSMS"</span>,
-    <span class="hljs-attr">"outline"</span>: {}
-  }
-  </code></pre>
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSMS"</span>,
+  <span class="hljs-attr">"outline"</span>: {}
+}
+</code></pre>
   <p>The <code>outline</code> object comes with the following default values:</p>
   <pre><code><span class="hljs-string">"color"</span>: [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] // <span class="hljs-symbol">Light</span> <span class="hljs-symbol">Gray</span> (<span class="hljs-number">82</span><span class="hljs-comment">% white); Opaque</span>
-  <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span>
-  <span class="hljs-string">"width"</span>: <span class="hljs-number">1.0</span>
-  </code></pre>
+<span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span>
+<span class="hljs-string">"width"</span>: <span class="hljs-number">1.0</span>
+</code></pre>
   <p>The runtime SDK has the following simple marker symbol properties
     that cannot be set in JSON but have the following defaults:</p>
   <pre><code><span class="hljs-string">"angleAlignment"</span>: <span class="hljs-string">"AGSMarkerSymbolAngleAlignmentScreen"</span>
-  <span class="hljs-string">"leaderOffsetX"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
-  <span class="hljs-string">"leaderOffsetY"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
-  <span class="hljs-string">"outline"</span>: { <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span> }
-  </code></pre>
+<span class="hljs-string">"leaderOffsetX"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+<span class="hljs-string">"leaderOffsetY"</span>: <span class="hljs-number">0</span>.<span class="hljs-number">0</span>
+<span class="hljs-string">"outline"</span>: { <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span> }
+</code></pre>
   <h3 id="simple-line-symbol">Simple Line Symbol</h3>
   <p>The minimal simple line symbol is:</p>
   <pre><code>{
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSLS"</span>
-  }
-  </code></pre>
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriSLS"</span>
+}
+</code></pre>
   <p>Which comes with the following default values:</p>
   <pre><code><span class="hljs-string">"color"</span>: [<span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">211</span>, <span class="hljs-number">255</span>] // <span class="hljs-symbol">Light</span> <span class="hljs-symbol">Gray</span> (<span class="hljs-number">82</span><span class="hljs-comment">% white); Opaque</span>
-  <span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span>
-  <span class="hljs-string">"width"</span>: <span class="hljs-number">1.0</span>
-  </code></pre>
+<span class="hljs-string">"style"</span>: <span class="hljs-string">"esriSLSSolid"</span>
+<span class="hljs-string">"width"</span>: <span class="hljs-number">1.0</span>
+</code></pre>
   <p>The runtime SDK has the following simple line symbol properties
     that cannot be set in JSON but have the following defaults:</p>
   <pre><code><span class="hljs-string">"antialias"</span>: <span class="hljs-literal">false</span>
-  <span class="hljs-string">"markerPlacement"</span>: <span class="hljs-string">"AGSSimpleLineSymbolMarkerPlacementEnd"</span>
-  <span class="hljs-string">"markerStyle"</span>: <span class="hljs-string">"AGSSimpleLineSymbolMarkerStyleNone"</span>
-  </code></pre>
+<span class="hljs-string">"markerPlacement"</span>: <span class="hljs-string">"AGSSimpleLineSymbolMarkerPlacementEnd"</span>
+<span class="hljs-string">"markerStyle"</span>: <span class="hljs-string">"AGSSimpleLineSymbolMarkerStyleNone"</span>
+</code></pre>
   <h3 id="picture-marker-symbol">Picture Marker Symbol</h3>
   <p>The minimal picture marker symbol is:</p>
   <pre><code>{
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriPMS"</span>
-  }
-  </code></pre>
+<span class="hljs-attr">"type"</span>: <span class="hljs-string">"esriPMS"</span>
+}
+</code></pre>
   <p>But this is is useless, as there is no image to display.
     If you want to use a graphic image for your marker symbol, it is best to use
     the <code>contentType</code> and <code>imageData</code> properties to provide a base64 encoded image.
@@ -1190,21 +1192,21 @@
     must be available when running the app, or the image will not display.</p>
   <p>The minimal picture marker symbol comes with the following default values:</p>
   <pre><code><span class="hljs-string">"url"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"imageData"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"contentType"</span>: <span class="hljs-string">""</span>
-  <span class="hljs-string">"width"</span>: <span class="hljs-number">0.0</span>
-  <span class="hljs-string">"height"</span>: <span class="hljs-number">0.0</span>
-  <span class="hljs-string">"angle"</span>: <span class="hljs-number">0.0</span>
-  <span class="hljs-string">"xoffset"</span>: <span class="hljs-number">0.0</span>
-  <span class="hljs-string">"yoffset"</span>: <span class="hljs-number">0.0</span>
-  </code></pre>
+<span class="hljs-string">"imageData"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"contentType"</span>: <span class="hljs-string">""</span>
+<span class="hljs-string">"width"</span>: <span class="hljs-number">0.0</span>
+<span class="hljs-string">"height"</span>: <span class="hljs-number">0.0</span>
+<span class="hljs-string">"angle"</span>: <span class="hljs-number">0.0</span>
+<span class="hljs-string">"xoffset"</span>: <span class="hljs-number">0.0</span>
+<span class="hljs-string">"yoffset"</span>: <span class="hljs-number">0.0</span>
+</code></pre>
   <p>The runtime SDK has the following simple line symbol properties
     that cannot be set in JSON but have the following defaults:</p>
   <pre><code><span class="hljs-string">"angleAlignment"</span>: <span class="hljs-string">"AGSMarkerSymbolAngleAlignmentScreen"</span>
-  <span class="hljs-string">"leaderOffsetX"</span>: <span class="hljs-number">0.0</span>
-  <span class="hljs-string">"leaderOffsetY"</span>: <span class="hljs-number">0.0</span>
-  <span class="hljs-string">"opacity"</span>: <span class="hljs-number">1.0</span>
-  </code></pre>
+<span class="hljs-string">"leaderOffsetX"</span>: <span class="hljs-number">0.0</span>
+<span class="hljs-string">"leaderOffsetY"</span>: <span class="hljs-number">0.0</span>
+<span class="hljs-string">"opacity"</span>: <span class="hljs-number">1.0</span>
+</code></pre>
 
 </body>
 
