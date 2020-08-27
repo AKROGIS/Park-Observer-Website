@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Park Observer | Protocols</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+  </head>
+
+  <body>
+
+    <header>
+      <img alt="App Icon (moose in magnifying glass)" src="../images/app_icon_small.png">
+      <h1>Park Observer 2.0</h1>
+      <p>An offline spatial data collection app for iOS</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li ><a href="../index.html">Home</a></li>
+        <li><a href="../downloads2">Downloads</a></li>
+        <li class="active"><a href="../protocols2">Protocols</a></li>
+        <li><a href="../maps2">Maps</a></li>
+        <li><a href="../help2">Help</a></li>
+      </ul>
+     </nav>
+
+    <main>
+      <article>
+        <h2>Protocols</h2>
+
+        <p>Describe the protocol files available here.</p>
+
+        <table class="table table-hover">
+          <thead>
+            <tr><th>Protocol</th><th>Version</th><th>Date</th></tr>
+          </thead>
+          <tbody id="table-body" ></tbody>
+        </table>
+
+      </article>
+    </main>
+
+    <footer>
+      <p>Brought to you by the <a href="mailto:akro_gis_helpdesk@nps.gov">Alaska GIS Team</a>.</p>
+    </footer>
+
+    <script>
+      fetch('../protocols/list.json')
+        .then(response => response.json())
+        .then(data => {
+          var items = [];
+          data.forEach(item => {
+            items.push( '<tr><td><a href="'+item.url + '">'+item.name + '</a></td><td>'+ item.version +'</td><td>'+ item.date +'</td></tr>' );
+          });
+          document.getElementById('table-body').innerHTML = items.join("\n")
+        });
+    </script>
+
+  </body>
+</html>
