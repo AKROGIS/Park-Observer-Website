@@ -1,84 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Park Observer | Maps</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
-  </head>
 
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title>Park Observer | Maps</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
 
-    <header>
-      <img alt="App Icon (moose in magnifying glass)" src="../images/app2_icon_small.png">
-      <h1>Park Observer 2.0</h1>
-      <p>An offline spatial data collection app for iOS</p>
-    </header>
+<body>
 
-    <nav>
-      <ul>
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../downloads2">Downloads</a></li>
-        <li><a href="../protocols2">Protocols</a></li>
-        <li class="active"><a href="../maps2">Maps</a></li>
-        <li><a href="../help2">Help</a></li>
-      </ul>
-     </nav>
+  <header>
+    <img alt="App Icon (moose in magnifying glass)" src="../images/app2_icon_small.png">
+    <h1>Park Observer 2.0</h1>
+    <p>An offline spatial data collection app for iOS</p>
+  </header>
 
-    <main>
-      <article>
-        <h2>Maps</h2>
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../downloads2">Downloads</a></li>
+      <li><a href="../protocols2">Protocols</a></li>
+      <li class="active"><a href="../maps2">Maps</a></li>
+      <li><a href="../help2">Help</a></li>
+    </ul>
+  </nav>
 
-        <p>A basemap provides context for the survey and locating features.
-          It is in the esri tile package (*.tpk) format. Basemaps are
+  <main>
+    <article>
+      <h2>Maps</h2>
+
+      <p>A basemap provides context for the survey and locating features.
+        It is in the esri tile package (*.tpk) format. Basemaps are
         created in ArcGIS.</p>
-        
-        <p>How you load a map depends on if your are browsing this page on your mobile device,
-          or on a laptop/desktop computer.  Be aware tile packages can be quite large, and
+
+      <p>How you load a map depends on if your are browsing this page on your mobile device,
+        or on a laptop/desktop computer. Be aware tile packages can be quite large, and
         if you already have it on your PC it will be much faster to load it from the PC.</p>
-        
-        <p><strong>PC:</strong> Right click on the map you want, and save it to your your computer.
-          Then <a href="../help2/install.html#map-install">install</a> it on your device.</p>
-        
-        <p><strong>Device:</strong> Tap on the map you want. After it loads, tap on the share button, and
-          select Open With.. Park Observer. This will add the file to Park Observer and
-          launch Park Observer.</p>
 
-        <p>If you have a basemap that you would like to add to this list, please send a request to the contact below.</p>
-        
-        <table>
-          <thead>
-            <tr><th>Map</th><th>Details</th></tr>
-          </thead>
-          <tbody id="table-body" ></tbody>
-        </table>
+      <p><strong>PC:</strong> Right click on the map you want, and save it to your your computer.
+        Then <a href="../help2/install.html#map-install">install</a> it on your device.</p>
 
-      </article>
-    </main>
+      <p><strong>Device:</strong> Tap on the map you want. After it loads, tap on the share button, and
+        select Open With.. Park Observer. This will add the file to Park Observer and
+        launch Park Observer.</p>
 
-    <footer>
-      <p>Brought to you by the <a href="mailto:akro_gis_helpdesk@nps.gov">Alaska GIS Team</a>.</p>
-    </footer>
+      <p>If you have a basemap that you would like to add to this list, please send a request to the contact below.</p>
 
-    <script>
-      fetch('../maps/maplist.json')
-        .then(response => response.json())
-        .then(data => {
-          var items = [];
-          data.forEach(item => {
-            let img = "<div><img class='thumb' src='" + item.thumbnail + "'><p class='caption'>" + item.name + "</p></div>";
-            let size = Math.round(item.size / 1024.0 / 1024.0) + "MB";
-            let details = '<dl class="dl-horizontal">'
-            details = details + "<dt>Description</dt><dd>" + item.description + "</dd>";
-            details = details + "<dt>Author</dt><dd>" + item.author + "</dd>";
-            details = details + "<dt>Date</dt><dd>" + item.date + "</dd>";
-            details = details + "<dt>Size</dt><dd>" + size + "</dd>";
-            details = details + "</dl>";
-            items.push('<tr><td><a href="' + item.url + '">' + img + '</a></td><td>' + details + '</td></tr>');
-          });
-          document.getElementById('table-body').innerHTML = items.join("\n")
+      <table>
+        <thead>
+          <tr>
+            <th>Map</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+
+    </article>
+  </main>
+
+  <footer>
+    <p>Brought to you by the <a href="mailto:akro_gis_helpdesk@nps.gov">Alaska GIS Team</a>.</p>
+  </footer>
+
+  <script>
+    fetch('../maps/maplist.json')
+      .then(response => response.json())
+      .then(data => {
+        var items = [];
+        data.forEach(item => {
+          let img = "<div><img class='thumb' src='" + item.thumbnail + "'><p class='caption'>" + item.name + "</p></div>";
+          let size = Math.round(item.size / 1024.0 / 1024.0) + "MB";
+          let details = '<dl class="dl-horizontal">'
+          details = details + "<dt>Description</dt><dd>" + item.description + "</dd>";
+          details = details + "<dt>Author</dt><dd>" + item.author + "</dd>";
+          details = details + "<dt>Date</dt><dd>" + item.date + "</dd>";
+          details = details + "<dt>Size</dt><dd>" + size + "</dd>";
+          details = details + "</dl>";
+          items.push('<tr><td><a href="' + item.url + '">' + img + '</a></td><td>' + details + '</td></tr>');
         });
-    </script>
+        document.getElementById('table-body').innerHTML = items.join("\n")
+      });
+  </script>
 
-  </body>
+</body>
+
 </html>

@@ -1,113 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Park Observer | Download</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
-  </head>
 
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title>Park Observer | Download</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
 
-    <header>
-      <img alt="App Icon (moose in magnifying glass)" src="../images/app2_icon_small.png">
-      <h1>Park Observer 2.0</h1>
-      <p>An offline spatial data collection app for iOS</p>
-    </header>
+<body>
 
-    <nav>
-      <ul>
-        <li ><a href="../index.html">Home</a></li>
-        <li class="active"><a href="../downloads2">Downloads</a></li>
-        <li><a href="../protocols2">Protocols</a></li>
-        <li><a href="../maps2">Maps</a></li>
-        <li><a href="../help2">Help</a></li>
-      </ul>
-     </nav>
+  <header>
+    <img alt="App Icon (moose in magnifying glass)" src="../images/app2_icon_small.png">
+    <h1>Park Observer 2.0</h1>
+    <p>An offline spatial data collection app for iOS</p>
+  </header>
 
-    <main>
-      <article>
-        <h2>Downloads</h2>
-    
-        <p>If you are viewing this page on your mobile device, you can try to
-          <a href="itms-services://?action=download-manifest&url=https://akrgis.nps.gov/observer/downloads2/ParkObserver2.plist">install the latest version</a>
-          over the Arrowhead WiFi.
-          If that doesn't work, or if your device is not on the Arrowhead WiFi, then please see the
-          <a href="../help2/install.html">Offline Installation Instruction.</a></p>
-    
-        <p>Please install the most current version of Park Observer.
-          Previous versions are provided for unusual situations may no longer work.</p>
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li class="active"><a href="../downloads2">Downloads</a></li>
+      <li><a href="../protocols2">Protocols</a></li>
+      <li><a href="../maps2">Maps</a></li>
+      <li><a href="../help2">Help</a></li>
+    </ul>
+  </nav>
 
-        <p>To check your version of Park Observer tap on the menu button on the top (or bottom) left side of
-          your device when Park Observer is running. The version should
-          be shown at the bottom of the navigation list. If not tap the back button
-          at the top of the list until you find it.</p>
+  <main>
+    <article>
+      <h2>Downloads</h2>
 
-        <p class="warning">All versions of Park Observer are signed with an expiring certificate,
-          and will no longer run when the certificate expires.</p>
+      <p>If you are viewing this page on your mobile device, you can try to
+        <a
+          href="itms-services://?action=download-manifest&url=https://akrgis.nps.gov/observer/downloads2/ParkObserver2.plist">install
+          the latest version</a>
+        over the Arrowhead WiFi.
+        If that doesn't work, or if your device is not on the Arrowhead WiFi, then please see the
+        <a href="../help2/install.html">Offline Installation Instruction.</a></p>
 
-        <p>You will need an iPad with at least iOS 13.0, However the most recent version of iOS is recommended.
-          Development is done with the most recent version of iOS, and there is usually no
-          testing done on older versions of iOS.</p>
-    
-        <p>See the <a href="changelog.html">Change Log</a> for a complete list of changes at each version.
-        </p>
-    
-        <section>
-          <h3>Current Release</h3>
-    
-          <ul id="current-version-list" class="version-list">
-            <li>
-              <p class='version-heading'>Poz2fgdb</p>
-              <p>An ArcGIS toolbox to convert an archived survey to file geodatabase.</p>
-              <p><strong>Released: </strong><em>2020-08-24</em>
-              <p><a href="../downloads2/ParkObserver.pyt">Download</a></p>
-            </li>
-          </ul>
-        </section>
-    
-        <section>
-          <h3>All Releases</h3>
-    
-          <ul id="all-versions-list" class="version-list">
-            <li>
-              <p class='version-heading'>Version: 1.x</p>
-              <p>A separate list of older versions.</p>
-              <p><a href="../downloads">List</a></p>
-            </li>
-          </ul>
-        </section>
-    
-      </article>
-    </main>
+      <p>Please install the most current version of Park Observer.
+        Previous versions are provided for unusual situations may no longer work.</p>
 
-    <footer>
-      <p>Brought to you by the <a href="mailto:akro_gis_helpdesk@nps.gov">Alaska GIS Team</a>.</p>
-    </footer>
+      <p>To check your version of Park Observer tap on the menu button on the top (or bottom) left side of
+        your device when Park Observer is running. The version should
+        be shown at the bottom of the navigation list. If not tap the back button
+        at the top of the list until you find it.</p>
 
-    <script>
-      function format(item) {
-        let title = "<p class='version-heading'> Version: " + item.version + "</p>";
-        let warning = item.warning ? '<span class="warning">' + item.warning + '</span>' : '';
-        let description = item.description || warning ? '<p>' + item.description + ' ' + warning + '</p>' : '';
-        let dates = '<p><strong>Released: </strong><em>' + item.published + '</em> -- <strong>Expires: </strong><em>' + item.expiration + '</em></p>';
-        let download = '<a href="' + item.url +'">Download</a>';
-        let details = item.details ? '<a href="' + item.details + '">Details</a>' : '';
-        let sep = download && details ? ' | ' : ''
-        return '<li>' + title + description + dates + '<p>' + download + sep + details + '</p></li>';
-      }
-      fetch('versionlist.json')
-        .then(response => response.json())
-        .then(data => {
-          var items = [];
-          data.forEach(item => {
-            var li = document.createElement("li");
-            items.push( format(item) );
-          });
-          document.getElementById('current-version-list').insertAdjacentHTML('afterbegin', items[0])
-          document.getElementById('all-versions-list').insertAdjacentHTML('afterbegin', items.join("\n"))
+      <p class="warning">All versions of Park Observer are signed with an expiring certificate,
+        and will no longer run when the certificate expires.</p>
+
+      <p>You will need an iPad with at least iOS 13.0, However the most recent version of iOS is recommended.
+        Development is done with the most recent version of iOS, and there is usually no
+        testing done on older versions of iOS.</p>
+
+      <p>See the <a href="changelog.html">Change Log</a> for a complete list of changes at each version.
+      </p>
+
+      <section>
+        <h3>Current Release</h3>
+
+        <ul id="current-version-list" class="version-list">
+          <li>
+            <p class='version-heading'>Poz2fgdb</p>
+            <p>An ArcGIS toolbox to convert an archived survey to file geodatabase.</p>
+            <p><strong>Released: </strong><em>2020-08-24</em>
+            <p><a href="../downloads2/ParkObserver.pyt">Download</a></p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>All Releases</h3>
+
+        <ul id="all-versions-list" class="version-list">
+          <li>
+            <p class='version-heading'>Version: 1.x</p>
+            <p>A separate list of older versions.</p>
+            <p><a href="../downloads">List</a></p>
+          </li>
+        </ul>
+      </section>
+
+    </article>
+  </main>
+
+  <footer>
+    <p>Brought to you by the <a href="mailto:akro_gis_helpdesk@nps.gov">Alaska GIS Team</a>.</p>
+  </footer>
+
+  <script>
+    function format(item) {
+      let title = "<p class='version-heading'> Version: " + item.version + "</p>";
+      let warning = item.warning ? '<span class="warning">' + item.warning + '</span>' : '';
+      let description = item.description || warning ? '<p>' + item.description + ' ' + warning + '</p>' : '';
+      let dates = '<p><strong>Released: </strong><em>' + item.published + '</em> -- <strong>Expires: </strong><em>' + item.expiration + '</em></p>';
+      let download = '<a href="' + item.url + '">Download</a>';
+      let details = item.details ? '<a href="' + item.details + '">Details</a>' : '';
+      let sep = download && details ? ' | ' : ''
+      return '<li>' + title + description + dates + '<p>' + download + sep + details + '</p></li>';
+    }
+    fetch('versionlist.json')
+      .then(response => response.json())
+      .then(data => {
+        var items = [];
+        data.forEach(item => {
+          var li = document.createElement("li");
+          items.push(format(item));
         });
-    </script>
+        document.getElementById('current-version-list').insertAdjacentHTML('afterbegin', items[0])
+        document.getElementById('all-versions-list').insertAdjacentHTML('afterbegin', items.join("\n"))
+      });
+  </script>
 
-  </body>
+</body>
+
 </html>

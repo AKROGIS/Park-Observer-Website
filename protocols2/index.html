@@ -1,77 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Park Observer | Protocols</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
-  </head>
 
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title>Park Observer | Protocols</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
 
-    <header>
-      <img alt="App Icon (moose in magnifying glass)" src="../images/app2_icon_small.png">
-      <h1>Park Observer 2.0</h1>
-      <p>An offline spatial data collection app for iOS</p>
-    </header>
+<body>
 
-    <nav>
-      <ul>
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../downloads2">Downloads</a></li>
-        <li class="active"><a href="../protocols2">Protocols</a></li>
-        <li><a href="../maps2">Maps</a></li>
-        <li><a href="../help2">Help</a></li>
-      </ul>
-     </nav>
+  <header>
+    <img alt="App Icon (moose in magnifying glass)" src="../images/app2_icon_small.png">
+    <h1>Park Observer 2.0</h1>
+    <p>An offline spatial data collection app for iOS</p>
+  </header>
 
-    <main>
-      <article>
-        <h2>Protocols</h2>
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../downloads2">Downloads</a></li>
+      <li class="active"><a href="../protocols2">Protocols</a></li>
+      <li><a href="../maps2">Maps</a></li>
+      <li><a href="../help2">Help</a></li>
+    </ul>
+  </nav>
 
-        <p>A protocol file defines the features you will survey and their attributes.
-          It also defines additional characteristics of the survey such as how locations
-          are collected. It is a text file that can be read by clicking on one of the links
-          below. See the <a href="../specs/Protocol_Specification_V2.html">protocol specifications</a>
-          to learn how to read a protocol file.</p>
-        
-        <p>How you load a file depends on if your are browsing this page on your mobile device,
-          or on a laptop/desktop computer.</p>
-        
-        <p><strong>PC:</strong> Right click on the protocol you want, and save it to your your computer.
-          Then <a href="../help2/install.html#protocol-install">install</a> it on your device.</p>
-        
-        <p><strong>Device:</strong> Tap on the protocol you want. After it loads, tap on the share button, and
-          select Open With.. Park Observer. This will add the file to Park Observer and
-          launch Park Observer.</p>
+  <main>
+    <article>
+      <h2>Protocols</h2>
 
-        <p>If you have a basemap that you would like to add to this list, please send a request to the contact below.</p>
+      <p>A protocol file defines the features you will survey and their attributes.
+        It also defines additional characteristics of the survey such as how locations
+        are collected. It is a text file that can be read by clicking on one of the links
+        below. See the <a href="../specs/Protocol_Specification_V2.html">protocol specifications</a>
+        to learn how to read a protocol file.</p>
 
-        <table>
-          <thead>
-            <tr><th>Protocol</th><th>Version</th><th>Date</th></tr>
-          </thead>
-          <tbody id="table-body" ></tbody>
-        </table>
+      <p>How you load a file depends on if your are browsing this page on your mobile device,
+        or on a laptop/desktop computer.</p>
 
-      </article>
-    </main>
+      <p><strong>PC:</strong> Right click on the protocol you want, and save it to your your computer.
+        Then <a href="../help2/install.html#protocol-install">install</a> it on your device.</p>
 
-    <footer>
-      <p>Brought to you by the <a href="mailto:akro_gis_helpdesk@nps.gov">Alaska GIS Team</a>.</p>
-    </footer>
+      <p><strong>Device:</strong> Tap on the protocol you want. After it loads, tap on the share button, and
+        select Open With.. Park Observer. This will add the file to Park Observer and
+        launch Park Observer.</p>
 
-    <script>
-      fetch('../protocols/list.json')
-        .then(response => response.json())
-        .then(data => {
-          var items = [];
-          data.forEach(item => {
-            items.push( '<tr><td><a href="'+item.url + '">'+item.name + '</a></td><td>'+ item.version +'</td><td>'+ item.date +'</td></tr>' );
-          });
-          document.getElementById('table-body').innerHTML = items.join("\n")
+      <p>If you have a basemap that you would like to add to this list, please send a request to the contact below.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Protocol</th>
+            <th>Version</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+
+    </article>
+  </main>
+
+  <footer>
+    <p>Brought to you by the <a href="mailto:akro_gis_helpdesk@nps.gov">Alaska GIS Team</a>.</p>
+  </footer>
+
+  <script>
+    fetch('../protocols/list.json')
+      .then(response => response.json())
+      .then(data => {
+        var items = [];
+        data.forEach(item => {
+          items.push('<tr><td><a href="' + item.url + '">' + item.name + '</a></td><td>' + item.version + '</td><td>' + item.date + '</td></tr>');
         });
-    </script>
+        document.getElementById('table-body').innerHTML = items.join("\n")
+      });
+  </script>
 
-  </body>
+</body>
+
 </html>
