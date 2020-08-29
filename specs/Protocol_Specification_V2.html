@@ -83,6 +83,7 @@
     <li><a href="#-gps_interval-"><code>gps_interval</code></a> (o)(v2)</li>
     <li><a href="#-tracklogs-"><code>tracklogs</code></a> (o)(v2)</li>
     <li><a href="#-transects-"><code>transects</code></a> (o)(v2)</li>
+    <li><a href="#-transect-label-"><code>transect-label</code></a> (o)(v2)</li>
     <li><a href="#-mission-"><code>mission</code></a> (o)</li>
     <li><a href="#-features-"><code>features</code></a></li>
     <li><a href="#-csv-"><code>csv</code></a> (o)</li>
@@ -154,8 +155,7 @@
     application is recording <strong>but not</strong> observing (i.e. off-transect).</p>
   <p>This property is ignored in versions of Park Observer before 0.9.8b.</p>
   <h1 id="-status_message_fontsize-"><code>status_message_fontsize</code></h1>
-  <p>This property is optional. If provided it must be a positive number.
-    If omitted or invalid it will default to <code>16.0</code>.
+  <p>This property is optional. If provided it must be a positive number. The default is <code>16.0</code>.
     This property specifies the size (in points, i.e. 1/72 of an inch) of
     the <code>notobserving</code> and <code>observing</code> text.</p>
   <p>This property is ignored in versions of Park Observer before 1.2.0.
@@ -215,6 +215,13 @@
       feature&#39;s
       <code>allow_off_transect_observations</code> property.</li>
   </ul>
+  <h1 id="-transect-label-"><code>transect-label</code></h1>
+  <p>This property is optional. If provided it must be a sting. The default is <code>&quot;Transect&quot;</code>.
+    Other appropriate choices might be <code>&quot;Observing&quot;</code>, <code>&quot;Survey&quot;</code>, or
+    <code>&quot;Trail&quot;</code>. This text is
+    used with <code>▶️</code> as the label in the start/stop observing button.
+    Also, the attribute editor will be titled <code>{transect-label} Info</code> e.g. <code>Survey Info</code>.
+    instead of <code>Mission Properties</code> as in previous versions.</p>
   <h1 id="-mission-"><code>mission</code></h1>
   <p>This property is optional. If provided it must be an object. There is no default.
     This object describes the attributes and symbology of the survey mission.
@@ -625,7 +632,7 @@
     <li><a href="#-feature-allow_off_transect_observations-"><code>allow_off_transect_observations</code></a> (o)</li>
     <li><a href="#-feature-locations-"><code>locations</code></a></li>
     <li><a href="#-feature-symbology-"><code>symbology</code></a> (o)</li>
-    <li><a href="#-feature-label-"><code>label</code></a></li>
+    <li><a href="#-feature-label-"><code>label</code></a> (o)</li>
   </ul>
   <h2 id="-feature-name-"><code>feature.name</code></h2>
   <p>This property is required and must be a non-empty text string.
