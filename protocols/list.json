@@ -35,10 +35,10 @@
 }
 ,
 {
-  "name":"Fall Moose Comp",
+  "name":"DENA Caribou Survey",
   "version":1.0,
-  "date":"2018-10-26",
-  "url":"https://akrgis.nps.gov/observer/protocols/yuch_fall_moose_comp.obsprot"
+  "date":"2020-06-05",
+  "url":"https://akrgis.nps.gov/observer/protocols/DENA_Caribou.obsprot"
 }
 ,
 {
@@ -105,13 +105,6 @@
 }
 ,
 {
-  "name":"DENA Caribou Survey",
-  "version":1.0,
-  "date":"2020-06-05",
-  "url":"https://akrgis.nps.gov/observer/protocols/DENA_Caribou.obsprot"
-}
-,
-{
   "name":"SEAN KIMU Protocol",
   "version":3.0,
   "date":"2019-06-06",
@@ -156,6 +149,13 @@
   "version":1.0,
   "date":"2019-04-24",
     "url":"https://akrgis.nps.gov/observer/protocols/bear_transects.obsprot"
+}
+,
+{
+  "name":"YUCH Fall Moose Comp",
+  "version":1.0,
+  "date":"2018-10-26",
+  "url":"https://akrgis.nps.gov/observer/protocols/yuch_fall_moose_comp.obsprot"
 }
 ,
 {
