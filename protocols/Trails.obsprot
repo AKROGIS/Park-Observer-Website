@@ -1,0 +1,105 @@
+{
+  "meta-name":"NPS-Protocol-Specification",
+  "meta-version":2,
+  "name":"Sample Trail Survey",
+  "version": 1.0,
+  "date":"2020-09-03",
+  "description":"This is a simple example of a trail survey. (Built for a Demonstration of Park Observer 2.0)",
+  "transects": "optional",
+  "transect-label": "Trail",
+  "notobserving":"Off Trail",
+  "mission":{
+    "attributes":[
+      {"name":"Observer",   "type":700},
+      {"name":"Name",       "type":700},
+      {"name":"Material",   "type":700},
+      {"name":"Width",      "type":100},
+      {"name":"Steps",      "type":800},
+      {"name":"Bridge",     "type":800},
+      {"name":"Accessible", "type":800},
+      {"name":"Condition",  "type":700},
+      {"name":"Comments",   "type":700}
+    ],
+    "dialog":{ "sections":[ { "elements":[
+      {"type":"QEntryElement",     "bind":"textValue:Observer",     "title":"Observer",    "placeholder":"Initials", "autocorrectionType":"No", "autocapitalizationType":"AllCharacters"},
+      {"type":"QEntryElement",     "bind":"textValue:Name",         "title":"Name:",       "placeholder":"Trail Name", "autocorrectionType":"No", "autocapitalizationType":"Words"},
+      {"type":"QSegmentedElement", "bind":"selectedItem:Material",  "title":"Material",    "items":["Gravel", "Asphalt", "Earth", "Wood", "Other"]},
+      {"type":"QIntegerElement",   "bind":"numberValue:Width",      "title":"Width (ft)",  "minimumValue":1, "maximumValue":12}, 
+      {"type":"QBooleanElement",   "bind":"boolValue:Steps",        "title":"Steps", "boolValue": 0},
+      {"type":"QBooleanElement",   "bind":"boolValue:Bridge",       "title":"Bridge", "boolValue": 0},
+      {"type":"QBooleanElement",   "bind":"boolValue:Accessible",   "title":"Accessible"},
+      {"type":"QSegmentedElement", "bind":"selectedItem:Condition", "title":"Condition",   "items":["New", "Good", "Fair", "Poor", "Failed"]},
+      {"type":"QMultilineElement", "bind":"textValue:Comments",     "title":"Notes"}
+    ] } ] }
+  },
+  "features":[
+    {
+      "name":"Bench",
+      "attributes":[
+        {"name":"Material",   "type":700},
+        {"name":"Condition",  "type":700},
+        {"name":"Comments",   "type":700}
+      ],
+      "dialog":{ "sections":[ { "elements":[
+        {"type":"QSegmentedElement", "bind":"selectedItem:Material",  "title":"Material",       "items":["Wood", "Plastic", "Metal", "Other"]},
+        {"type":"QSegmentedElement", "bind":"selectedItem:Condition", "title":"Condition",      "items":["New", "Good", "Fair", "Poor", "Failed"]},
+        {"type":"QMultilineElement", "bind":"textValue:Comments",     "title":"Notes"}
+      ] } ] },
+      "locations":[ {"type":"gps"}, {"type":"mapTouch"} ],
+      "symbology":{ "color": "#F8DC70", "size": 15 },
+      "label": { "definition": {
+        "labelExpression":  "\"Bench\"",
+        "symbol": { "type": "esriTS", "font": {"size": 12} }
+      }}
+    },
+    {
+      "name":"Culvert",
+      "attributes":[
+        {"name":"Material",   "type":700},
+        {"name":"Size",       "type":100},
+        {"name":"Condition",  "type":700},
+        {"name":"Comments",   "type":700}
+      ],
+      "dialog":{ "sections":[ { "elements":[
+        {"type":"QSegmentedElement", "bind":"selectedItem:Material",  "title":"Material",          "items":["Metal", "Plastic", "Other"]},
+        {"type":"QIntegerElement",   "bind":"numberValue:Size",       "title":"Diameter (inches)", "minimumValue":6, "maximumValue":48}, 
+        {"type":"QSegmentedElement", "bind":"selectedItem:Condition", "title":"Condition",         "items":["New", "Good", "Fair", "Poor", "Failed"]},
+        {"type":"QMultilineElement", "bind":"textValue:Comments",     "title":"Notes"}
+      ] } ] },
+      "locations":[ {"type":"gps"}, {"type":"mapTouch"} ],
+      "symbology":{ "color": "#4CAF50", "size": 15 },
+      "label": { "definition": {
+        "labelExpression":  "\"Culvert\"",
+        "symbol": { "type": "esriTS", "font": {"size": 12} }
+      }}
+    },
+    {
+      "name":"Sign",
+      "locations":[ {"type":"gps"}, {"type":"mapTouch"} ],
+      "symbology":{ "color": "#FF9800", "size": 15 },
+      "label": { "definition": {
+        "labelExpression":  "\"Sign\"",
+        "symbol": { "type": "esriTS", "font": {"size": 12} }
+      }}
+    },
+    {
+      "name":"Other",
+      "attributes":[
+        {"name":"Improvement", "type":700, "required": true},
+        {"name":"Condition",   "type":700},
+        {"name":"Comments",    "type":700}
+      ],
+      "dialog":{ "sections":[ { "elements":[
+        {"type":"QRadioElement",     "bind":"selectedItem:Improvement", "title":"Type",      "items":["Drain", "Stile", "Swale", "Wall", "Water Bar", "Other"]},
+        {"type":"QSegmentedElement", "bind":"selectedItem:Condition",   "title":"Condition", "items":["New", "Good", "Fair", "Poor", "Failed"]},
+        {"type":"QMultilineElement", "bind":"textValue:Comments",   "title":"Description"}
+      ] } ] },
+      "locations":[ {"type":"gps"}, {"type":"mapTouch"} ],
+      "symbology":{ "color": "#2196F3", "size": 15 },
+      "label": { "definition": {
+        "labelExpression":  "[Improvement]",
+        "symbol": { "type": "esriTS", "font": {"size": 12} }
+      }}
+    }
+  ]
+}
