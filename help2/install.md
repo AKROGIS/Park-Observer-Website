@@ -230,7 +230,7 @@ choice at any time in the settings application, and Park Observer should respond
 you may lose functionality.
 
 At this point you might want to [load your own protocols and basemaps](#add-files),
-or begin playing with the sample survey (See [Getting Started](link) for help).
+or begin playing with the sample survey (See [Getting Started](user_guide.html) for help).
 
 
 # Adding Files to Park Observer
@@ -243,8 +243,8 @@ The process is the same for
 * Existing survey archive (*.poz) files
 * Survey protocol (*.obsprot) files
 
-You can download [protocols](link) and [basemaps](link) from this website, 
-or you can make your own [protocols](link) and [basemaps](link).  The files you
+You can download [protocols](../protocols2) and [basemaps](../maps2) from this website, 
+or you can make your own [protocols](index.html#new-protocol) and [basemaps](index.html#new-map).  The files you
 wish to add to Park Observer will need to be on your PC.
 
 To add any of these file to Park Observer
