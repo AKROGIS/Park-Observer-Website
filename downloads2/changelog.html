@@ -31,12 +31,28 @@
       <h2>Change Log</h2>
 
       <section id="beta4">
-        <h3>2020-??: 2.0.0.beta4</h3>
+        <h3>2020-09-04: 2.0.0.beta4</h3>
         <ul>
-          <li>Added an option in the protocol file to specify label for the start/stop observing button (i.e. "Survey", "Transect").</li>
-          <li>Replaced "Mission Properties" with "{observing label} Info", e.g. "Survey Info" in attribute editor.</li>
+          <li>Added an option in the protocol file to specify label for the start/stop observing button (i.e.
+            &quot;Survey&quot;, &quot;Transect&quot;).</li>
+          <li>Replaced &quot;Mission Properties&quot; with &quot;{observing label} Info&quot;, e.g. &quot;Survey
+            Info&quot; in attribute editor.</li>
           <li>Protocol property dialog.title was not used, so it is now optional in the protocol file.</li>
-          <li>Fixed bug: protocol feature.label.field must <strong>case_sensitive</strong> match one of feature.attribute.name.</li>
+          <li>Fixed bug: protocol feature.label.field must <strong>case_sensitive</strong> match one of
+            feature.attribute.name.</li>
+          <li>Allow protocol with label definition and no attributes (label could be a constant).</li>
+          <li>Removed second vertical accuracy line from GPS details form.</li>
+          <li>Do not show mission property button or editor when no mission or mission.attributes defined in protocol.</li>
+          <li>Fixed bug where gps points, mission property points and track logs did not draw on map when there was no
+            mission defined in protocol.</li>
+          <li>Fixed bug where features with no dialog were not added to map at map touch (when multiple allowed).</li>
+          <li>Fixed bug where protocol date in list was 1 day earlier than the date in the protocol details view.</li>
+          <li>Fixed bug where totalizer shows ?? for field value for the first tracklog in a survey even after setting
+            the field value.</li>
+          <li>Fixed bug where the info message &quot;touch map to move observation&quot; disappears when track logging.</li>
+          <li>Added capability to have multiple error/warning and info messages at the same time.</li>
+          <li>Improve contrast in error(red), warning(yellow), and info(green) messages.</li>
+          <li>Fixed text alignment in <em>Add feature at GPS button</em> with larger (accessible) fonts</li>
         </ul>
       </section>
 
@@ -53,16 +69,12 @@
           <li>Disable the save button when there are no changes.</li>
           <li>Fixed a bug where mission properties at touch location were incorrectly drawn at the gps location.</li>
           <li>Now if you tap to select multiple features, and then delete one, it is removed from the list of selected
-            features.
-          </li>
+            features.</li>
           <li>The undo button while editing the survey name was confusing. It is now a &quot;clear text&quot; button and
-            a
-            new undo
-            button was added.</li>
+            a new undo button was added.</li>
           <li>Made the totalizer and info banner more visible</li>
           <li>Made the totalizer with fields behave like the old Park Observer (shows total for entire survey not just
-            current track
-            log)</li>
+            current track log)</li>
           <li>The feature selector/presenter now shows the feature id in the title.</li>
           <li>Added support for the gps_interval property in the protocol file</li>
           <li>Provided user settings for GPS filters: accuracy, distance, and duration.</li>
@@ -73,12 +85,10 @@
         <h3>2020-08-14: 2.0.0.beta2</h3>
         <ul>
           <li>Fixed bugs in totalizer.</li>
-          <li>Fixed bug with disabling background tracklogging.</li>
+          <li>Fixed bug with disabling background track logging.</li>
           <li>Added alarm interval to settings.</li>
-          <li>Added &quot;required&quot; property to attributes. UI Forces user to provide non-null attribute value.
-          </li>
-          <li>Added &quot;azimuth/distance&quot; option to location methods (angle is relative to north, not course).
-          </li>
+          <li>Added &quot;required&quot; property to attributes. UI Forces user to provide non-null attribute value.</li>
+          <li>Added &quot;azimuth/distance&quot; option to location methods (angle is relative to north, not course).</li>
           <li>Fixed bugs with angle/distance forms (start with null, make required and validate).</li>
           <li>App shows a warning when angle is behind you (based on course; only for angle/distance).</li>
           <li>Made the <a href="https://github.com/regan-sarwas/park-observer">github repo</a> public.</li>
@@ -89,8 +99,7 @@
           <li>Added form showing details/structure of survey protocol.</li>
           <li>Added form showing details of the survey.</li>
           <li>Survey protocol files and archives can now be opened with Park Observer from email and files app (however
-            there is no UI yet).
-          </li>
+            there is no UI yet).</li>
         </ul>
       </section>
 
