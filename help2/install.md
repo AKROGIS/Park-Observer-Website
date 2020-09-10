@@ -83,6 +83,7 @@ you should see a screen similar to the following:
 
 ![Default iTunes Window](./install_images/win_itunes.png)
 
+
 # Connecting your device to iTunes
 
 *If you get any errors in this process and you cannot see your device in iTunes,
