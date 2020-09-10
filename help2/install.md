@@ -1,103 +1,87 @@
 # Installing iTunes on your PC
 
+iTunes is a software application that runs on the PC to allow you to connect to your iOS device.
+To use it with Park Observer, you do not need an Apple account, or access to the App Store,
+or any other online services. The functionality you need has nothing to do with music.
+
 **BE WARNED:** Getting iTunes installed and working correctly with the NPS/DOI software settings
 can be the most troublesome part of working with Park Observer.  Please read these instructions
 carefully.  The biggest source of trouble is using a version of iTunes that is incompatible with
 our network -- it may run, but doesn't connect correctly to your device, or does not allow
 application installation or file transfer.
 
+**DO NOT install iTunes from the Apple website.** The Apple version 
+is incompatible with the NPS settings for Windows 10.
 
-iTunes is a software application that runs on the PC to allow you to connect to your iOS device.
-You do not need an Apple Account, the Apple store, the music store or any thing else on-line.
-The functionality you need has nothing to do with music, so ignore everything you might know about iTunes.
+If you already have iTunes installed, you can try to 
+[connect your device to iTunes](#connect-device). If you are unable to connect to your
+device, or unable to [install Park Observer](#install-app), or
+[Add Files to Park Observer](#add-files), then
+uninstall iTunes, and install the latest version per these instructions.
 
 These instructions were written on September 2, 2020 with the following versions of software:
 
   * Windows 10 version 1809
   * iTunes 12.10.8.5
 
-It is likely that these instructions will work with earlier versions of windows 10,
-but not earlier versions of iTunes, so don't bother trying.
-They may work with newer versions as well.  If not, please contact us (see below),
-and let us know which versions are not working for you.  We
-will investigate and update these instructions as necessary.
+It is likely that these instructions will work with other versions if installed per the
+following instructions. If these instructions do not work for you, 
+please let us know what problems you are having, as well as which version of Windows
+and iTunes you are using.  We will investigate and update these instructions as necessary.
 
-To check your windows version:
-  - click the start menu
-  - type winver
-  - press the enter key
+### Launch the Windows Store
 
-[image](start menu)
-[image](winver)
+  - Click the start menu ![Windows Start Menu](./install_images/win_startmenu.png)
+  - Type `store`
+  - Press the Enter key
 
-To check 
-Do you have itunes already installed?
- - click the windows icon, type itunes
-   - if you see an option to download/install from web, you do not have it installed
-  - If you have itunes installed
-    - uninstall it
-      - control panel
-        - program and features, sort by publisher (look for Apple and remove all Apple software)
-    - check:
-     - you only need to do the following if your version of itunes does not work correctly
-     - you should test before uninstalling and reinstalling
+You will need to log into the Windows Store with your Microsoft Office 365
+account. This account is tied to your NPS network account, so you may log
+automatically.  If not you might be prompted with something like this:
 
-DO NOT Install itunes from the Apple website, This requires admin privileges, and is incompatible
-with the NPS settings for windows.
+![Windows Store Login1](./install_images/win_store_signin1.png)
 
-Check the software center (start menu, type software, then return).  You should be on the VPN to
-see all the applications available in the software center.  If iTunes is in the
-list of Applications, then try installing from the software center.  If it is not there
-then **disconnect from the VPN** and install from the Windows Store. You NPS username is now registered with the
-windows store by virtue of our new (outlook) email system.  You do not need to be on the
-VPN to install from the windows store.
+or something like this:
 
-If you are on the VPN, you may be able to launch the 
+![Windows Store Login2](./install_images/win_store_signin2.png)
 
-Click the start menu, type store, then return  (This does not work when on the VPN)
+Clicking `Continue` or `Next` will take you the DOI authentication page:
+You will need to enter you network password (not your PIV PIN, but the one you have to change every 2 months)
 
-If you have logged in to the windows tore, you will be taken directly to the list of 
-DOI applications. If not, you will need to log in with your network username (email address)
-This will take you to the "Organizations sign on page"
+![DOI Signin 1](./install_images/win_org_signin1.png)
 
-Scroll down and look for the option to sign in with you PIV card.  If not there, then
-sign in with your windows credentials and network password (This is the one you change every
-2 months, and hardly ever use)  Enter the username and password, then press next.  This should
-say "For security reasons we require additional information to verify your account"  Scroll down
-and click the option "Sign in with PIV card".  Make sure your card is in the computer and enter you
-PIN when prompted.
+then click `Sign In`.
+You will then be told you need to provide additional information,
+Scroll down and click on `Sign in with PIV Card`
 
-You should now be logged into Microsoft Store and see the list of DOI approved Apps.
-iTunes is in that list.  Click on the iTunes icon to install it.
+![DOI Signin 2](./install_images/win_org_signin2.png)
 
-When the download is complete you will get a notification in the lower right.  click it to launch itunes
+Make sure your PIV card is inserted in the computer, and enter 
+your PIN when prompted.
+When you are logged into the Windows Store you should see something like the following:
 
-Accept the license agreement and itunes should launch.
+![Windows Store](./install_images/win_windows_store.png)
 
-Click **No Thanks** on the welcome screen
-[image]
+### Download iTunes
 
-Ignore the options to go to or sign in the the iTunes store.
+In the Windows Store, click on the iTunes option, and the download will begin.
 
-You do not need to log into the Apple Store, the iTunes store, or any other service
+![iTunes Downloading](./install_images/win_itunes_downloading.png)
 
+When the download is complete you will get a notification in the lower right.
 
+![iTunes Downloaded](./install_images/win_itunes_download_complete.png)
 
+Click the `Launch` button. Accept the license agreement and iTunes should launch.
 
+Click `No Thanks` on the welcome screen
 
-Use your browser to login to the windows store website (https://www.microsoft.com/en-us/store/apps/windows)
-You may log in automatically if you are using the same browsers that is logged into teams or outlook.
+![iTunes Welcome](./install_images/win_itunes_welcome.png)
 
-If you are not signed in, use the sign in button at the top right
+Ignore the options to go to or sign in the the iTunes store. You do not need to log into the Apple Store, the iTunes store, or any other service.  When iTunes finishes launching,
+you should see a screen similar to the following:
 
-Then sign in with yor network account  
-
-
-Search for [image] and (link) and repair
-
-
-
-
+![Default iTunes Window](./install_images/win_itunes.png)
 
 # Connecting your device to iTunes
 

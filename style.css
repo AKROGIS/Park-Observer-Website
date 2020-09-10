@@ -78,6 +78,11 @@ main p {
   margin: 0 0 0.7em;
 }
 
+img {
+  border-radius: 3px;
+  box-shadow: 0 0 3px 3px #555;
+}
+
 table {
   width: 100%;
   margin-bottom: 20px;

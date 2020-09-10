@@ -30,87 +30,93 @@
     <article id="install-itunes">
       <h2>Installing iTunes on your PC</h2>
 
+      <p>iTunes is a software application that runs on the PC to allow you to connect to your iOS device.
+        To use it with Park Observer, you do not need an Apple account, or access to the App Store,
+        or any other online services. The functionality you need has nothing to do with music.</p>
       <p><strong>BE WARNED:</strong> Getting iTunes installed and working correctly with the NPS/DOI software settings
         can be the most troublesome part of working with Park Observer. Please read these instructions
         carefully. The biggest source of trouble is using a version of iTunes that is incompatible with
         our network -- it may run, but doesn&#39;t connect correctly to your device, or does not allow
         application installation or file transfer.</p>
-      <p>iTunes is a software application that runs on the PC to allow you to connect to your iOS device.
-        You do not need an Apple Account, the Apple store, the music store or any thing else on-line.
-        The functionality you need has nothing to do with music, so ignore everything you might know about iTunes.</p>
+      <p><strong>DO NOT install iTunes from the Apple website.</strong> The Apple version
+        is incompatible with the NPS settings for Windows 10.</p>
+      <p>If you already have iTunes installed, you can try to
+        <a href="#connect-device">connect your device to iTunes</a>. If you are unable to connect to your
+        device, or unable to <a href="#install-app">install Park Observer</a>, or
+        <a href="#add-files">Add Files to Park Observer</a>, then
+        uninstall iTunes, and install the latest version per these instructions.</p>
       <p>These instructions were written on September 2, 2020 with the following versions of software:</p>
       <ul>
         <li>Windows 10 version 1809</li>
         <li>iTunes 12.10.8.5</li>
       </ul>
-      <p>It is likely that these instructions will work with earlier versions of windows 10,
-        but not earlier versions of iTunes, so don&#39;t bother trying.
-        They may work with newer versions as well. If not, please contact us (see below),
-        and let us know which versions are not working for you. We
-        will investigate and update these instructions as necessary.</p>
-      <p>To check your windows version:</p>
+      <p>It is likely that these instructions will work with other versions if installed per the
+        following instructions. If these instructions do not work for you,
+        please let us know what problems you are having, as well as which version of Windows
+        and iTunes you are using. We will investigate and update these instructions as necessary.</p>
+      <h3 id="launch-the-windows-store">Launch the Windows Store</h3>
       <ul>
-        <li>click the start menu</li>
-        <li>type winver</li>
-        <li>press the enter key</li>
+        <li>Click the start menu <img src="./install_images/win_startmenu.png" alt="Windows Start Menu"></li>
+        <li>Type <code>store</code></li>
+        <li>Press the Enter key</li>
       </ul>
-      <p><a href="start menu">image</a>
-        <a href="winver">image</a></p>
-      <p>To check
-        Do you have itunes already installed?</p>
-      <ul>
-        <li>click the windows icon, type itunes<ul>
-            <li>if you see an option to download/install from web, you do not have it installed</li>
-            <li>If you have itunes installed<ul>
-                <li>uninstall it<ul>
-                    <li>control panel<ul>
-                        <li>program and features, sort by publisher (look for Apple and remove all Apple software)</li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li>check:</li>
-                <li>you only need to do the following if your version of itunes does not work correctly</li>
-                <li>you should test before uninstalling and reinstalling</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <p>DO NOT Install itunes from the Apple website, This requires admin privileges, and is incompatible
-        with the NPS settings for windows.</p>
-      <p>Check the software center (start menu, type software, then return). You should be on the VPN to
-        see all the applications available in the software center. If iTunes is in the
-        list of Applications, then try installing from the software center. If it is not there
-        then <strong>disconnect from the VPN</strong> and install from the Windows Store. You NPS username is now
-        registered with the
-        windows store by virtue of our new (outlook) email system. You do not need to be on the
-        VPN to install from the windows store.</p>
-      <p>If you are on the VPN, you may be able to launch the </p>
-      <p>Click the start menu, type store, then return (This does not work when on the VPN)</p>
-      <p>If you have logged in to the windows tore, you will be taken directly to the list of
-        DOI applications. If not, you will need to log in with your network username (email address)
-        This will take you to the &quot;Organizations sign on page&quot;</p>
-      <p>Scroll down and look for the option to sign in with you PIV card. If not there, then
-        sign in with your windows credentials and network password (This is the one you change every
-        2 months, and hardly ever use) Enter the username and password, then press next. This should
-        say &quot;For security reasons we require additional information to verify your account&quot; Scroll down
-        and click the option &quot;Sign in with PIV card&quot;. Make sure your card is in the computer and enter you
-        PIN when prompted.</p>
-      <p>You should now be logged into Microsoft Store and see the list of DOI approved Apps.
-        iTunes is in that list. Click on the iTunes icon to install it.</p>
-      <p>When the download is complete you will get a notification in the lower right. click it to launch itunes</p>
-      <p>Accept the license agreement and itunes should launch.</p>
-      <p>Click <strong>No Thanks</strong> on the welcome screen
-        [image]</p>
-      <p>Ignore the options to go to or sign in the the iTunes store.</p>
-      <p>You do not need to log into the Apple Store, the iTunes store, or any other service</p>
-      <p>Use your browser to login to the windows store website (<a
-          href="https://www.microsoft.com/en-us/store/apps/windows">https://www.microsoft.com/en-us/store/apps/windows</a>)
-        You may log in automatically if you are using the same browsers that is logged into teams or outlook.</p>
-      <p>If you are not signed in, use the sign in button at the top right</p>
-      <p>Then sign in with yor network account </p>
-      <p>Search for [image] and (link) and repair</p>
+      <p>You will need to log into the Windows Store with your Microsoft Office 365
+        account. This account is tied to your NPS network account, so you may log
+        automatically. If not you might be prompted with something like this:</p>
+      <p><img src="./install_images/win_store_signin1.png" alt="Windows Store Login1"></p>
+      <p>or something like this:</p>
+      <p><img src="./install_images/win_store_signin2.png" alt="Windows Store Login2"></p>
+      <p>Clicking <code>Continue</code> or <code>Next</code> will take you the DOI authentication page:
+        You will need to enter you network password (not your PIV PIN, but the one you have to change every 2 months)
+      </p>
+      <p><img src="./install_images/win_org_signin1.png" alt="DOI Signin 1"></p>
+      <p>then click <code>Sign In</code>.
+        You will then be told you need to provide additional information,
+        Scroll down and click on <code>Sign in with PIV Card</code></p>
+      <p><img src="./install_images/win_org_signin2.png" alt="DOI Signin 2"></p>
+      <p>Make sure your PIV card is inserted in the computer, and enter
+        your PIN when prompted.
+        When you are logged into the Windows Store you should see something like the following:</p>
+      <p><img src="./install_images/win_windows_store.png" alt="Windows Store"></p>
+      <h3 id="download-itunes">Download iTunes</h3>
+      <p>In the Windows Store, click on the iTunes option, and the download will begin.</p>
+      <p><img src="./install_images/win_itunes_downloading.png" alt="iTunes Downloading"></p>
+      <p>When the download is complete you will get a notification in the lower right.</p>
+      <p><img src="./install_images/win_itunes_download_complete.png" alt="iTunes Downloaded"></p>
+      <p>Click the <code>Launch</code> button. Accept the license agreement and iTunes should launch.</p>
+      <p>Click <code>No Thanks</code> on the welcome screen</p>
+      <p><img src="./install_images/win_itunes_welcome.png" alt="iTunes Welcome"></p>
+      <p>Ignore the options to go to or sign in the the iTunes store. You do not need to log into the Apple Store, the
+        iTunes store, or any other service. When iTunes finishes launching,
+        you should see a screen similar to the following:</p>
+      <p><img src="./install_images/win_itunes.png" alt="Default iTunes Window"></p>
+      <h1 id="connecting-your-device-to-itunes">Connecting your device to iTunes</h1>
+      <p><em>If you get any errors in this process and you cannot see your device in iTunes,
+          the first thing to suspect is the version of iTunes on your PC.
+          Please check the help page on <a href="#install-itunes">Installing iTunes</a> to ensure
+          you are using the correct version. Delete and reinstall
+          iTunes (<strong>per the instructions!</strong>) before continuing.</em></p>
+      <p>Use a USB to lightning (charging) cable to connect your device to the PC.
+        The first time you connect your device, you will see a notification that
+        iTunes is setting up your device. You will see another notification when it is done.</p>
+      <p>You will be asked if you want to allow the computer to access the device.
+        Make sure your device is on and unlocked.</p>
+      <p><img src="./install_images/itunes_request_access.png" alt="Allow computer access to device"></p>
+      <p>Then click <code>continue</code>.</p>
+      <p>You will be prompted on your device to trust the computer.</p>
+      <p><img src="./install_images/ipad_trust_this_computer.jpeg" alt="iPad - Trust this computer?"></p>
+      <p>Tap on <code>Trust</code> and enter your device pass code.</p>
+      <p>You may then get prompted by iTunes to upgrade your device.</p>
+      <p><img src="./install_images/itunes_upgrade_device.png" alt="iTunes - upgrade device"></p>
+      <p>I encourage you to keep your device up to date, however you can skip this step
+        (click <code>cancel</code>) and upgrade your device later if you want.
+        I prefer to upgrade my device over WiFi, and not via iTunes.</p>
+      <p>If your device is successfully connected to iTunes, you will see a mobile device
+        icon in the top left of the iTunes screen</p>
+      <p><img src="./install_images/itunes_select_device.png" alt="iTunes screen with device connected"></p>
+      <p>You are now ready to <a href="#install-app">Install Park Observer</a>,
+        or <a href="#add-files">Install Additional Files</a>
+        after Park Observer has already been installed.</p>
 
     </article>
 
@@ -247,7 +253,8 @@
         <li>Survey protocol (*.obsprot) files</li>
       </ul>
       <p>You can download <a href="../protocols2">protocols</a> and <a href="../maps2">basemaps</a> from this website,
-        or you can make your own <a href="index.html#new-protocol">protocols</a> and <a href="index.html#new-map">basemaps</a>. The files you
+        or you can make your own <a href="index.html#new-protocol">protocols</a> and <a
+          href="index.html#new-map">basemaps</a>. The files you
         wish to add to Park Observer will need to be on your PC.</p>
       <p>To add any of these file to Park Observer</p>
       <ol>
