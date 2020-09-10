@@ -1,3 +1,11 @@
+This file allows me to edit the content of the install.html file in markdown.
+This file is considered the source of the content for each of the sections
+(aside from the header) in install.html.
+
+To update install.html, copy/paste each of the sections from here to a
+markdown to html converter and paste into the appropriate section of install.html
+
+
 # Installing iTunes on your PC
 
 iTunes is a software application that runs on the PC to allow you to connect to your iOS device.
