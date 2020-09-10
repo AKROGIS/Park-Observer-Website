@@ -43,19 +43,20 @@
       <ul>
         <li>User setting for turning on/off display of gps points and/or track logs</li>
         <li>User setting for hit test area (small:11, medium:22, large:44) - default medium</li>
-        <li>Text alignment in Add feature at GPS button breaks down with accessible (larger) fonts</li>
+        <li>Highlight the selected feature(s)</li>
+        <li>Add a graphic for the observers location (set symbology in mission) - New option in protocol file</li>
         <li>If GPS is denied when starting a track log or adding a feature, then raise &quot;Go to settings&quot; alert
         </li>
         <li>Change footer in file pick lists when there are no files</li>
-        <li>Allow multiple concurrent messages. Close button to hide all or hide individuals</li>
         <li>Get MapInfo data from user and encode in a json file.</li>
         <li>Format CSV per protocol definition</li>
-        <li>Add a graphic for the observers location (set symbology in mission) - New option in protocol file</li>
         <li>Dynamic sized text in scale bar</li>
       </ul>
       <h4 id="considering">Considering</h4>
       <p>Potential features than need additional consideration.</p>
       <ul>
+        <li>For gps-intervals greater than a few seconds, set a timer, and only turn on the GPS when the timer goes off.
+        </li>
         <li>Warn when deleting archives?</li>
         <li>Scale bar fade in/out after zoom?</li>
         <li>Color the add observation button to match observation symbology?</li>
@@ -113,37 +114,35 @@
       <h4 id="nice-to-fix">Nice to fix</h4>
       <p>These bugs can be worked around or ignored.</p>
       <ul>
+        <li>Ensure the Add Feature buttons conform to the protocol documentation for the &quot;transects&quot; property
+        </li>
+        <li>Transects &quot;required&quot; property should trump the features &quot;allow off transect&quot; property
+        </li>
+        <li>Defaults for when to display of the edit dialog is confusing for some combinations of the
+          tracklogs/transects properties.</li>
         <li>Getting Error: unable to add point (...) to tracklog: wrongMission (when loading a survey, i.e. building
           tracklogs)</li>
         <li>When waiting on GPS (i.e. exceeds allowable error), hide edit, show cancel, disallow save.</li>
-        <li>Do not show attribute editor if no dialog <em>and</em> not angleDistance</li>
         <li>Canceling a mission property dialog when launched from tracklogging or observing button does not cancel
-          operation
-          only attribute editing.</li>
+          operation only attribute editing.</li>
         <li>Getting the most recent Mission Property (for default) from database does not consider adhoc locations</li>
         <li>Problem with Mission Properties with required values and no editing on start tracklog (values will be null)
         </li>
         <li>When editing multiple features, if one has validation errors when you decide to move another feature, the
           validation interrupts the move</li>
         <li>When exporting, the export date is updated before we know if the export succeeds. If it fails, we need to
-          undo the
-          export date.</li>
+          undo the export date.</li>
         <li>When returning from background addGpsLocation can be called from cache and from locationManager out of order
         </li>
         <li>Chaos may ensue if the user does not tap on the map when &quot;Moving to map location&quot;; start modal
-          mode?
-        </li>
-        <li>Need to be able to delete status messages when they no longer apply.</li>
+          mode?</li>
         <li>Slide out view does not check width on device rotation (limit to maxWidth as % of screenwidth)</li>
         <li>Refresh the current file list if the slide out is hidden and re-shown</li>
         <li>Alarm does not play alert sound when app is active</li>
         <li>Add notice to turn on notification in settings if denied for alarm setting</li>
         <li>User can provide a unique value renderer for track logs and or gps points, but graphics do not have the
-          necessary
-          attributes</li>
+          necessary attributes</li>
         <li>The safe area (on devices with safe area - iPhone X and 11) mucks with styling of slide out view</li>
-        <li>Transects &quot;required&quot; property should trump the features &quot;allow off transect&quot; property
-        </li>
         <li>Mission Properties are not created when start/stop observing, and tracklog = none</li>
         <li>The default mission property &quot;display editor&quot; properties are not appropriate for all cases (i.e.
           tracklog = none)</li>
@@ -194,13 +193,11 @@
       </ul>
       <h3 id="documentation">Documentation</h3>
       <ul>
-        <li>Create a simple how to document with screenshots</li>
-        <li>Contributing guidelines - step by step processes for:<ul>
-            <li>fixing bugs</li>
-            <li>adding features</li>
-            <li>publishing new versions</li>
-          </ul>
-        </li>
+        <li>Finish Readme.md</li>
+        <li>Finish Documentation/Protocol Guide.md</li>
+        <li>Finish Documentation/Contributing.md</li>
+        <li>Finish website help/index.md</li>
+        <li>Finish website help/user_guide.md</li>
       </ul>
     </article>
   </main>
