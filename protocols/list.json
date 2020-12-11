@@ -163,7 +163,15 @@
   "version":1.00,
   "date":"2015-11-05",
   "url":"https://akrgis.nps.gov/observer/protocols/yuch_moose.obsprot"
-},
+}
+,
+{
+  "name":"Voyageurs Beaver Survey",
+  "version":1.0,
+  "date":"2020-10-13",
+  "url":"https://akrgis.nps.gov/observer/protocols/VoyageursNP_Beavers.obsprot"
+}
+,
 {
   "name":"Test Protocol",
   "version":1.3,
