@@ -11,13 +11,15 @@
       "name":"Beavers",
       "attributes":[
         {"name":"Active", "type":700},
-        {"name":"Evidence",   "type":700},
+        {"name":"Item",   "type":700},
+        {"name":"Size",   "type":700},
         {"name":"Notes",  "type":700}
        ],
       "dialog":{ "sections":[ { "elements":[
-        {"type":"QSegmentedElement", "bind":"selectedItem:Active",   "items":["Active", "Inactive", "Unknown"]},
-        {"type":"QRadioElement",     "bind":"selectedItem:Evidence", "title":"Evidence", "items":["H- House only, no cache", "VS - Very small food cache", "S – Small food cache", "M – Medium food cache", "L – Large food cache", "LL – Extra large food cache", "LLL – Extra extra large food cache", "D - Dam only", "C - Cutting only"]},
-        {"type":"QMultilineElement", "bind":"textValue:Notes",       "title":"Notes"}
+        {"type":"QSegmentedElement", "bind":"selectedItem:Active", "items":["Active", "Inactive", "Unknown"]},
+        {"type":"QSegmentedElement", "bind":"selectedItem:Item",   "items":["House", "Cache", "Dam", "Cutting"]},
+        {"type":"QSegmentedElement", "bind":"selectedItem:Size",   "title":"Cache Size", "items":["VS", "S", "M", "L", "LL", "LLL"]},
+        {"type":"QMultilineElement", "bind":"textValue:Notes",     "title":"Notes"}
       ] } ] },
       "locations":[ {"type":"mapTouch"} ],
       "symbology":{ "color": "#F8DC70", "size": 13 }
