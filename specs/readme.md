@@ -3,18 +3,18 @@
 The files in this folder are derived from source files in other repos as follows:
 
 ## Park Observer 1.x
-* `Protocol_Guide_v1.html` -- https://github.com/regan-sarwas/Observer/blob/master/Observer/Protocols/Protocol%20Guide.md
-* `Protocol_Specification_V2.html`  -- https://github.com/regan-sarwas/Observer/blob/master/Observer/Protocol%20Specification%20V2.md
+* `Protocol_Guide_v1.html` -- https://github.com/AKROGIS/Observer/blob/master/Observer/Protocols/Protocol%20Guide.md
+* `Protocol_Specification_V2.html`  -- https://github.com/AKROGIS/Observer/blob/master/Observer/Protocol%20Specification%20V2.md
 
 ## Park Observer 2.x
-* `Protocol_Guide_v2.html` -- https://github.com/regan-sarwas/Park-Observer/blob/master/Park%20Observer/Documentation/Protocol%20Guide.md
-* `Protocol_Specification_V2.2.html` -- https://github.com/regan-sarwas/Park-Observer/blob/master/Park%20Observer/Documentation/Protocol%20Specification.md
+* `Protocol_Guide_v2.html` -- https://github.com/AKROGIS/Park-Observer/blob/master/Park%20Observer/Documentation/Protocol%20Guide.md
+* `Protocol_Specification_V2.2.html` -- https://github.com/AKROGIS/Park-Observer/blob/master/Park%20Observer/Documentation/Protocol%20Specification.md
 
 ## Protocol Schema Validation
 
-* `protocol.v1.schema.json` -- https://github.com/regan-sarwas/Park-Observer/blob/master/Park%20Observer/Documentation/protocol.v1.schema.json
-* `protocol.v2.schema.json` -- https://github.com/regan-sarwas/Park-Observer/blob/master/Park%20Observer/Documentation/protocol.v2.schema.json
-* `csv.json` -- https://github.com/regan-sarwas/poz2fgdb/blob/master/csv.json
+* `protocol.v1.schema.json` -- https://github.com/AKROGIS/Park-Observer/blob/master/Park%20Observer/Documentation/protocol.v1.schema.json
+* `protocol.v2.schema.json` -- https://github.com/AKROGIS/Park-Observer/blob/master/Park%20Observer/Documentation/protocol.v2.schema.json
+* `csv.json` -- https://github.com/AKROGIS/Park-Observer-poz2fgdb/blob/master/csv.json
 
 
 The `json` files are copied exactly.  The `html` files are basically
