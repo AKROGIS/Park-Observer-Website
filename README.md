@@ -6,12 +6,17 @@ This contents of this repository is the master copy of the deployed content at h
 
 ## Deployed files not in repo
 
-1. All *.ipa files in the downloads folder
-2. All deployed *.tpk files in the maps folder.
+1. All `*.ipa` files in the `downloads` folder/sub-folders
+2. All deployed `*.tpk` files in the `maps` folder.
+3. [ParkObserver.pyt](https://github.com/AKROGIS/Park-Observer-poz2fgdb)
+   to the `downloads2` folder.
 
-These are large binary files that are not suitable for maintaining
-in a github repo. Master files can be found on the T
+The `ipa` and `tpk` files are large binary files that are not suitable
+for maintainingin a github repo. Master files can be found on the T
 drive.
+
+Several of the files in the `specs` folder are derived from other
+content. See the readme file in that folder for details.
 
 ## Repo files not deployed
 
