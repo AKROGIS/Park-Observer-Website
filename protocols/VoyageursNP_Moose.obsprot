@@ -1,0 +1,47 @@
+{
+  "meta-name":"NPS-Protocol-Specification",
+  "meta-version":2,
+  "name":"Moose Survey",
+  "version": 1.0,
+  "date":"2021-02-05",
+  "description":"Moose surveys for Voyageurs National Park",
+  "transects": "none",
+  "features":[
+    {
+      "name":"Moose",
+      "attributes":[
+        {"name":"CountBulls",  "type":200},
+        {"name":"CountCows",   "type":200},
+        {"name":"CountCalves", "type":200},
+        {"name":"Canopy",      "type":200},
+        {"name":"Notes",       "type":700}
+       ],
+      "dialog":{ "sections":[ { "elements":[
+        {"type":"QIntegerElement",   "bind":"numberValue:CountBulls",  "title":"Bulls",  "placeholder":"Count"},
+        {"type":"QIntegerElement",   "bind":"numberValue:CountCows",   "title":"Cows",   "placeholder":"Count"},
+        {"type":"QIntegerElement",   "bind":"numberValue:CountCalves", "title":"Calves", "placeholder":"Count"},
+        {"type":"QDecimalElement",   "bind":"numberValue:Canopy",      "title":"Canopy",  "placeholder":"%", "fractionDigits":0, "minimumValue":0, "maximumValue":100},
+        {"type":"QMultilineElement", "bind":"textValue:Notes",         "title":"Notes"}
+      ] } ] },
+      "locations":[ {"type":"mapTouch"} ],
+      "symbology":{ "color": "#F8DC70", "size": 14 }
+    },
+    {
+      "name":"Other",
+      "attributes":[
+        {"name":"Species", "type":700},
+        {"name":"Count",   "type":200},
+        {"name":"Canopy",  "type":200},
+        {"name":"Notes",   "type":700}
+       ],
+      "dialog":{ "sections":[ { "elements":[
+        {"type":"QSegmentedElement", "bind":"selectedItem:Species", "items":["Deer", "Wolves"]},
+        {"type":"QIntegerElement",   "bind":"numberValue:Count",    "title":"Count",  "placeholder":"#"},
+        {"type":"QDecimalElement",   "bind":"numberValue:Canopy",   "title":"Canopy", "placeholder":"%", "fractionDigits":0, "minimumValue":0, "maximumValue":100},
+        {"type":"QMultilineElement", "bind":"textValue:Notes",      "title":"Notes"}
+      ] } ] },
+      "locations":[ {"type":"mapTouch"} ],
+      "symbology":{ "color": "#95c2db", "size": 12 }
+    }
+  ]
+}
