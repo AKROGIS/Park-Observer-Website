@@ -1,0 +1,82 @@
+{
+  "meta-name":"NPS-Protocol-Specification",
+  "meta-version":2,
+  "name":"LACL Aquatic Veg Survey",
+  "version": 0.1,
+  "date":"2021-02-17",
+  "description":"Aquatic Vegetation Survey for Lake Clark NPP, Contact Eileen Audette for details.",
+  "tracklogs": "optional",
+  "transects": "none",
+  "gps_interval": 2,
+  "mission":{
+    "attributes":[
+      {"name":"observers",   "type":700},
+      {"name":"craft",     "type":700},
+      {"name":"weather",      "type":700},
+      {"name":"secchi",      "type":700},
+      {"name":"waterbody",  "type":700},
+      {"name":"location",       "type":700}
+    ],
+    "dialog":{ "sections":[ { "elements":[
+      {"type":"QEntryElement", "bind":"textValue:observers", "title":"Observer(s)",     "placeholder":"Initials", "autocorrectionType":"No", "autocapitalizationType":"AllCharacters"},
+      {"type":"QEntryElement", "bind":"textValue:craft",     "title":"Air/Water Craft", "placeholder":"Name",     "autocorrectionType":"No"},
+      {"type":"QEntryElement", "bind":"textValue:weather",   "title":"Weather",         "placeholder":"Describe", "autocorrectionType":"No"},
+      {"type":"QEntryElement", "bind":"textValue:secchi",    "title":"Secchi Depth",    "placeholder":"??",       "autocorrectionType":"No"},
+      {"type":"QEntryElement", "bind":"textValue:waterbody", "title":"Waterbody",       "placeholder":"Name",     "autocorrectionType":"No"},
+      {"type":"QEntryElement", "bind":"textValue:location",  "title":"Location",        "placeholder":"Name",     "autocorrectionType":"No"}
+    ] } ] }
+  },
+  "features":[
+    {
+      "name":"Sample",
+      "attributes":[
+        {"name":"id",           "type":0},
+        {"name":"offshore",     "type":200},
+        {"name":"offshore2",    "type":800},
+        {"name":"percent_fn",   "type":700},
+        {"name":"percent_sa",   "type":700},
+        {"name":"percent_gr",   "type":700},
+        {"name":"percent_ro",   "type":700},
+        {"name":"percent_co",   "type":700},
+        {"name":"percent_bo",   "type":700},
+        {"name":"percent_bo2",  "type":700},
+        {"name":"depth",        "type":500},
+        {"name":"turbidity",    "type":700},
+        {"name":"water_sample", "type":500},
+        {"name":"rake_toss",    "type":200},
+        {"name":"floating_veg", "type":200},
+        {"name":"species",      "type":700},
+        {"name":"comments",     "type":700}
+       ],
+      "dialog":{ "sections":[
+        { "elements":[
+          {"type":"QSegmentedElement", "bind":"selected:offshore",     "items":["Onshore", "Offshore"]},
+          {"type":"QBooleanElement",   "bind":"boolValue:offshore2",     "title":"Off Shore?"},
+          {"type":"QDecimalElement",   "bind":"numberValue:depth",      "title":"Depth (ft)", "placeholder":"feet", "fractionDigits":0, "minimumValue":0, "maximumValue":1000},
+          {"type":"QSegmentedElement", "bind":"selectedItem:turbidity", "title":"Turbidity/Visibility",      "items":["Bottom", "Secchi Depth"]}
+        ] },
+        { "title":"Substrate", "elements":[
+          {"type":"QRadioElement", "bind":"selectedItem:percent_fn", "title":"Percent Silt/Fines",        "items":["None", "<5%", "5-25%", "25-50%", "50-75%", ">75%"]},
+          {"type":"QRadioElement", "bind":"selectedItem:percent_sa", "title":"Percent Sand (<4mm)",       "items":["None", "<5%", "5-25%", "25-50%", "50-75%", ">75%"]},
+          {"type":"QRadioElement", "bind":"selectedItem:percent_gr", "title":"Percent Gravel (4-16mm)",   "items":["None", "<5%", "5-25%", "25-50%", "50-75%", ">75%"]},
+          {"type":"QRadioElement", "bind":"selectedItem:percent_ro", "title":"Percent Rocks (16-64mm)",   "items":["None", "<5%", "5-25%", "25-50%", "50-75%", ">75%"]},
+          {"type":"QRadioElement", "bind":"selectedItem:percent_co", "title":"Percent Cobbles (>64mm)",   "items":["None", "<5%", "5-25%", "25-50%", "50-75%", ">75%"]},
+          {"type":"QRadioElement",     "bind":"selectedItem:percent_bo","title":"Percent Boulders (>256mm)", "items":["None", "<5%", "5-25%", "25-50%", "50-75%", ">75%"]},
+          {"type":"QSegmentedElement", "bind":"selectedItem:percent_bo2", "title":"Percent Boulders (>256mm)", "items":["None", "<5%", "5-25%", "25-50%", "50-75%", ">75%"]}
+        ] },
+        { "title": "Sampling", "elements":[
+          {"type":"QDecimalElement",   "bind":"numberValue:water_sample", "title":"Water Sample (ml)",  "placeholder":"Volume", "fractionDigits":0, "minimumValue":0, "maximumValue":1000},
+          {"type":"QSegmentedElement", "bind":"selected:rake_toss",       "title":"Rake Toss Coverage",        "items":["No plants", "<25%", "25-75%", ">75%"]},
+          {"type":"QSegmentedElement", "bind":"selected:floating_veg",    "title":"Floating/Emergent Vegetation", "items":["None", "<5%", "5-25%", "25-50%", "50-75%", ">75%"]}
+        ] },
+        { "elements":[
+          {"type":"QEntryElement",     "bind":"textValue:species",        "title":"Species", "placeholder":"Species Code", "autocorrectionType":"No", "autocapitalizationType":"AllCharacters"},
+          {"type":"QMultilineElement", "bind":"textValue:comments",       "title":"Visual Observations/Comments"}
+        ] }
+      ] },
+      "locations":[ {"type":"gps"} ],
+      "symbology":{ "color": "#F8DC70", "size": 14 },
+      "label": {"field": "id", "color": "#F8DC70", "size": 14 }
+    }
+  ]
+}
