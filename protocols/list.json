@@ -180,6 +180,13 @@
 }
 ,
 {
+  "name":"Voyageurs Moose Survey",
+  "version": 1.0,
+  "date":"2021-02-05",
+  "url":"https://akrgis.nps.gov/observer/protocols/VoyageursNP_Moose.obsprot"
+}
+,
+{
   "name":"Test Protocol",
   "version":1.3,
   "date":"2014-07-01",
