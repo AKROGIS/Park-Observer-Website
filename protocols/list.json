@@ -63,6 +63,13 @@
 }
 ,
 {
+  "name":"LACL Aquatic Vegetation Surveys",
+  "version":0.1,
+  "date":"2021-02-17",
+  "url":"https://akrgis.nps.gov/observer/protocols/lacl_aquatic_veg_survey.obsprot"
+}
+,
+{
   "name":"LACL Bear Trends",
   "version":1.01,
   "date":"2014-07-01",
