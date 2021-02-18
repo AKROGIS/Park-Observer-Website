@@ -1,14 +1,22 @@
 [
   {
-    "version":"2.0.0.beta4",
-    "description":"Fourth beta release of the all new version 2.0.",
+    "version":"2.0.0.beta5",
+    "description":"Fifth beta release of the all new version 2.0.",
     "warning":"Please read the <a href=\"../po2.x/beta_testing.html\">Beta Testing Warnings</a>.",
     "url":"ParkObserver2.0.0.beta4.ipa",
-    "published":"2020-09-04",
+    "published":"2021-02-18",
     "expiration":"2021-03-19",
-    "details":"changelog.html#beta4"
+    "details":"changelog.html#beta5"
   },{
-    "version":"2.0.0.beta3",
+      "version":"2.0.0.beta4",
+      "description":"Fourth beta release of the all new version 2.0.",
+      "warning":"Please read the <a href=\"../po2.x/beta_testing.html\">Beta Testing Warnings</a>.",
+      "url":"ParkObserver2.0.0.beta4.ipa",
+      "published":"2020-09-04",
+      "expiration":"2021-03-19",
+      "details":"changelog.html#beta4"
+    },{
+      "version":"2.0.0.beta3",
     "description":"Third beta release of the all new version 2.0.",
     "warning":"Please read the <a href=\"../po2.x/beta_testing.html\">Beta Testing Warnings</a>.",
     "url":"ParkObserver2.0.0.beta3.ipa",
