@@ -1,3 +1,4 @@
 *.tpk
 *.ipa
 *.pyt
+.DS_Store
