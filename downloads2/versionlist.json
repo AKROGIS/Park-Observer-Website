@@ -1,9 +1,17 @@
 [
   {
+    "version":"2.0.0.beta6",
+    "description":"Six beta release of the all new version 2.0.",
+    "warning":"Please read the <a href=\"../po2.x/beta_testing.html\">Beta Testing Warnings</a>.",
+    "url":"ParkObserver2.0.0.beta6.ipa",
+    "published":"2021-03-29",
+    "expiration":"2022-03-29",
+    "details":"changelog.html#beta6"
+  },{
     "version":"2.0.0.beta5",
     "description":"Fifth beta release of the all new version 2.0.",
     "warning":"Please read the <a href=\"../po2.x/beta_testing.html\">Beta Testing Warnings</a>.",
-    "url":"ParkObserver2.0.0.beta4.ipa",
+    "url":"ParkObserver2.0.0.beta5.ipa",
     "published":"2021-02-18",
     "expiration":"2021-03-19",
     "details":"changelog.html#beta5"
