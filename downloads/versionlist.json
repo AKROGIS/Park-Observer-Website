@@ -1,5 +1,14 @@
 [
   {
+    "version":"1.2.4",
+    "build":825,
+    "description":"Updated expired certificate; no other changes. UNTESTED",
+    "warning":"Park Observer 1.x is no longer supported. This is an untested build of Park Observer. Contact the GIS Team if you need it.",
+    "url":"../downloads2/",
+    "published":"2021-03-29",
+    "expiration":"2022-03-29",
+    "details":""
+  },{
     "version":"1.2.3",
     "build":824,
     "description":"Updated expired certificate; no other changes.",
