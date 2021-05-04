@@ -45,8 +45,7 @@
         <li>User setting for hit test area (small:11, medium:22, large:44) - default medium</li>
         <li>Highlight the selected feature(s)</li>
         <li>Add a graphic for the observers location (set symbology in mission) - New option in protocol file</li>
-        <li>If GPS is denied when starting a track log or adding a feature, then raise &quot;Go to settings&quot; alert
-        </li>
+        <li>If GPS is denied when starting a track log or adding a feature, then raise &quot;Go to settings&quot; alert</li>
         <li>Change footer in file pick lists when there are no files</li>
         <li>Get MapInfo data from user and encode in a json file.</li>
         <li>Format CSV per protocol definition</li>
@@ -55,8 +54,7 @@
       <h4 id="considering">Considering</h4>
       <p>Potential features than need additional consideration.</p>
       <ul>
-        <li>For gps-intervals greater than a few seconds, set a timer, and only turn on the GPS when the timer goes off.
-        </li>
+        <li>For gps-intervals greater than a few seconds, set a timer, and only turn on the GPS when the timer goes off.</li>
         <li>Warn when deleting archives?</li>
         <li>Scale bar fade in/out after zoom?</li>
         <li>Color the add observation button to match observation symbology?</li>
@@ -66,7 +64,7 @@
         <li>After creating a new survey prompt to make active?</li>
         <li>Should the Info Banner should stand out more?<ul>
             <li>Maybe the background should be less transparent and not full width.</li>
-            <li>Maybe it should be next to the scalebar on the ipad (below/above) on the iPhone</li>
+            <li>Maybe it should be next to the scale bar on the iPad (below/above) on the iPhone</li>
           </ul>
         </li>
         <li>Split track logs at 1000 vertices?</li>
@@ -88,7 +86,7 @@
         <li>Delete mission property points</li>
         <li>Browse and download tile caches (*.tpk) from ArcGIS Online</li>
         <li>Browse and download protocol files (*.obsprot) from GitHub</li>
-        <li>Hi speed KIMU interface. Coded string like a180d100k4w which is decoded into the appropriate attributes</li>
+        <li>High speed Murrelet interface. Coded string like a180d100k4w which is decoded into the appropriate attributes</li>
         <li>Load feature classes like nests or transects and use an attribute (i.e. nest ID or transect ID) of
           the closest feature to populate observation (NOTE: This is much easier to do in post processing)</li>
         <li>Protocol V3 - complete re-write.</li>
@@ -111,22 +109,22 @@
       <p>These bugs create errors in stored data.</p>
       <h4 id="important">Important</h4>
       <p>These bugs limit required functionality.</p>
+      <ul>
+        <li>Deprecation warning for locationManager authorization status in iOS14.</li>
+        <li>Deprecation warning for testing in iOS14</li>
+        <li>A specific attribute survey crashes app (EXC_BAD_ACCESS) in apple core data code when closing survey
+          I can still load it, edit it and save it without problem.</li>
+      </ul>
       <h4 id="nice-to-fix">Nice to fix</h4>
       <p>These bugs can be worked around or ignored.</p>
       <ul>
-        <li>Ensure the Add Feature buttons conform to the protocol documentation for the &quot;transects&quot; property
-        </li>
-        <li>Transects &quot;required&quot; property should trump the features &quot;allow off transect&quot; property
-        </li>
         <li>Defaults for when to display of the edit dialog is confusing for some combinations of the
-          tracklogs/transects properties.</li>
-        <li>Getting Error: unable to add point (...) to tracklog: wrongMission (when loading a survey, i.e. building
-          tracklogs)</li>
+          track logs/transects properties.</li>
         <li>When waiting on GPS (i.e. exceeds allowable error), hide edit, show cancel, disallow save.</li>
-        <li>Canceling a mission property dialog when launched from tracklogging or observing button does not cancel
+        <li>Canceling a mission property dialog when launched from track logging or observing button does not cancel
           operation only attribute editing.</li>
         <li>Getting the most recent Mission Property (for default) from database does not consider adhoc locations</li>
-        <li>Problem with Mission Properties with required values and no editing on start tracklog (values will be null)
+        <li>Problem with Mission Properties with required values and no editing on start track log (values will be null)
         </li>
         <li>When editing multiple features, if one has validation errors when you decide to move another feature, the
           validation interrupts the move</li>
@@ -136,18 +134,19 @@
         </li>
         <li>Chaos may ensue if the user does not tap on the map when &quot;Moving to map location&quot;; start modal
           mode?</li>
-        <li>Slide out view does not check width on device rotation (limit to maxWidth as % of screenwidth)</li>
+        <li>Slide out view does not check width on device rotation (limit to maxWidth as % of screen width)</li>
         <li>Refresh the current file list if the slide out is hidden and re-shown</li>
         <li>Alarm does not play alert sound when app is active</li>
         <li>Add notice to turn on notification in settings if denied for alarm setting</li>
         <li>User can provide a unique value renderer for track logs and or gps points, but graphics do not have the
           necessary attributes</li>
         <li>The safe area (on devices with safe area - iPhone X and 11) mucks with styling of slide out view</li>
-        <li>Mission Properties are not created when start/stop observing, and tracklog = none</li>
+        <li>Mission Properties are not created when start/stop observing, and track log = none</li>
         <li>The default mission property &quot;display editor&quot; properties are not appropriate for all cases (i.e.
-          tracklog = none)</li>
+          track log = none)</li>
         <li>ObservationPresenter/Selector title needs to be updated if the feature has a label field and it is edited.
         </li>
+        <li>Doubt that .ignoresSafeArea() is being used correctly on modern devices and with keyboard appearance.</li>
       </ul>
       <h4 id="annoying">Annoying</h4>
       <p>These bugs are related to potential functionality (so while incorrect, they have no impact yet).</p>
@@ -158,17 +157,13 @@
       <p>These issues are in software provided by others (Apple, Esri). If they become a problem, a work around may be
         possible</p>
       <ul>
-        <li>TextFields with number formatters can show an invalid value. They do not update the display the return key
-          is
+        <li>TextFields with number formatters can show an invalid value. They do not update the display the return key is
           pressed --
-          they do not update when moving focus to another control with a screen touch. The data saved will be the last
-          valid
+          they do not update when moving focus to another control with a screen touch. The data saved will be the last valid
           value
-          the the user typed. For example if the field limited numbers to 360, and the user typed 2-5-4-3, the display
-          would
+          the the user typed. For example if the field limited numbers to 360, and the user typed 2-5-4-3, the display would
           show
-          2543, but 254 would be saved. The work around is to always press the return key when done editing a number
-          field.
+          2543, but 254 would be saved. The work around is to always press the return key when done editing a number field.
         </li>
         <li>Action Sheets on the iPad do not show up in correct location (especially for items at bottom of file list)
           This is a known Apple bug(<a
@@ -190,12 +185,15 @@
           See <a
             href="https://developer.apple.com/forums/thread/650263">https://developer.apple.com/forums/thread/650263</a>
         </li>
+        <li>In iOS 14.0 and 14.1 the TextField (including Decimal and Int Text boxes) in
+          View/SlideOutViews/AttributeFormView.swift
+          no longer works. Every new character is erased after entry (but last character typed is added to the text when focus
+          is lost).
+          This bug did not exist in iOS 13.x and was fixed in iOS 14.2+</li>
       </ul>
       <h3 id="documentation">Documentation</h3>
       <ul>
-        <li>Finish Readme.md</li>
         <li>Finish Documentation/Protocol Guide.md</li>
-        <li>Finish Documentation/Contributing.md</li>
         <li>Finish website help/index.md</li>
         <li>Finish website help/user_guide.md</li>
       </ul>
