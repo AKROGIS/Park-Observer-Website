@@ -34,28 +34,34 @@
         It is <strong>not</strong> available on the app store. It is only available
         to NPS users, or partners working on NPS projects. If your device has
         access to the Arrowhead WiFi, then you can install the app by browsing
-        to the downloads page of this website using your device&#39;s browser and following
+        to the downloads page of this website using your device's browser and following
         the instructions there, otherwise, see the
         <a href="../help2/install.html">Offline Installation Instruction.</a></p>
+
       <p>Installing Park Observer is usually the most difficult part of using
         the app. After it is installed, you might be able to learn all you
         need to know just using the app. A short <a href="user_guide.html">user guide</a> is also available
-        if you want to get the most out of the features of Park Observer.</p>
+        if you want to get the most out of the features of Park Observer.
+      </p>
+
       <p>Once Park Observer is installed, you can immediately begin experimenting With
         the sample survey provided with the application provided you have internet
         access for the online base maps. Online basemaps are provide for testing.
         Since most surveys are offline, you will need to install an <a href="../maps2/">existing basemap</a>
         of your survey area, or if one is not available then <a href="#new-map">create a new basemap</a>,
-        and <a href="install.html#add-files">install</a> it. The GIS team is able to help create basemaps.</p>
+        and <a href="install.html#add-files">install</a> it. The GIS team is able to help create basemaps.
+      </p>
+
       <p>Before doing a real survey, you will need to either load an existing
         survey that you wish to add to, or create a new empty survey from a protocol file.
         A protocol file defines the features you will survey and their attributes.
         It also defines additional characteristics of the survey such as how locations
         are collected. You can load an <a href="../protocols2/">existing protocol file</a>,
-        or if there is not one suitable for your survey, then you can
-        <a href="#new-protocol">create a new protocol file</a> and <a href="install.html#add-files">install</a> it.
-        The GIS team is able to help create protocols.</p>
-
+        or if there is not one
+        suitable for your survey, then you can <a href="#new-protocol">create a new protocol file</a>
+        and <a href="install.html#add-files">install</a> it.
+        The GIS team is able to help create protocols.
+      </p>
 
     </article>
 
@@ -74,38 +80,44 @@
     <article id="new-protocol">
       <h2>Creating A Protocol File</h2>
 
-      <p>Park Observer is an iPhone/iPad application for collecting spatial data.
-        It is <strong>not</strong> available on the app store. It is only available
-        to NPS users, or partners working on NPS projects. If your device has
-        access to the Arrowhead WiFi, then you can install the app by browsing
-        to the downloads page of this website using your device&#39;s browser and following
-        the instructions there, otherwise, see the
-        <a href="../help2/install.html">Offline Installation Instruction.</a></p>
-      <p>Installing Park Observer is usually the most difficult part of using
-        the app. After it is installed, you might be able to learn all you
-        need to know just using the app. A short <a href="user_guide.html">user guide</a> is also available
-        if you want to get the most out of the features of Park Observer.</p>
-      <p>Once Park Observer is installed, you can immediately begin experimenting With
-        the sample survey provided with the application provided you have internet
-        access for the online base maps. Online basemaps are provide for testing.
-        Since most surveys are offline, you will need to install an <a href="../maps2/">existing basemap</a>
-        of your survey area, or if one is not available then <a href="#new-map">create a new basemap</a>,
-        and <a href="install.html#add-files">install</a> it. The GIS team is able to help create basemaps.</p>
-      <p>Before doing a real survey, you will need to either load an existing
-        survey that you wish to add to, or create a new empty survey from a protocol file.
-        A protocol file defines the features you will survey and their attributes.
-        It also defines additional characteristics of the survey such as how locations
-        are collected. You can load an <a href="../protocols2/">existing protocol file</a>,
-        or if there is not one
-        suitable for your survey, then you can <a href="#new-protocol">create a new protocol file</a>
-        and <a href="install.html#add-files">install</a> it.
-        The GIS team is able to help create protocols.</p>
+      <p>The protocol file define your survey, most importantly it specifies what features that you can collect,
+        and the attributes of those features.
+        You must have a protocol file to create a survey and collect data.</p>
+
+      <p>The easiest way to create a new protocol is to copy one of the <a href="../protocols2/">existing
+          protocols</a>
+        and then edit it to meet your needs in a text editor like Notepad, <a
+          href="https://notepad-plus-plus.org/">Notepad++</a>
+        or <a href="https://atom.io/">atom</a> (do not use MS Word).
+        The <a href="../specs/Protocol_Specification_V2.html">Protocol Specification</a> is the definitive guide to
+        the content and
+        format of a protocol file. The specifications closely mirror the application code, and while it is long and
+        boring,
+        it is defines exactly what is allowed and what is not.
+        The <a href="../specs/Protocol_Guide_V2.html">Protocol Guide</a> provides a more readable discussion of some
+        of
+        the considerations in making a protocol file suitable for your needs.</p>
+
+      <p>The protocol file must be a valid <a href="http://json.org/">JSON</a> file, a single misplaced comma will
+        cause it to fail to load in the app.
+        You should validate it first by using an <a href="http://jsonlint.com/">online validator</a>.</p>
+
+      <p>Once you have a valid protocol, you can use iTunes to load it onto your device.
+        It will then appear in the list of local protocols in your app.
+        If you want your protocol to appear in the list of protocols available to all users
+        send a request to the contact below.</p>
+
+      <p>The Park Observer app is not very friendly when you feed it a protocol that does not meet the specifications.
+        It usually just crashes without any explanation. Always thoroughly test your protocols before doing real
+        field work. If you have a problem, consult the specification, send a help request to the contact below.</p>
 
     </article>
 
     <article id="new-map">
       <h2>Creating A Base Map</h2>
+
       <p>Please check the list of <a href="../maps2/">existing maps</a> before creating a new basemap.</p>
+
       <p>Basemaps can be created in ArcMap or ArcGIS Pro.
         The map is converted into a collection of small images at various scales for rapid
         rendering on the device. You can use any image or vector datasets that you like in your map,
@@ -117,9 +129,8 @@
         <li>Assemble your map - set symbology, labeling, scale dependencies, etc. to your liking.</li>
         <li>Zoom to the full extents of the area you would like to have in the tile cache.
           To minimize file size you should make the area as small as necessary.</li>
-        <li>
-          <p>Export the map by selecting File-&gt;Share As-&gt;Tile Package from the ArcMap menu</p>
-          <ol>
+        <li>Export the map by selecting File->Share As->Tile Package from the ArcMap menu
+          <ol type="a">
             <li>Tile Package Tab<br>You will want to save the package to a file. Give it any name you want.
               When done, this file can be loaded into the app via iTunes.</li>
             <li>Tile Format Tab<br>You will want to leave the Tile scheme as
@@ -134,14 +145,13 @@
               areas and
               low zoom levels to get a feel for how long it takes, and what zoom level gives you adequate resolution.
               Be aware each increase in zoom level will quadruple the size and time it take to generate the tile
-              cache.</li>
+              cache.
             <li>Item Description Tab<br>As a minimum, you are required to provide a Summary and Tags.</li>
           </ol>
         </li>
-        <li>
-          <p>Load the tile cache you just created on to your device with iTunes.
-            If you want the tile cache to appear in the list of basemaps available to all users,
-            send a request to the contact below.</p>
+        <li>Load the tile cache you just created on to your device with iTunes.
+          If you want the tile cache to appear in the list of basemaps available to all users,
+          send a request to the contact below.
         </li>
       </ol>
 
