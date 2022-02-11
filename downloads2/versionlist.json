@@ -1,5 +1,12 @@
 [
   {
+    "version":"2.0.1",
+    "description":"Update expired certificate for version 2.0.",
+    "url":"ParkObserver2.0.1.ipa",
+    "published":"2022-02-11",
+    "expiration":"2023-02-07",
+    "details":"changelog.html#2.0.0"
+  },{
     "version":"2.0.0",
     "description":"First 'real' release of the all new version 2.0.",
     "url":"ParkObserver2.0.0.ipa",
