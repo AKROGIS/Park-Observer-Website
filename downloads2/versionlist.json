@@ -1,5 +1,19 @@
 [
   {
+    "version":"2.1.1",
+    "description":"Update expired certificate for version 2.1.",
+    "url":"ParkObserver2.1.1.ipa",
+    "published":"2023-02-24",
+    "expiration":"2024-02-23",
+    "details":"changelog.html#2.1.1"
+  },{
+    "version":"2.1.0",
+    "description":"Update maximum distance field.",
+    "url":"ParkObserver2.1.0.beta1.ipa",
+    "published":"2022-05-26",
+    "expiration":"2023-02-07",
+    "details":"changelog.html#2.1.0"
+  },{
     "version":"2.0.1",
     "description":"Update expired certificate for version 2.0.",
     "url":"ParkObserver2.0.1.ipa",
